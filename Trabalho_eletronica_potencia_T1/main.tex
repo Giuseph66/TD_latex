@@ -10,11 +10,17 @@
 \usepackage{graphicx}
 \usepackage{float}
 \usepackage{caption}
+\usepackage{microtype}
+\usepackage{tabularx}
+\usepackage{titlesec}
 \usepackage[hidelinks]{hyperref}
 
 \setlength{\parindent}{0pt}
-\setlength{\parskip}{0.6em}
+\setlength{\parskip}{0.35em}
+\captionsetup{aboveskip=2pt,belowskip=2pt}
 \graphicspath{{prints/}}
+\titlespacing*{\section}{0pt}{0.5em}{0.3em}
+\titlespacing*{\subsection}{0pt}{0.45em}{0.2em}
 
 \newcommand{\resposta}[1]{\textbf{Resposta:} #1}
 
@@ -25,34 +31,36 @@
     {\normalsize Diodos e Tiristores}
 \end{center}
 
-\vspace{0.6em}
+\vspace{0.2em}
 
-\textbf{Acad\^emico(a):} Giuseph De Luka Giangareli
-
-\textbf{Semestre:} 7\textsuperscript{o}
-\hfill
-\textbf{Data:} 20/03/2026
-\hfill
+\begin{tabularx}{\linewidth}{@{}X c c c@{}}
+\textbf{Acad\^emico(a):} Giuseph De Luka Giangareli &
+\textbf{Semestre:} 7\textsuperscript{o} &
+\textbf{Data:} 20/03/2026 &
 \textbf{Nota:} \rule{1.8cm}{0.4pt}
+\end{tabularx}
 
-\vspace{0.8em}
-\textbf{Observa\c{c}\~ao:} os gr\'aficos deste trabalho foram gerados no GeoGebra, conforme solicitado no enunciado.
+\vspace{0.25em}
+{\small \textbf{Observa\c{c}\~ao:} os gr\'aficos deste trabalho foram gerados no GeoGebra, conforme solicitado no enunciado.}
 
 \hrule
-\vspace{1em}
+\vspace{0.5em}
 
 \section*{Quest\~ao 1}
 
-\textbf{Enunciado:} Considere o circuito de malha \'unica com diodo ideal e resistor de \(10\,\Omega\), alimentado por
-\[
-v_s(t)=311\sin(377t)\ \text{V}.
-\]
-
-\begin{figure}[H]
+\noindent
+\begin{minipage}[t]{0.66\linewidth}
+\vspace{0pt}
+\textbf{Enunciado:} Considere o circuito de malha \'unica com diodo ideal e resistor de \(10\,\Omega\), alimentado por \(v_s(t)=311\sin(377t)\,\text{V}\).
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.30\linewidth}
+\vspace{0pt}
     \centering
-    \includegraphics[width=0.34\linewidth]{grafico_Q1.png}
-    \caption*{Circuito da Quest\~ao 1.}
-\end{figure}
+    \includegraphics[width=0.92\linewidth,trim=10 6 10 6,clip]{grafico_Q1.png}
+    
+    {\small Circuito da Quest\~ao 1.}
+\end{minipage}
 
 \subsection*{(A) Esboce o gr\'afico do sinal de entrada}
 
@@ -63,6 +71,8 @@ v_s(t)=311\sin(377t)\ \text{V}.
     \includegraphics[width=\linewidth]{1a.png}
     \caption*{Gr\'afico de \(v_s(t)\) no GeoGebra.}
 \end{figure}
+
+\newpage
 
 \subsection*{(B) Esboce o gr\'afico da tens\~ao \(v_R(t)\) no resistor}
 
@@ -82,6 +92,8 @@ v_R(t)=
     \caption*{Gr\'afico de \(v_R(t)\) no resistor.}
 \end{figure}
 
+\newpage
+
 \subsection*{(C) Esboce o gr\'afico da corrente \(i_R(t)\) no circuito}
 
 \resposta{Pela primeira lei de Ohm, \(i_R(t)=\frac{v_R(t)}{R}\). Como \(R=10\,\Omega\), a corrente tem a mesma forma da tens\~ao no resistor, mudando apenas a amplitude. O valor de pico da corrente \'e \(311/10 = 31{,}1\,\text{A}\).}
@@ -100,6 +112,8 @@ i_R(t)=
     \caption*{Gr\'afico de \(i_R(t)\) no resistor.}
 \end{figure}
 
+\newpage
+
 \subsection*{(D) O que acontece se o resistor for trocado por outro com o dobro da resist\^encia?}
 
 \resposta{Se o resistor passar de \(10\,\Omega\) para \(20\,\Omega\), a forma de onda da tens\~ao no resistor continua a mesma, porque o diodo e a fonte n\~ao mudaram. O que muda \'e a corrente, que cai pela metade. Nesse caso, o novo pico de corrente passa a ser \(311/20 = 15{,}55\,\text{A}\).
@@ -116,23 +130,26 @@ i_R(t)=
 
 \resposta{Se a fonte CC polarizar o diodo diretamente, ele conduz continuamente. Nesse caso, a tens\~ao no resistor fica constante e a corrente tamb\'em fica constante, obedecendo \(i_R=\frac{V_{CC}}{10}\). Se a fonte CC polarizar o diodo inversamente, ele bloqueia a passagem de corrente e, portanto, \(v_R=0\) e \(i_R=0\).}
 
-\vspace{0.8em}
+\vspace{0.4em}
 \hrule
-\vspace{1em}
+\vspace{0.5em}
+\newpage
 
 \section*{Quest\~ao 2}
 
-\textbf{Enunciado:} Considere o circuito com tiristor ideal e resistor de \(100\,\Omega\), alimentado por
-\[
-v_s(t)=179\sin(314t)\ \text{V},
-\]
-com disparos do tiristor em \(1{,}25\,\text{ms}\), \(11{,}25\,\text{ms}\) e \(21{,}25\,\text{ms}\).
-
-\begin{figure}[H]
+\noindent
+\begin{minipage}[t]{0.66\linewidth}
+\vspace{0pt}
+\textbf{Enunciado:} Considere o circuito com tiristor ideal e resistor de \(100\,\Omega\), alimentado por \(v_s(t)=179\sin(314t)\,\text{V}\), com disparos do tiristor em \(1{,}25\,\text{ms}\), \(11{,}25\,\text{ms}\) e \(21{,}25\,\text{ms}\).
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.30\linewidth}
+\vspace{0pt}
     \centering
-    \includegraphics[width=0.34\linewidth]{grafico_Q2.png}
-    \caption*{Circuito da Quest\~ao 2.}
-\end{figure}
+    \includegraphics[width=0.92\linewidth,trim=10 6 10 6,clip]{grafico_Q2.png}
+    
+    {\small Circuito da Quest\~ao 2.}
+\end{minipage}
 
 \subsection*{(A) Esboce o gr\'afico do sinal de entrada}
 
@@ -143,6 +160,8 @@ com disparos do tiristor em \(1{,}25\,\text{ms}\), \(11{,}25\,\text{ms}\) e \(21
     \includegraphics[width=\linewidth]{2a.png}
     \caption*{Gr\'afico de \(v_s(t)\) para a Quest\~ao 2.}
 \end{figure}
+
+\newpage
 
 \subsection*{(B) Esboce o gr\'afico da tens\~ao \(v_R(t)\) no resistor}
 
@@ -173,5 +192,12 @@ v_R(t)=
 \subsection*{(E) O que mudaria se a alimenta\c{c}\~ao fosse \(v_s(t)=5\sin(314t)\,\text{V}\)?}
 
 \resposta{No modelo ideal, o comportamento geral continua o mesmo: o tiristor s\'o conduz ap\'os o disparo e apenas no semiciclo positivo em que estiver diretamente polarizado. A diferen\c{c}a \'e que a amplitude da tens\~ao no resistor fica bem menor. Com \(R=100\,\Omega\), a corrente de pico passa a ser \(5/100 = 0{,}05\,\text{A}\), ou seja, \(50\,\text{mA}\).}
+
+\vfill
+\hrule
+\vspace{0.3em}
+{\footnotesize
+Eu usei o \LaTeX{} para escrever este trabalho. Caso voc\^e queira conferir o c\'odigo, ele est\'a dispon\'ivel no GitHub: \url{https://github.com/Giuseph66/TD_latex/tree/main/Trabalho_eletronica_potencia_T1}
+}
 
 \end{document}
