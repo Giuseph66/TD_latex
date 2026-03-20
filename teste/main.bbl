@@ -1,0 +1,28 @@
+\begin{thebibliography}{Lam94}
+
+\bibitem[Ein05]{einstein1905relativity}
+Albert Einstein.
+\newblock Zur elektrodynamik bewegter körper.
+\newblock {\em Annalen der Physik}, 17(10):891--921, 1905.
+
+\bibitem[Gre93]{greenwade93}
+George~D. Greenwade.
+\newblock The {C}omprehensive {T}ex {A}rchive {N}etwork ({CTAN}).
+\newblock {\em TUGBoat}, 14(3):342--351, 1993.
+
+\bibitem[Knu84]{knuth1984tex}
+Donald~E. Knuth.
+\newblock {\em The {TeX}book}.
+\newblock Addison-Wesley, Reading, Massachusetts, 1st edition, 1984.
+
+\bibitem[Lam94]{lamport1994latex}
+Leslie Lamport.
+\newblock {LaTeX}: A document preparation system.
+\newblock In {\em User's Guide and Reference Manual}, Reading, Massachusetts, 1994. Addison-Wesley.
+
+\bibitem[Tur50]{turing1950computing}
+Alan~M. Turing.
+\newblock {\em Computing Machinery and Intelligence}, volume~59.
+\newblock Oxford University Press, 1950.
+
+\end{thebibliography}

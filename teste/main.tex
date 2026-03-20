@@ -1,0 +1,118 @@
+\documentclass[12pt,oneside,a4paper,english,brazil]{abntex2}
+
+% Codificação de entrada e saída
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{indentfirst}
+
+% Configuração de idioma
+% Use 'portuguese' ou 'brazil'
+\usepackage[portuguese]{babel}
+
+% Tamanho do papel e margens (padrão Brasil/Europa)
+\usepackage[a4paper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+
+% Pacotes úteis
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{abntex2cite}
+\usepackage[hidelinks]{hyperref}
+
+\title{Título do Artigo}
+\author{Autor}
+\date{}
+
+\begin{document}
+	\maketitle
+	
+	\begin{abstract}
+		Resumo do trabalho.
+	\end{abstract}
+	
+	\section{Introdução}
+	
+	A introdução do seu trabalho começa aqui. Basta começar a escrever o conteúdo do documento e recompilar para visualizar o PDF atualizado.
+	
+	Este modelo apresenta exemplos de comandos e recursos comumente utilizados para facilitar o início do seu trabalho em \LaTeX.
+	
+	\section{Alguns exemplos para começar}
+	
+	\subsection{Como criar seções e subseções}
+	
+	Utilize os comandos \verb|\section| e \verb|\subsection|, como neste documento.  
+	A numeração e a formatação são feitas automaticamente pelo \LaTeX.
+	
+	\subsection{Como inserir figuras}
+	
+	Primeiro, faça o upload da imagem para o projeto.  
+	Depois, use o comando \verb|\includegraphics| dentro do ambiente \verb|figure|.
+	
+	Veja o exemplo da Figura~\ref{fig:sapo}.
+	
+	\begin{figure}
+		\centering
+		\includegraphics[width=0.25\linewidth]{meu amor.jpeg}
+		\caption{\label{fig:sapo}Exemplo de figura inserida no documento.}
+	\end{figure}
+	
+	\subsection{Como inserir tabelas}
+	
+	Utilize os ambientes \verb|table| e \verb|tabular| para criar tabelas simples, como mostrado na Tabela~\ref{tab:exemplo}.
+	
+	\begin{table}
+		\centering
+		\begin{tabular}{l|r}
+			Item & Quantidade \\\hline
+			Widgets & 42 \\
+			Gadgets & 13
+		\end{tabular}
+		\caption{\label{tab:exemplo}Exemplo de tabela.}
+	\end{table}
+	
+	\subsection{Como criar listas}
+	
+	Listas numeradas:
+	
+	\begin{enumerate}
+		\item Primeiro item,
+		\item Segundo item.
+	\end{enumerate}
+	
+	Listas com marcadores:
+	
+	\begin{itemize}
+		\item Item,
+		\item Item.
+	\end{itemize}
+	
+	\subsection{Como escrever matemática}
+	
+	O \LaTeX{} é excelente para escrita matemática. Seja $X_1, X_2, \ldots, X_n$ uma sequência de variáveis aleatórias independentes e identicamente distribuídas, com $\text{E}[X_i] = \mu$ e $\text{Var}[X_i] = \sigma^2$.
+	
+	\[
+	S_n = \frac{X_1 + X_2 + \cdots + X_n}{n}
+	\]
+	
+	Quando $n \to \infty$, temos convergência para uma distribuição normal $\mathcal{N}(0, \sigma^2)$.
+	
+	\subsection{Como alterar margens e tamanho do papel}
+	
+	As margens e o tamanho do papel podem ser ajustados com o pacote \verb|geometry|, carregado no preâmbulo do documento.
+	
+	\subsection{Como alterar o idioma do documento}
+	
+	O idioma é configurado pelo pacote \verb|babel|.  
+	Neste modelo, o idioma foi definido como português.
+	
+	\subsection{Como inserir citações e referências}
+	
+	As referências podem ser gerenciadas com BibTeX usando um arquivo \verb|.bib|.
+	
+	Exemplos de citações: \cite{greenwade93} discute o CTAN, enquanto \cite{knuth1984tex} é uma referência clássica sobre \TeX. Para mais informações sobre \LaTeX, consulte \cite{lamport1994latex}. Trabalhos importantes incluem \cite{einstein1905relativity} e \cite{turing1950computing}.
+	
+	\bibliographystyle{alpha}
+	\bibliography{sample}
+	
+\end{document}
