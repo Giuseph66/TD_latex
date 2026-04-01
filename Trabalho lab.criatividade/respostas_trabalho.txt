@@ -1,0 +1,21 @@
+PROJETO 1: GERAÇÃO DE HIDROGÊNIO 
+
+1. Tema (O "O quê")
+Uso de processos de eletrólise alcalina para geração de hidrogênio verde em protótipos de pequena escala (experimental e didática), com foco na análise construtiva de materiais de eletrodo, validação de eletrólitos (soda cáustica vs. bicarbonato de sódio) e mitigação de corrosão.
+
+2. Problema (O "Por quê")
+Como a adequação do eletrólito e o arranjo dos materiais dos eletrodos (ex: titânio platinado e compostos de cobre) afetam a corrosão, a estabilidade e a viabilidade operacional de um gerador de hidrogênio experimental de baixo custo?
+(E daí?: Traz inovação incremental ao criar bancadas didáticas mais seguras, duráveis e de telemetria aberta, evitando a dependência mercadológica de kits de experimentação fechados e caros para laboratórios acadêmicos).
+
+
+================================================================================
+
+
+PROJETO 2: RECONHECIMENTO DE GESTOS EMG 
+
+1. Tema (O "O quê")
+Detecção e classificação computacional de movimentos finos da mão e dedos em interfaces homem-máquina através de sistemas vestíveis de eletromiografia de superfície (sEMG) de baixa complexidade (um a dois canais no antebraço).
+
+2. Problema (O "Por quê")
+Como otimizar o posicionamento (ex: grupos antagonistas) e a estabilidade mecânica na captação de sinais de um a dois sensores sEMG de baixo custo, para garantir repetibilidade robusta e separação espacial suficiente com processamento embarcado local viável?
+(E daí?: Permite construir braceletes ou interfaces gestuais muito mais baratos, acessíveis e menos complexos que equipamentos comerciais de alta densidade/multicanais, democratizando seu uso prático e reprodução acadêmica).

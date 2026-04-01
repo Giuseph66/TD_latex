@@ -1,0 +1,245 @@
+\documentclass[12pt,oneside,a4paper,english,brazilian]{abntex2}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{indentfirst}
+\usepackage[a4paper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+\usepackage{amsmath}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{ragged2e}
+\usepackage{xurl}
+
+\hypersetup{
+  pdftitle={Revisao bibliografica e pesquisa de anterioridade sobre sEMG},
+  pdfauthor={Giuseph De Luka Giangareli},
+  pdfsubject={Reconhecimento de movimentos da mao com 1 a 2 sensores no antebraco},
+  pdfcreator={Codex}
+}
+
+\setlength{\emergencystretch}{3em}
+\setlength{\LTpre}{0pt}
+\setlength{\LTpost}{0pt}
+\renewcommand{\arraystretch}{1.18}
+
+\title{Revisao Bibliografica e Pesquisa de Anterioridade sobre sEMG para Deteccao e Classificacao de Movimentos da Mao com 1 a 2 Sensores no Antebraco}
+\author{Giuseph De Luka Giangareli}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Este trabalho apresenta uma revisao bibliografica e uma pesquisa de anterioridade sobre o uso de eletromiografia de superficie (sEMG) para deteccao e classificacao de movimentos da mao e dos dedos em sistemas de baixa complexidade. O foco esta em arquiteturas com um ou dois sensores posicionados no antebraco, com interesse em solucao de baixo custo, processamento embarcado e aplicacao em interfaces homem-maquina. A literatura analisada mostra que sistemas de um canal conseguem reconhecer gestos simples com desempenho relevante, inclusive em microcontroladores como o ESP32, mas que a migracao para dois canais tende a melhorar a separacao dos padroes musculares, especialmente quando os eletrodos sao posicionados em regioes antagonistas, como flexores e extensores. No prototipo em desenvolvimento, a motivacao pratica para essa migracao surgiu da alta variacao observada na captacao de um modulo EMG utilizado inicialmente de forma isolada. Como resposta, foi desenvolvida e impressa em PLA uma case de suporte e isolamento para reduzir instabilidades mecanicas e melhorar a repetibilidade da aquisicao. A pesquisa de anterioridade mostrou que ja existem patentes, produtos comerciais e prototipos academicos para controle gestual por EMG, o que valida a relevancia do problema. Ao mesmo tempo, permanece aberta uma oportunidade de inovacao em uma solucao mais simples, barata e focada em um a dois sensores, com boa robustez para uso local e em hardware acessivel.
+\end{abstract}
+
+\section{Introducao}
+
+Para que um projeto de reconhecimento de gestos por sinais musculares tenha base cientifica e potencial de inovacao, e necessario analisar tanto o estado da arte academico quanto as solucoes que ja existem em patentes e no mercado. No caso deste trabalho, o problema de interesse e o reconhecimento computacional de movimentos da mao e dos dedos por meio de sEMG captada no antebraco, com prioridade para sistemas minimalistas que utilizem apenas um ou dois sensores.
+
+A motivacao principal e que sistemas multicanais oferecem elevada capacidade de discriminacao, mas aumentam o custo, a complexidade de aquisicao e a dificuldade de integracao em prototipos academicos. Em contrapartida, arquiteturas com poucos canais podem ser mais viaveis para projetos de laboratorio, interfaces vestiveis de baixo custo e aplicacoes embarcadas, desde que o posicionamento dos eletrodos, a selecao de caracteristicas e o classificador sejam escolhidos com criterio.
+
+Este documento responde ao enunciado da disciplina por meio de duas frentes complementares. A primeira e a revisao bibliografica, que busca entender o que a literatura cientifica ja demonstrou sobre sensores, posicionamento, processamento e classificacao em sEMG. A segunda e a pesquisa de anterioridade, que identifica patentes, produtos e prototipos relacionados ao mesmo problema funcional, permitindo discutir originalidade, espaco de diferenciacao e oportunidades de inovacao incremental.
+
+\section{Estrategia de busca}
+
+O levantamento foi estruturado para combinar base teorica e verificacao de anterioridade tecnologica. As buscas foram orientadas por descritores como ``sEMG hand gesture recognition'', ``single-channel EMG'', ``two-channel forearm EMG'', ``electrode placement forearm'', ``wearable electromyography controller'' e ``EMG armband''. Na revisao bibliografica, foram priorizados artigos de periodicos e conferencias indexados em bases como PubMed, ScienceDirect, IEEE, MDPI e revistas da area de sinais biomedicos e reabilitacao. Na pesquisa de anterioridade, o foco recaiu sobre Google Patents, produtos comerciais e prototipos de pesquisa com funcao semelhante.
+
+Os criterios de selecao privilegiaram: relevancia para reconhecimento de gestos da mao, proximidade com sistemas de um a tres canais, uso de sensores no antebraco ou punho, descricao clara do metodo e utilidade direta para o projeto. Tambem foram incorporadas observacoes pessoais sobre cada documento, de modo a transformar a leitura em base argumentativa para a redacao do artigo final.
+
+\section{Fundamentacao tecnica}
+
+O sinal de sEMG representa a atividade eletrica produzida por grupos musculares durante a contracao. No antebraco, essa captura e especialmente util porque grande parte dos movimentos da mao e dos dedos depende de musculaturas extrinsecas localizadas nessa regiao. Entretanto, o sinal e nao estacionario, sensivel a ruido, crosstalk e variacoes de posicionamento do eletrodo, o que torna sistemas com poucos canais mais dependentes de escolhas anatomicas e metodologicas bem justificadas.
+
+Nos sistemas de um canal, o sensor normalmente e posicionado sobre um musculo ou regiao que concentre boa parte da informacao relevante para os gestos-alvo. Isso reduz o custo e simplifica o hardware, mas tambem limita a separacao espacial entre padroes musculares. Ja em sistemas de dois canais, uma estrategia frequente consiste em posicionar os eletrodos sobre grupos antagonistas, como flexores e extensores do antebraco. Essa configuracao tende a melhorar a discriminacao entre gestos, pois passa a explorar relacoes de oposicao, coativacao e distribuicao de esforco entre compartimentos musculares distintos.
+
+Outro ponto central e o processamento do sinal. A literatura analisada mostra que caracteristicas classicas no dominio do tempo, como MAV, RMS, ZC e WL, continuam sendo muito relevantes para sistemas embarcados por combinarem baixo custo computacional e boa capacidade de discriminacao. Em paralelo, classificadores como LDA, SVM, ANN e Extra Trees aparecem com frequencia como solucoes viaveis em sistemas de baixa complexidade. Assim, o ganho de desempenho nao depende apenas do numero de sensores, mas da combinacao entre posicionamento anatomico, janela temporal, conjunto de features e estrategia de classificacao.
+
+\section{Aplicacao ao prototipo em desenvolvimento}
+
+No desenvolvimento pratico do projeto, o ponto de partida foi a utilizacao de um modulo EMG do tipo MG para captar a atividade muscular do antebraco. Durante os primeiros testes, observou-se uma variacao muito alta na saida do sensor, o que dificultava a obtencao de um padrao estavel e confiavel para futura classificacao de gestos. Em termos de engenharia, esse comportamento sugere forte sensibilidade a ruido, microdeslocamentos mecanicos, acoplamento inadequado com a pele e possiveis interferencias do proprio arranjo fisico do modulo.
+
+Como medida corretiva inicial, foi modelada em 3D e impressa em PLA uma case para o modulo, com o objetivo de melhorar o isolamento fisico, reduzir folgas e tornar a fixacao mais consistente. Segundo a observacao experimental realizada ate o momento, essa intervencao nao eliminou completamente a variacao, mas reduziu a instabilidade do sinal e tornou a captacao menos erratica. Esse resultado e relevante para o texto do trabalho porque mostra que o projeto nao se limita a uma discussao teorica: houve um processo de tentativa, erro e refinamento construtivo baseado no comportamento real do sensor.
+
+A proposta atual de migrar para dois sensores parte exatamente dessa experiencia pratica. A ideia nao e apenas duplicar a captacao, mas distribuir melhor a leitura muscular para reduzir ambiguidades e tornar cada canal mais focado em uma regiao especifica do antebraco. Em uma configuracao bem posicionada, um sensor pode priorizar um grupo flexor e o outro um grupo extensor, ou ainda duas regioes proximas com menor sobreposicao funcional. Assim, busca-se diminuir a interferencia entre sinais, melhorar a separacao espacial dos padroes musculares e construir uma base de dados mais consistente para etapas futuras de processamento.
+
+Do ponto de vista metodologico, essa decisao esta alinhada com a literatura revisada. O problema observado no modulo unico dialoga diretamente com o que os artigos apontam sobre variabilidade, crosstalk, posicionamento e sensibilidade ao ruido. Dessa forma, o projeto ganha coerencia entre teoria e pratica: a revisao bibliografica justifica a migracao para dois pontos de captacao, enquanto os testes com o prototipo explicam por que essa mudanca se tornou necessaria.
+
+\section{Pontos que ainda faltam controlar no projeto}
+
+Mesmo com a melhoria fisica proporcionada pela case em PLA, alguns fatores ainda precisam ser tratados para que o sistema alcance maior robustez experimental. O primeiro e a padronizacao do posicionamento dos eletrodos e do modulo no braco, porque pequenas mudancas de local alteram significativamente o sinal captado. O segundo e a comparacao objetiva entre a condicao original e a condicao com case, preferencialmente observando amplitude, variabilidade e repetibilidade em um mesmo gesto. O terceiro e a futura avaliacao da configuracao com dois sensores para verificar se houve de fato ganho de separacao sem aumento excessivo de interferencia entre canais.
+
+Tambem sera importante explicitar no texto que a inovacao pretendida nao esta no uso inedito da eletromiografia, mas na tentativa de melhorar a qualidade de captacao de um sistema acessivel por meio de refinamento construtivo e distribuicao mais inteligente dos sensores. Isso fortalece a justificativa academica do trabalho, porque conecta problema real de laboratorio, base cientifica e proposta objetiva de melhoria.
+
+\section{Sintese da revisao bibliografica}
+
+A literatura reunida aponta uma conclusao recorrente: um unico canal pode ser suficiente para comandos simples, gestos globais ou preensoes mais evidentes, mas a transicao para dois canais geralmente melhora a separabilidade dos padroes musculares e reduz ambiguidades. Esse ganho e particularmente relevante quando o interesse sai de movimentos amplos do punho e se aproxima de gestos mais finos da mao e dos dedos.
+
+Hermens et al.\ estabeleceram uma base metodologica importante ao mostrar que a qualidade do sinal depende fortemente do posicionamento do sensor e do cuidado com o procedimento de captacao. Phinyomark et al.\ reforcaram que o excesso de features nem sempre e vantajoso, pois muitas delas sao redundantes. Para um projeto de baixo custo, essa observacao e valiosa: um conjunto pequeno de caracteristicas bem escolhidas pode produzir melhor equilibrio entre desempenho e viabilidade embarcada.
+
+Trabalhos mais proximos do problema central do projeto ajudam a delimitar melhor o ponto de equilibrio entre simplicidade e desempenho. Salgado et al.\ mostraram que um sistema de um canal no musculo \textit{Flexor Carpi Radialis} pode classificar seis gestos com bom desempenho usando uma rede neural implementada em ESP32. Isso confirma que ha viabilidade tecnica real para hardware simples. Por outro lado, Tavakoli et al.\, Gehlot et al.\ e Montecinos et al.\ sustentam que o uso de dois pontos de captacao no antebraco melhora a robustez da classificacao, oferecendo um salto importante na curva de desempenho sem a complexidade de armbands multicanais.
+
+Outros estudos indicam que poucos canais ja podem viabilizar reconhecimento mais refinado. Lee, Min e Byun mostraram que tres canais e features simples no dominio do tempo podem classificar dez gestos com rede neural artificial. Bhagwat e Mukherji evidenciam que alta acuracia pode ser alcancada com pipelines mais sofisticados, embora isso amplie o custo computacional. No contexto deste trabalho, esses resultados sao importantes porque mostram dois caminhos possiveis: simplificar o hardware e compensar com processamento, ou aumentar discretamente a informacao espacial com um segundo sensor e manter processamento mais leve.
+
+\section{Comparacao entre sistemas de 1 e 2 sensores}
+
+\small
+\setlength{\tabcolsep}{4pt}
+\begin{longtable}{@{}>{\RaggedRight\arraybackslash}p{0.17\textwidth}>{\RaggedRight\arraybackslash}p{0.08\textwidth}>{\RaggedRight\arraybackslash}p{0.16\textwidth}>{\RaggedRight\arraybackslash}p{0.13\textwidth}>{\RaggedRight\arraybackslash}p{0.19\textwidth}>{\RaggedRight\arraybackslash}p{0.19\textwidth}@{}}
+\caption{Comparacao sintetica entre configuracoes de 1 e 2 sensores a partir da literatura analisada.}\label{tab:comparacao}\\
+\toprule
+\textbf{Estudo} & \textbf{Canais} & \textbf{Regiao} & \textbf{Desempenho} & \textbf{Vantagem} & \textbf{Limite principal} \\
+\midrule
+\endfirsthead
+
+\toprule
+\textbf{Estudo} & \textbf{Canais} & \textbf{Regiao} & \textbf{Desempenho} & \textbf{Vantagem} & \textbf{Limite principal} \\
+\midrule
+\endhead
+
+\midrule
+\endfoot
+
+\bottomrule
+\endlastfoot
+
+Salgado et al.\ (2025) & 1 & Flexor Carpi Radialis & Ate 93,05\% para seis gestos & Mostra viabilidade real em ESP32 com hardware enxuto & Maior fragilidade para gestos finos e variacao de posicionamento \\
+\midrule
+Tavakoli et al.\ (2018) & 2 & Flexores e extensores do antebraco & Taxa global superior a 90\% & Melhor separacao muscular com configuracao antagonista & Sensivel ao alinhamento anatomico e numero restrito de gestos \\
+\midrule
+Montecinos et al.\ (2025) & 1--4 & FCR e ECR em configuracao dual & Ganhos de 2\% a 10\% e retornos decrescentes apos 2 eletrodos & Sustenta que 2 canais sao ponto de equilibrio tecnico & Variabilidade intersujeito ainda e desafio importante \\
+\midrule
+Gehlot et al.\ (2025) & 2 & Extensor digitorum e flexor pollicis longus & 87,89\% com reducao de tempo para 3,16 ms & Reforca viabilidade em tempo real com dois pontos de aquisicao & Exige posicionamento anatomico preciso \\
+\end{longtable}
+\normalsize
+
+Em sintese, a revisao bibliografica sustenta que a migracao de um para dois sensores e cientificamente defensavel. O salto nao esta apenas na acuracia media, mas na reducao de ambiguidade entre padroes musculares e na maior estabilidade da classificacao. Ao mesmo tempo, a literatura sugere retornos decrescentes quando o numero de eletrodos cresce alem de dois em contextos de baixa complexidade, o que reforca a pertinencia do foco adotado neste trabalho.
+
+\section{Pesquisa de anterioridade}
+
+A pesquisa de anterioridade mostrou que o uso de sinais musculares do antebraco para interacao homem-maquina nao e uma ideia inedita. Patentes, braceletes comerciais e prototipos de pesquisa ja demonstram que o problema e tecnicamente relevante e possui valor de mercado. Esse resultado nao invalida o projeto; ao contrario, confirma que existe demanda e que a funcao pretendida faz sentido do ponto de vista tecnologico.
+
+A patente US8170656B2 e uma referencia importante porque descreve controladores vestiveis baseados em eletromiografia para interface com sistemas computacionais. Ela demonstra que o conceito funcional de aprender sinais musculares e traduzi-los em comandos ja foi reconhecido como objeto de protecao tecnologica. No mercado, dispositivos como o Myo Armband, o Mudra Band e o gForcePro+ reforcam que o uso do antebraco e do punho para reconhecimento de intencao motora ja se consolidou como uma direcao pratica para interacao gestual.
+
+Ao mesmo tempo, a anterioridade levantada tambem evidencia espaco para diferenciacao. Muitos produtos comerciais usam mais canais, integracao proprietaria, sensores adicionais como IMU ou foco em ecossistemas especificos. Ja prototipos como o WyoFlex aproximam-se mais da logica de baixo custo, mas ainda operam com configuracoes multicanais. Isso abre uma janela clara para uma proposta mais enxuta, centrada em um ou dois sensores, com menor custo, menor complexidade de hardware e maior facilidade de reproducao em contexto academico.
+
+\small
+\setlength{\tabcolsep}{4pt}
+\begin{longtable}{@{}>{\RaggedRight\arraybackslash}p{0.18\textwidth}>{\RaggedRight\arraybackslash}p{0.10\textwidth}>{\RaggedRight\arraybackslash}p{0.16\textwidth}>{\RaggedRight\arraybackslash}p{0.20\textwidth}>{\RaggedRight\arraybackslash}p{0.18\textwidth}>{\RaggedRight\arraybackslash}p{0.12\textwidth}@{}}
+\caption{Sintese da pesquisa de anterioridade com observacoes pessoais.}\label{tab:anterioridade}\\
+\toprule
+\textbf{Solucao} & \textbf{Tipo} & \textbf{Sensores} & \textbf{Semelhanca com o projeto} & \textbf{Diferenca principal} & \textbf{Observacao pessoal} \\
+\midrule
+\endfirsthead
+
+\toprule
+\textbf{Solucao} & \textbf{Tipo} & \textbf{Sensores} & \textbf{Semelhanca com o projeto} & \textbf{Diferenca principal} & \textbf{Observacao pessoal} \\
+\midrule
+\endhead
+
+\midrule
+\endfoot
+
+\bottomrule
+\endlastfoot
+
+US8170656B2 & Patente & Multiplos sensores EMG & Mesma logica funcional de interpretar atividade muscular do antebraco como comando & Nao foca em solucao academica de baixo custo com 1--2 sensores & Confirma relevancia tecnologica do problema \\
+\midrule
+Myo Armband & Produto comercial & 8 eletrodos EMG + IMU & Usa o antebraco para captar gestos e controlar sistemas externos & Plataforma generalista com mais canais do que a proposta & Serve como comparacao de mercado para buscar menor custo e complexidade \\
+\midrule
+Mudra Band & Produto comercial & 3 sensores SNC & Explora poucos sensores vestiveis para traduzir intencao motora & Usa tecnologia proprietaria e foco no ecossistema Apple & Mostra valor comercial de interfaces discretas com poucos sensores \\
+\midrule
+Meta Neural Wristband & Prototipo industrial & Multiplos sensores EMG & Busca captar intencao motora para interface homem-maquina & Escala industrial e treinamento muito superiores ao contexto academico & Mostra que o tema continua atual e estrategico \\
+\midrule
+gForcePro+ & Produto comercial & 8 canais EMG + IMU & Tambem usa o antebraco como entrada para controle gestual & Solucao comercial mais rica e menos minimalista & Reforca existencia de mercado para armbands EMG \\
+\midrule
+WyoFlex Band & Prototipo academico & 4 canais & Combina baixo custo, portabilidade e uso pratico para movimentos da mao & Ainda usa mais canais do que a proposta deste projeto & Bom paralelo de anterioridade para hardware acessivel \\
+\end{longtable}
+\normalsize
+
+\section{Planilha de leitura da revisao bibliografica}
+
+\footnotesize
+\setlength{\tabcolsep}{3pt}
+\begin{longtable}{@{}>{\RaggedRight\arraybackslash}p{0.14\textwidth}>{\RaggedRight\arraybackslash}p{0.18\textwidth}>{\RaggedRight\arraybackslash}p{0.13\textwidth}>{\RaggedRight\arraybackslash}p{0.07\textwidth}>{\RaggedRight\arraybackslash}p{0.15\textwidth}>{\RaggedRight\arraybackslash}p{0.15\textwidth}>{\RaggedRight\arraybackslash}p{0.14\textwidth}@{}}
+\caption{Planilha de leitura consolidada a partir da aba \textit{Revisao\_Bibliografica}.}\label{tab:planilha-biblio}\\
+\toprule
+\textbf{Autor/Ano} & \textbf{Principal descoberta} & \textbf{Metodo} & \textbf{Canais} & \textbf{Regiao} & \textbf{Relacao com o projeto} & \textbf{Observacao pessoal} \\
+\midrule
+\endfirsthead
+
+\toprule
+\textbf{Autor/Ano} & \textbf{Principal descoberta} & \textbf{Metodo} & \textbf{Canais} & \textbf{Regiao} & \textbf{Relacao com o projeto} & \textbf{Observacao pessoal} \\
+\midrule
+\endhead
+
+\midrule
+\endfoot
+
+\bottomrule
+\endlastfoot
+
+Hermens et al.\ (2000) & Estabeleceu recomendacoes de referencia para sensores SEMG e procedimentos de posicionamento & Revisao tecnica e padronizacao metodologica & N/A & Posicionamento de sensores em diferentes musculos, inclusive aplicavel ao antebraco & Fundamenta a escolha e o posicionamento anatomico dos sensores & Muito util para justificar que a posicao do eletrodo influencia diretamente a qualidade do sinal \\
+\midrule
+Phinyomark et al.\ (2012) & Mostrou que varias features de EMG sao redundantes e podem ser agrupadas & Analise comparativa de 37 features em tempo e frequencia & N/A & Aplicacoes gerais de EMG & Justifica MAV, RMS, ZC, WL e outras features simples & Otimo para defender um sistema enxuto e sem excesso de processamento \\
+\midrule
+Cipriani et al.\ (2011) & Demonstrou controle online de mao protetica em tempo real com boa funcionalidade & Classificacao em tempo real com k-nearest neighbors e lazy learning & 8 pares & Coto transradial e antebraco & Mostra relevancia pratica da classificacao de EMG para controle funcional & Prova que EMG ja foi usada em cenario real, nao apenas em simulacao \\
+\midrule
+Mendez et al.\ (2017) & A Myo Armband mostrou potencial para reconhecimento por padrao mesmo com banda limitada & Comparacao experimental entre dispositivo comercial e sistema convencional com LDA & 8 & Antebraco & Discute o trade-off entre conveniencia vestivel e qualidade de sinal & Boa referencia para comparar praticidade comercial e limitacoes tecnicas \\
+\midrule
+Tavakoli et al.\ (2018) & Sistema minimalista de 2 canais no antebraco reconheceu gestos com taxa global superior a 90\% & SVM em armband de 2 canais & 2 & Flexores e extensores do antebraco & E a referencia mais direta para defender a migracao de 1 para 2 sensores & Conversa diretamente com a proposta do projeto \\
+\midrule
+Bhagwat e Mukherji (2020) & Alta acuracia para movimentos de dedos com engenharia de features baseada em wavelets & Coeficientes wavelet + sparse filtering & Multicanal & Antebraco & Ajuda a discutir processamento mais sofisticado para gestos sutis & Mostra que precisao alta geralmente cobra maior custo computacional \\
+\midrule
+Lee, Min e Byun (2021/2022) & Com 3 canais, classificou 10 gestos e superou SVM, RF e LR com ANN & ANN, SVM, RF e LR com features no dominio do tempo & 3 & Tres musculos do antebraco & Mostra que poucos canais ja podem reconhecer varios gestos & Boa ponte entre sistemas complexos e minimalistas \\
+\midrule
+Montecinos et al.\ (2025) & Comparou 1 a 4 canais e observou ganhos claros ate 2 eletrodos, com retornos decrescentes depois disso & Comparacao entre features, janelas temporais e ML & 1--4 & Configuracao dual com FCR e ECR & Sustenta que 2 canais sao ponto de equilibrio entre simplicidade e desempenho & Fornece argumento quantitativo para a hipotese central do projeto \\
+\midrule
+Salgado et al.\ (2025) & Classificou seis gestos com um unico canal e inferencia media de 0,17 ms em ESP32 & ANN embarcada em ESP32 com 1 canal sEMG & 1 & Flexor Carpi Radialis & Fornece benchmark realista do que um unico sensor pode fazer & Excelente para mostrar o limite inferior da solucao minimalista \\
+\midrule
+Gehlot et al.\ (2025) & Melhorou acuracia media e reduziu tempo computacional para 3,16 ms com dois pontos de aquisicao & Extra Trees com otimizacao L-SHADE & 2 & Extensor digitorum e flexor pollicis longus & Defende dois pontos de captacao com foco em eficiencia computacional & Muito util para discutir tempo real como criterio de inovacao \\
+\end{longtable}
+\normalsize
+
+\section{Resultados gerais e interpretacao}
+
+Com base na literatura e na anterioridade levantadas, o projeto pode ser defendido como uma proposta de inovacao incremental e nao como tentativa de criar um conceito totalmente inedito. Essa formulacao e importante do ponto de vista academico e tecnologico. A pesquisa nao busca inventar o uso de EMG para reconhecer gestos, porque isso ja existe na literatura, nas patentes e em produtos de mercado. O objetivo plausivel e otimizar essa logica em uma configuracao de menor custo, menor complexidade e maior aderencia ao contexto local.
+
+O principal argumento cientifico a favor da passagem de um para dois sensores e que a informacao espacial adicional melhora a separacao entre padroes musculares antagonistas sem exigir a infraestrutura de sistemas de alta densidade. Ao mesmo tempo, o principal argumento de engenharia a favor de manter o numero de canais baixo e a viabilidade embarcada: menos eletronica analogica, menos entradas de conversao, menor custo, menor consumo e maior facilidade de reproducao em laboratorio didatico.
+
+Tambem e necessario reconhecer as limitacoes. Variacoes anatomicas entre usuarios, deslocamento de eletrodos, ruido, crosstalk e mudancas de postura do antebraco podem comprometer a robustez do sistema. No caso especifico deste projeto, a alta variacao inicial observada no modulo EMG e um indicio pratico dessa dificuldade. A case impressa em PLA representou uma melhoria mecanica importante, mas nao substitui a necessidade de padronizacao da coleta, comparacao entre configuracoes e validacao futura da arquitetura com dois sensores. Portanto, a proposta precisa admitir que o desempenho depende nao apenas do algoritmo, mas da escolha do local de captacao, da estabilidade fisica do conjunto e de uma calibracao minima.
+
+\section{Conclusao}
+
+A revisao bibliografica mostrou que sistemas sEMG de baixa complexidade sao tecnicamente viaveis para o reconhecimento de movimentos da mao e dos dedos, especialmente quando o problema e bem delimitado. Um unico sensor pode ser suficiente para gestos mais simples e para sistemas embarcados de custo reduzido. Contudo, a literatura recente indica que a configuracao com dois sensores, principalmente em posicoes antagonistas do antebraco, tende a oferecer melhor separacao de padroes e maior robustez, com aumento moderado de complexidade.
+
+A pesquisa de anterioridade confirmou que ja existem patentes, produtos comerciais e prototipos relacionados ao problema funcional do projeto. Isso valida a relevancia do tema e mostra que ha demanda tecnologica concreta. Ao mesmo tempo, a maioria das solucoes encontradas usa mais sensores, mais recursos proprietarios ou arquiteturas menos acessiveis para reproducao academica. Assim, permanece espaco para uma proposta diferenciada baseada em baixo custo, poucos sensores, processamento viavel em hardware simples e foco em aplicacao pratica.
+
+Conclui-se, portanto, que a ideia de migrar de um para dois sensores no mesmo braco e cientificamente sustentada e pode representar uma linha de inovacao consistente dentro de uma abordagem incremental. No contexto do prototipo desenvolvido, essa decisao nao surgiu apenas da teoria, mas da necessidade concreta de reduzir a variacao excessiva observada na captacao de um modulo unico. A adaptacao mecanica com case impressa em PLA ja mostrou melhora parcial no comportamento do sistema e fortalece a narrativa experimental do trabalho. O diferencial do projeto nao esta em negar a anterioridade existente, mas em buscar uma implementacao mais simples, barata, reprodutivel e orientada ao uso real em interfaces homem-maquina, com refinamento gradual do hardware de captacao.
+
+\section{Referencias consultadas}
+
+\begin{enumerate}
+  \item Hermens, H. J. et al. \textit{Development of recommendations for SEMG sensors and sensor placement procedures}. Journal of Electromyography and Kinesiology, 2000. Disponivel em: \url{https://doi.org/10.1016/S1050-6411(00)00027-4}.
+  \item Phinyomark, A. et al. \textit{Feature reduction and selection for EMG signal classification}. Expert Systems with Applications, 2012. Disponivel em: \url{https://doi.org/10.1016/j.eswa.2012.01.102}.
+  \item Cipriani, C. et al. \textit{Online myoelectric control of a dexterous hand prosthesis by transradial amputees}. IEEE Transactions on Neural Systems and Rehabilitation Engineering, 2011. Disponivel em: \url{https://doi.org/10.1109/TNSRE.2011.2108667}.
+  \item Mendez, I. et al. \textit{Evaluation of the Myo armband for the classification of hand motions}. ICORR, 2017. Disponivel em: \url{https://doi.org/10.1109/ICORR.2017.8009414}.
+  \item Tavakoli, M. et al. \textit{Robust hand gesture recognition with a double channel surface EMG wearable armband and SVM classifier}. Biomedical Signal Processing and Control, 2018. Disponivel em: \url{https://doi.org/10.1016/j.bspc.2018.07.010}.
+  \item Bhagwat, S.; Mukherji, P. \textit{Electromyogram (EMG) based fingers movement recognition using sparse filtering of wavelet packet coefficients}. Sadhana, 2020. Disponivel em: \url{https://doi.org/10.1007/s12046-019-1231-9}.
+  \item Lee, Min e Byun. \textit{Electromyogram-Based Classification of Hand and Finger Gestures Using Artificial Neural Networks}. Sensors, 2022. Disponivel em: \url{https://doi.org/10.3390/s22010225}.
+  \item Montecinos, C. et al. \textit{Improving Fast EMG Classification for Hand Gesture Recognition: A Comprehensive Analysis of Temporal, Spatial, and Algorithm Configurations for Healthy and Post-Stroke Subjects}. Sensors, 2025. Disponivel em: \url{https://doi.org/10.3390/s25226980}.
+  \item Salgado, J. A. M. et al. \textit{Single-Channel sEMG Hand Gesture Classification Using an Artificial Neural Network Implemented on an ESP32 Microcontroller}. IEEE Access, 2025. Disponivel em: \url{https://doi.org/10.1109/ACCESS.2025.3598649}.
+  \item Gehlot, N. et al. \textit{L-SHADE optimized learning framework for sEMG hand gesture recognition}. Scientific Reports, 2025. Disponivel em: \url{https://doi.org/10.1038/s41598-025-20076-9}.
+  \item Google Patents. \textit{US8170656B2 - Wearable electromyography-based controllers for human-computer interface}. Disponivel em: \url{https://patents.google.com/patent/US8170656B2/en}.
+  \item Thalmic Labs / referencias de avaliacao do Myo Armband. Disponivel em: \url{https://doi.org/10.1109/ICORR.2017.8009414}.
+  \item Mudra Band. Informacoes do produto. Disponivel em: \url{https://mudra-band.com/pages/mudra-band-main}.
+  \item Meta. \textit{EMG wearable technology}. Disponivel em: \url{https://www.meta.com/emerging-tech/emg-wearable-technology/}.
+  \item OYMotion. \textit{gForcePro/gForcePro+ Armband and gForceOct Module User Guide}. Disponivel em: \url{https://oymotion.github.io/en/gForce/gForcePro/gForcePro/}.
+  \item WyoFlex Band. Disponivel em: \url{https://pmc.ncbi.nlm.nih.gov/articles/PMC9416605/}.
+\end{enumerate}
+
+\end{document}

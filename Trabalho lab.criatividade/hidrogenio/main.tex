@@ -1,0 +1,434 @@
+\documentclass[12pt,oneside,a4paper,english,brazilian]{abntex2}
+
+% Codificacao de entrada e saida
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{indentfirst}
+
+% Tamanho do papel e margens
+\usepackage[a4paper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+
+% Pacotes uteis
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{booktabs}
+\usepackage{ragged2e}
+
+\title{Relatorio de Pesquisa e Anterioridade: Sistemas de Geracao de Hidrogenio Verde em Escala Experimental e Academica}
+\author{Giuseph De Luka Giangareli}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Este relatorio tecnico-cientifico apresenta um levantamento do estado da arte e da anterioridade tecnologica relacionado ao desenvolvimento de prototipos de geracao de hidrogenio em pequena escala, com foco em aplicacoes laboratoriais e academicas. O texto foi alinhado ao estagio real de desenvolvimento do prototipo, que atualmente se encontra em fase de montagem e ainda nao possui campanha experimental concluida com a configuracao mais recente. Ate o momento, foi realizado um teste preliminar com agua e soda caustica, no qual se observou corrosao elevada dos elementos internos. Em resposta a esse problema, o arranjo de eletrodos foi alterado para uma configuracao composta por cobre com grafite e duas chapas de titanio com platina, enquanto se planeja avaliar futuramente uma composicao baseada em agua e bicarbonato de sodio puro. A revisao bibliografica e a pesquisa de anterioridade servem, assim, para delimitar um nicho mais preciso de investigacao: a viabilidade de um gerador experimental de hidrogenio de pequena escala, com enfase em corrosao, escolha de eletrolito, materiais de eletrodo e estabilidade operacional.
+\end{abstract}
+
+\section{Introducao}
+
+O aumento da demanda por rotas energeticas de baixo carbono ampliou o interesse pelo hidrogenio verde como vetor energetico estrategico. Nesse contexto, a geracao de hidrogenio por eletrolise da agua ocupa papel central por permitir a conversao de energia eletrica, preferencialmente proveniente de fontes renovaveis, em combustivel de alta pureza e aplicabilidade industrial. Para que um prototipo experimental de geracao de hidrogenio tenha base cientifica consistente e potencial de inovacao, torna-se necessario analisar tanto a literatura academica quanto o panorama de patentes, produtos e solucoes de mercado.
+
+Este documento foi elaborado com foco em sistemas de pequena e media escala, especialmente aqueles destinados a uso laboratorial, academico e didatico. A proposta e reunir informacoes suficientes para sustentar a escrita de um artigo cientifico e, ao mesmo tempo, orientar o aperfeicoamento de um prototipo em desenvolvimento. Ao longo do texto, sao discutidos o estado da arte das principais tecnologias de eletrolise, a estrategia de busca utilizada, a comparacao entre alternativas existentes e as principais lacunas que podem sustentar uma proposta de inovacao incremental.
+
+\section{Delimitacao do prototipo e estado atual}
+
+O recorte deste trabalho nao e o de um sistema industrial nem o de uma bancada plenamente validada, mas o de um prototipo experimental de pequena escala ainda em desenvolvimento. Ate o momento, foi utilizado um recipiente pequeno como camara de geracao de gas e foi realizado apenas um teste preliminar com a combinacao de agua e soda caustica. A principal observacao obtida nessa etapa foi a ocorrencia de corrosao elevada nos elementos internos do sistema, o que inviabiliza tratar essa configuracao inicial como solucao consolidada.
+
+Em funcao desse resultado, o prototipo passou por uma reformulacao de materiais. A configuracao atualmente em montagem utiliza uma combinacao de eletrodos de cobre com grafite, associada a duas chapas de titanio com platina. Entretanto, e importante registrar com clareza que essa nova montagem ainda nao foi submetida a ensaios experimentais completos. Assim, qualquer afirmacao sobre desempenho, eficiencia, estabilidade ou produtividade nessa nova configuracao seria prematura.
+
+Como proxima etapa, pretende-se avaliar a substituicao do meio baseado em soda caustica por uma composicao de agua com bicarbonato de sodio puro. Essa mudanca deve ser tratada como hipotese experimental e nao como conclusao antecipada, pois a literatura mostra que eletrolitos fortemente alcalinos costumam apresentar maior condutividade, enquanto o bicarbonato pode oferecer comportamento mais brando do ponto de vista corrosivo, porem com possiveis perdas de desempenho eletroquimico. Dessa forma, o nicho mais coerente para este trabalho e a analise comparativa da viabilidade do prototipo frente a problemas reais de corrosao, escolha de materiais e selecao de eletrolito.
+
+\section{Visao geral do tema}
+
+A geracao de hidrogenio e um campo multidisciplinar que envolve ciencia dos materiais, termodinamica, eletroquimica, eletronica de potencia, controle e seguranca operacional. Em termos historicos, a decomposicao da agua por corrente eletrica foi demonstrada no inicio do seculo XIX e, desde entao, evoluiu para sistemas cada vez mais eficientes e especializados. Na atualidade, o foco das pesquisas nao esta apenas em produzir hidrogenio, mas em faze-lo com menor consumo energetico, maior pureza de gas, menor custo de capital e maior compatibilidade com fontes renovaveis intermitentes.
+
+Do ponto de vista experimental, a eficiencia de um eletrolisador depende diretamente do potencial efetivo da celula, das perdas ohmicas internas, dos sobrepotenciais anodico e catodico, da temperatura de operacao, da geometria dos eletrodos e da forma como as bolhas de gas se desprendem da superficie reativa. Em sistemas simples de bancada, esses fatores costumam ser os principais responsaveis pelas diferencas entre o desempenho teorico e o desempenho real.
+
+\subsection{Fundamentos termodinamicos e cineticos}
+
+A eletrólise da agua pode ser representada pela reacao global:
+
+\[
+2H_2O(l) \rightarrow 2H_2(g) + O_2(g)
+\]
+
+Do ponto de vista termodinamico, a tensao reversivel minima para a dissociacao da agua em condicoes padrao e de aproximadamente 1,23 V. Na pratica, entretanto, a tensao aplicada precisa ser maior para vencer perdas resistivas, limitacoes de transferencia de massa e sobrepotenciais nos eletrodos. Em sistemas experimentais e de pequena escala, esse valor costuma ficar acima da tensao termoneutra de aproximadamente 1,48 V, variando com a temperatura, a condutividade do meio e a atividade catalitica da superficie.
+
+Outro conceito central para este trabalho e a lei de Faraday, segundo a qual a quantidade teorica de gas produzido e proporcional a carga eletrica total que passa pela celula. Isso significa que qualquer comparacao entre diferentes materiais de eletrodo e diferentes eletrólitos deve considerar nao apenas a producao visual de bolhas, mas tambem a relacao entre corrente aplicada, tempo de operacao e volume real de hidrogenio obtido.
+
+\subsection{Principais tecnologias de geracao de hidrogenio}
+
+\small
+\setlength{\tabcolsep}{3pt}
+\begin{longtable}{@{}>{\RaggedRight\arraybackslash}p{0.13\textwidth}>{\RaggedRight\arraybackslash}p{0.14\textwidth}>{\RaggedRight\arraybackslash}p{0.16\textwidth}>{\RaggedRight\arraybackslash}p{0.12\textwidth}>{\RaggedRight\arraybackslash}p{0.15\textwidth}>{\RaggedRight\arraybackslash}p{0.20\textwidth}@{}}
+\caption{Comparacao entre as principais tecnologias de eletrolise da agua.}\label{tab:tecnologias}\\
+\toprule
+\textbf{Tecnologia} & \textbf{Eletrolito} & \textbf{\shortstack[l]{Catalisadores\\tipicos}} & \textbf{\shortstack[l]{Temperatura\\operacional}} & \textbf{Vantagens} & \textbf{\shortstack[l]{Desafios\\tecnicos}} \\
+\midrule
+\endfirsthead
+
+\toprule
+\textbf{Tecnologia} & \textbf{Eletrolito} & \textbf{\shortstack[l]{Catalisadores\\tipicos}} & \textbf{\shortstack[l]{Temperatura\\operacional}} & \textbf{Vantagens} & \textbf{\shortstack[l]{Desafios\\tecnicos}} \\
+\midrule
+\endhead
+
+\midrule
+\endfoot
+
+\bottomrule
+\endlastfoot
+
+Eletrolise Alcalina (AWE) & KOH ou NaOH (25--30\%) & Niquel, aco inox, cobalto & 60--90\,\textdegree C & Baixo custo, alta maturidade e dispensa de metais nobres & Baixa densidade de corrente, corrosao alcalina, resposta lenta e desafios de pureza do gas \\
+\midrule
+Membrana de Troca de Protons (PEM) & Polimero solido, como Nafion & Platina, iridio, rutenio & 50--80\,\textdegree C & Alta densidade de corrente, sistema compacto e hidrogenio de alta pureza & Custo elevado dos materiais e dependencia de metais nobres \\
+\midrule
+Oxido Solido (SOEC) & Ceramica solida & Niquel-cermet e perovskitas & 700--900\,\textdegree C & Elevada eficiencia termodinamica e aproveitamento de calor & Degradacao termica, vedacao complexa e alto custo de materiais \\
+\midrule
+Membrana de Troca Anionica (AEM) & Membrana polimerica anionica & Metais de transicao, como Ni e Fe & 40--90\,\textdegree C & Busca unir baixo custo da AWE com arquitetura compacta da PEM & Estabilidade quimica da membrana ainda limitada e baixo TRL industrial \\
+\end{longtable}
+\normalsize
+
+Para aplicacoes experimentais e academicas, a eletrolise alcalina representa a escolha mais pragmatica segundo boa parte da literatura. Diferentemente da tecnologia PEM, que exige catalisadores caros do grupo da platina, a rota alcalina permite o uso de materiais mais acessiveis, como aco inoxidavel e niquel. Alem disso, possibilita a construcao de camaras transparentes em acrilico ou policarbonato, o que favorece a observacao do desprendimento de bolhas, a compreensao do fenomeno pelos estudantes e a realizacao de ajustes construtivos com menor custo. No entanto, o caso estudado neste trabalho mostrou que a escolha do eletrolito e dos materiais internos precisa ser reavaliada quando a corrosao observada se torna excessiva.
+
+Ainda assim, a rota alcalina nao esta isenta de limitacoes. Entre os problemas mais recorrentes estao a corrosao causada por solucoes alcalinas concentradas, as dificuldades de vedacao, a mistura indesejada entre hidrogenio e oxigenio em sistemas simplificados e a perda de eficiencia causada pela cobertura da superficie do eletrodo por bolhas. Essas limitacoes explicam por que boa parte da literatura recente se concentra na otimizacao da geometria dos eletrodos, no aumento da condutividade efetiva do sistema e na aplicacao de correntes pulsadas.
+
+\subsection{Eletrólitos mais relacionados ao prototipo}
+
+Entre os eletrólitos mais diretamente ligados ao presente trabalho, destacam-se o hidroxido de sodio e o bicarbonato de sodio. O hidroxido de sodio e amplamente empregado em eletrólise alcalina porque se dissocia fortemente em solucao aquosa e fornece alta concentracao de ions transportadores de carga, o que reduz a resistencia interna da celula e eleva a producao de gas. Por esse motivo, a literatura o aponta como uma escolha mais eficiente do ponto de vista eletroquimico.
+
+Por outro lado, o bicarbonato de sodio apresenta um perfil operacional mais brando. Seu uso tende a ser mais seguro em contextos didaticos e em prototipos simples, pois o meio e menos agressivo aos materiais e ao operador. Em contrapartida, a literatura recente indica que o rendimento gasoso com bicarbonato costuma ser significativamente inferior ao obtido com bases fortes como NaOH ou KOH. Para o seu trabalho, isso cria um dilema tecnico importante: o meio mais eficiente tambem pode acelerar degradacao e corrosao, enquanto o meio mais seguro pode comprometer a produtividade.
+
+\small
+\setlength{\tabcolsep}{3pt}
+\begin{longtable}{@{}>{\RaggedRight\arraybackslash}p{0.20\textwidth}>{\RaggedRight\arraybackslash}p{0.18\textwidth}>{\RaggedRight\arraybackslash}p{0.18\textwidth}>{\RaggedRight\arraybackslash}p{0.17\textwidth}>{\RaggedRight\arraybackslash}p{0.19\textwidth}@{}}
+\caption{Comparacao resumida entre os eletrólitos mais ligados ao prototipo.}\label{tab:eletrolitos-prototipo}\\
+\toprule
+\textbf{Caracteristica} & \textbf{NaHCO$_3$} & \textbf{NaOH} & \textbf{Impacto no prototipo} & \textbf{Observacao tecnica} \\
+\midrule
+\endfirsthead
+
+\toprule
+\textbf{Caracteristica} & \textbf{NaHCO$_3$} & \textbf{NaOH} & \textbf{Impacto no prototipo} & \textbf{Observacao tecnica} \\
+\midrule
+\endhead
+
+\midrule
+\endfoot
+
+\bottomrule
+\endlastfoot
+
+Forca do eletrólito & Mais fraco & Base forte & Afeta diretamente a corrente e a producao de gas & Solucoes mais condutivas tendem a exigir menor perda ohmica \\
+\midrule
+Seguranca de manuseio & Mais segura & Mais agressiva & Influencia a viabilidade de testes academicos & NaOH exige mais cuidado com pele, olhos e vedações \\
+\midrule
+Corrosividade esperada & Menor & Maior & Relaciona-se ao problema ja observado no prototipo & Meio alcalino forte pode atacar componentes e acelerar falhas \\
+\midrule
+Rendimento gasoso esperado & Menor & Maior & Afeta a viabilidade de medir producao util em pequena escala & Estudos comparativos recentes favorecem KOH e NaOH sobre NaHCO$_3$ \\
+\midrule
+Aplicacao mais coerente & Prototipagem didatica e testes exploratorios & Maior produtividade e ensaios de desempenho & Define o nicho experimental do trabalho & A escolha depende do equilibrio entre seguranca, corrosao e producao \\
+\end{longtable}
+\normalsize
+
+\subsection{Materiais de eletrodo mais relacionados ao prototipo}
+
+O conjunto de materiais que mais interessa a este trabalho e formado por grafite, titanio platinado e compostos a base de cobre. O grafite e atraente por custo, disponibilidade e facilidade de adaptacao em montagens simples. Como catodo, tende a ser mais estavel do que como anodo, pois a evolucao de hidrogenio impõe menor ataque oxidativo ao material. Como anodo, no entanto, pode sofrer degradacao progressiva e liberacao de particulados carbonosos, o que compromete limpeza do sistema e repetibilidade experimental.
+
+O titanio platinado, por sua vez, representa uma solucao tecnicamente superior em termos de resistencia a corrosao e atividade eletrocatalitica. A camada de platina reduz o sobrepotencial para a evolucao de hidrogenio, enquanto o substrato de titanio oferece boa estabilidade estrutural. O principal limitador, para prototipos academicos, e o custo. Ainda assim, por voce ja possuir esse material na montagem, ele passa a ser um elemento central do trabalho, especialmente para comparar se a mudanca de eletrodo melhora a estabilidade do sistema em relacao ao arranjo anterior.
+
+O cobre ocupa uma posicao intermediaria. Em sua forma simples, pode ser vulneravel a corrosao dependendo do meio e do papel eletroquimico desempenhado, mas a literatura mostra que sistemas baseados em cobre e seus compostos continuam sendo investigados como alternativas de menor custo a metais nobres. Em configuracoes hibridas com substratos de carbono, o cobre tambem aparece como candidato promissor em pesquisa de novos catalisadores. No seu caso, isso justifica tratar o arranjo cobre-grafite nao como solucao definitiva, mas como configuracao experimental que ainda precisa ser validada em desempenho e durabilidade.
+
+\small
+\setlength{\tabcolsep}{3pt}
+\begin{longtable}{@{}>{\RaggedRight\arraybackslash}p{0.20\textwidth}>{\RaggedRight\arraybackslash}p{0.16\textwidth}>{\RaggedRight\arraybackslash}p{0.20\textwidth}>{\RaggedRight\arraybackslash}p{0.18\textwidth}>{\RaggedRight\arraybackslash}p{0.18\textwidth}@{}}
+\caption{Comparacao resumida dos materiais de eletrodo mais relacionados ao prototipo.}\label{tab:eletrodos-prototipo}\\
+\toprule
+\textbf{Material} & \textbf{Custo relativo} & \textbf{Vantagem principal} & \textbf{Risco principal} & \textbf{Relacao com o trabalho} \\
+\midrule
+\endfirsthead
+
+\toprule
+\textbf{Material} & \textbf{Custo relativo} & \textbf{Vantagem principal} & \textbf{Risco principal} & \textbf{Relacao com o trabalho} \\
+\midrule
+\endhead
+
+\midrule
+\endfoot
+
+\bottomrule
+\endlastfoot
+
+Grafite & Baixo & Facilidade de uso e baixo custo & Degradacao no anodo e formacao de residuos carbonosos & Relevante no arranjo atual com cobre e como opcoes didaticas \\
+\midrule
+Titanio platinado & Alto & Alta estabilidade e boa atividade catalitica & Custo elevado e necessidade de uso criterioso & Relevante porque faz parte da nova montagem e pode reduzir degradacao \\
+\midrule
+Cobre ou compostos de cobre & Baixo a medio & Potencial de baixo custo e interesse catalitico crescente & Corrosao e estabilidade dependentes do meio e da superficie & Relevante porque integra a nova configuracao experimental do prototipo \\
+\end{longtable}
+\normalsize
+
+\section{Estrategia de busca utilizada}
+
+A estrategia de busca foi desenhada para contemplar, simultaneamente, o rigor academico e a verificacao da realidade tecnologica e mercadologica do tema. Foram combinados descritores em portugues e ingles para cobrir artigos, dissertacoes, relatorios institucionais, patentes e produtos comerciais. Entre as strings utilizadas, destacam-se:
+
+\begin{itemize}
+  \item ``hydrogen generation'' OR ``hydrogen production'' AND ``prototype'' OR ``experimental bench'' OR ``small-scale'' AND ``alkaline'' OR ``electrolysis''.
+  \item ``pulse electrolysis'' AND ``converter design'' AND ``efficiency''.
+  \item ``hydrogen generator patent'' AND ``electrolyzer'' OR ``water splitting'' AND ``small scale''.
+  \item ``geracao de hidrogenio'' AND ``prototipo'' AND ``bancada didatica''.
+\end{itemize}
+
+As consultas foram realizadas em bases academicas como MDPI, ScienceDirect, Scielo, IEEE Xplore, Springer e repositorios institucionais de teses e dissertacoes, alem de bancos de patentes e ferramentas de busca comercial, como Google Patents, Espacenet, INPI e catalogos de empresas do setor. O criterio de selecao priorizou relevancia tecnica, clareza metodologica, proximidade com o problema de pesquisa e atualidade, com predominio de materiais publicados entre 2020 e 2026.
+
+\section{Revisao Bibliografica}
+
+A revisao bibliografica teve como objetivo compreender o estado da arte da geracao de hidrogenio e identificar metodos, resultados, limitacoes e oportunidades de avancos. O conjunto de referencias analisado aponta quatro direcoes principais de pesquisa: aprimoramento da eletrolise alcalina, desenvolvimento de sistemas PEM de maior desempenho, amadurecimento da tecnologia AEM e investigacao de rotas alternativas, como a fotoeletrocatalise. Entretanto, quando o foco se desloca para prototipos de bancada, de baixo custo e com finalidade academica, a literatura converge majoritariamente para a eletrolise alcalina como rota de referencia, ainda que o presente trabalho passe a considerar experimentalmente a avaliacao de bicarbonato de sodio em funcao do problema de corrosao observado na montagem inicial.
+
+Os trabalhos de carater experimental se mostram especialmente relevantes para o projeto em questao. Sudamrao et al.\ (2025) apresentaram um prototipo alcalino compacto, de baixo custo, construido com camara em acrilico, solucao de NaOH e eletrodos metalicos, alcancando desempenho suficiente para fins didaticos e comparacoes metodologicas. Esse estudo se destaca por oferecer parametros fisicos concretos de construcao e por demonstrar que a simplicidade estrutural nao impede a obtencao de resultados tecnicamente relevantes. Ao mesmo tempo, serve como contraponto importante ao caso deste trabalho, no qual a tentativa preliminar com soda caustica evidenciou um nivel de corrosao que motivou a mudanca de materiais e a reconsideracao do eletrolito.
+
+Wintergerst-Felipe et al.\ (2026) agregam uma contribuicao importante ao mostrar que a geometria interna do suporte de eletrodo altera significativamente a remocao de gas e, consequentemente, a eficiencia global do sistema. A principal implicacao para o prototipo e que nao basta selecionar corretamente o eletrolito ou a tensao de operacao; o desenho mecanico do reator tambem afeta a area ativa efetiva e a estabilidade do escoamento gas-liquido.
+
+No campo da eletronica de potencia, o trabalho publicado na MDPI Applied Sciences (2025) mostra que o uso de conversores buck em alta frequencia pode favorecer a eletrolise pulsada, contribuindo para reduzir o efeito de blindagem causado pelas bolhas aderidas aos eletrodos. Isso abre uma frente de pesquisa promissora para sistemas experimentais controlados por hardware acessivel, uma vez que a correlacao entre frequencia de comutacao, ciclo de trabalho e producao volumetrica de hidrogenio ainda nao esta suficientemente explorada em bancadas simples.
+
+Tambem merecem destaque os estudos que aproximam modelagem e experimento. Oliveira (2024) mostra que modelos matematicos de planta de hidrogenio podem ser validados com boa aproximacao experimental, enquanto estudos da MDPI Energies (2024) indicam a forte influencia da temperatura e do arranjo zero-gap na eficiencia de sistemas alcalinos. Esses trabalhos reforcam que um bom artigo nao deve se limitar a descrever o prototipo, mas precisa discutir os parametros que governam seu desempenho.
+
+Um ponto especialmente relevante para este trabalho e que parte da literatura recente permite aproximar o debate geral sobre eletrólise das decisoes materiais concretas do seu prototipo. Estudos comparativos em HHO e eletrólise alcalina mostram que o NaOH tende a superar o bicarbonato em condutividade e volume de gas produzido, enquanto trabalhos sobre celulas umidas e secas mostram que o tipo de arranjo fisico e a configuracao dos eletrodos alteram de forma importante o rendimento final. Em paralelo, revisoes recentes sobre producao de hidrogenio por eletrólise reforcam que a eficiencia do sistema depende fortemente da selecao de catalisadores, do controle do sobrepotencial e da estabilidade de longo prazo dos materiais.
+
+No caso especifico dos materiais, as evidencias mais diretamente relacionadas ao seu recorte sugerem tres leituras complementares. A primeira e que o grafite continua sendo uma escolha valida para prototipos de baixo custo, desde que se reconhecam seus limites de durabilidade. A segunda e que o titanio platinado permanece como referencia de desempenho e resistencia, sobretudo quando o objetivo e reduzir corrosao e manter geometria estavel do eletrodo. A terceira e que compostos de cobre seguem como campo promissor de investigacao cientifica, mas exigem mais cuidado interpretativo quando empregados em sistemas simples, porque a fronteira entre atividade catalitica, corrosao e estabilidade ainda depende muito da forma de preparacao do material.
+
+\section{Pesquisa de Anterioridade}
+
+A pesquisa de anterioridade teve como objetivo verificar se ja existem solucoes equivalentes ou semelhantes ao prototipo pretendido, seja na forma de produto comercial, patente, plataforma educacional ou sistema piloto. Essa etapa e essencial para evitar a reproducao de solucoes ja consolidadas e, ao mesmo tempo, identificar em que aspecto a proposta pode se diferenciar tecnicamente.
+
+O levantamento mostrou que o mercado educacional e laboratorial ja conta com alternativas conhecidas, como os kits da Horizon Educational e os sistemas da Heliocentris. No entanto, a maior parte dessas solucoes e fechada, pouco customizavel e de alto custo para a realidade de muitos laboratorios academicos. Esse aspecto fortalece a relevancia de um prototipo baseado em materiais acessiveis, instrumentacao aberta e possibilidade de modificacao experimental.
+
+No campo das patentes e prototipos tecnologicos, surgem referencias como a patente US 4,936,961, associada a Stanley Meyer, e propostas mais recentes como o modulo solar-to-hydrogen da SunHydrogen. Embora essas solucoes nao coincidam com o perfil de um eletrolisador alcalino didatico de baixo custo, elas mostram que a area de hidrogenio continua atraindo inovacoes em integracao energetica, materiais e configuracoes construtivas. Da mesma forma, sistemas como o projeto piloto da Equatic indicam que o hidrogenio pode ser integrado a processos quimicos e ambientais mais amplos, ampliando a importancia estrategica do tema.
+
+\section{Analise critica}
+
+O levantamento revela que a eletrolise alcalina se encontra em uma fase de maturidade renovada. Trata-se de uma tecnologia consolidada, mas que vem sendo reinterpretada a partir de novas exigencias de custo, eficiencia e flexibilidade operacional. Para prototipos academicos, essa caracteristica e positiva, porque permite trabalhar com uma base tecnologica conhecida e, ao mesmo tempo, explorar oportunidades reais de aprimoramento.
+
+Do ponto de vista tecnico, tres problemas se repetem com frequencia. O primeiro e a dinamica de bolhas, que reduz a area ativa dos eletrodos, aumenta a resistencia efetiva do eletrolito e limita a eficiencia em pequena escala. O segundo envolve corrosao, vedacao e durabilidade de materiais, especialmente quando se utilizam solucoes alcalinas concentradas em estruturas de baixo custo. Esse segundo ponto e central para o presente prototipo, pois foi justamente a observacao de corrosao elevada no teste com soda caustica que motivou a troca do conjunto de eletrodos e a busca por outra composicao de eletrolito. O terceiro diz respeito ao monitoramento e controle: muitos sistemas simples produzem hidrogenio, mas nao registram tensao, corrente, temperatura, pureza, pressao ou vazao com nivel de detalhe suficiente para gerar conhecimento cientifico robusto.
+
+Do ponto de vista de mercado, tambem existe uma lacuna evidente. Sistemas comerciais tendem a oferecer boa instrumentacao, mas com custo elevado e baixa abertura para modificacoes. Em contrapartida, prototipos artesanais costumam ser baratos, porem pouco padronizados e dificilmente reproduziveis. Isso indica espaco para um projeto intermediario: um sistema de baixo custo, mas com telemetria aberta, metodologia clara de medicao e foco em repetibilidade experimental.
+
+\section{Diferenca pratica entre revisao bibliografica e pesquisa de anterioridade}
+
+A revisao bibliografica concentra-se em teorias, conceitos, experimentos, dissertacoes, revisoes e artigos cientificos. Seu objetivo e oferecer a base teorica e metodologica do trabalho. Ja a pesquisa de anterioridade concentra-se em patentes, produtos, startups, prototipos comerciais e solucoes ja existentes no mercado, tendo como objetivo demonstrar se a proposta tem carater de novidade, diferencial tecnico ou inovacao incremental. No contexto deste estudo, a revisao bibliografica permitiu entender os metodos, desafios e limitacoes da geracao de hidrogenio, enquanto a pesquisa de anterioridade mostrou o que ja existe em termos de aplicacao pratica e mercado.
+
+\section{Principais lacunas identificadas}
+
+Com base no levantamento, foram identificadas algumas lacunas que podem servir como ponto de partida para o artigo e para o aperfeicoamento do prototipo:
+
+\begin{itemize}
+  \item Otimizacao da dinamica de bolhas em eletrolisadores alcalinos de pequena escala.
+  \item Comparacao entre soda caustica e bicarbonato de sodio quanto a corrosao, estabilidade e viabilidade em pequena escala.
+  \item Avaliacao do comportamento de um arranjo hibrido de eletrodos com cobre, grafite e titanio com platina.
+  \item Verificacao da diferenca entre comportamento catodico e anodico do grafite na nova montagem.
+  \item Desenvolvimento de metodologia experimental basica para medir producao de gas sem antecipar conclusoes de eficiencia.
+  \item Estudo de durabilidade e compatibilidade quimica dos materiais internos do prototipo.
+  \item Controle de temperatura e espacamento entre eletrodos como variaveis fisicas de grande impacto no desempenho.
+  \item Reducao de custos com materiais acessiveis sem comprometer seguranca e funcionamento minimo do sistema.
+\end{itemize}
+
+\section{Sugestoes para estruturacao do artigo}
+
+Com base no material levantado, o artigo derivado deste trabalho pode ser orientado por um problema de pesquisa mais aderente ao estagio atual do prototipo: como a escolha do eletrolito e a mudanca no arranjo de eletrodos afetam a corrosao, a estabilidade e a viabilidade de um sistema experimental de geracao de hidrogenio em pequena escala. O objetivo geral pode ser formulado como o desenvolvimento e a avaliacao preliminar de um prototipo de geracao de hidrogenio, analisando a influencia da composicao do eletrolito e dos materiais dos eletrodos sobre o comportamento inicial do sistema.
+
+Entre os objetivos especificos mais adequados estao a finalizacao da montagem eletrica do sistema, a documentacao do teste preliminar com soda caustica, a realizacao de ensaios com o novo conjunto de eletrodos, a comparacao inicial entre o uso de soda caustica e bicarbonato de sodio e a observacao da integridade dos materiais apos os testes. Em termos de fundamentacao teorica, convem incluir as leis de Faraday, a expressao do potencial efetivo da celula, a influencia da condutividade do eletrolito no desempenho e uma discussao critica sobre corrosao e compatibilidade quimica.
+
+\section{Planilha de leitura com observacoes pessoais}
+
+\subsection{Revisao bibliografica}
+
+\setlength{\LTpre}{0pt}
+\setlength{\LTpost}{0pt}
+\renewcommand{\arraystretch}{1.2}
+
+\small
+\setlength{\tabcolsep}{3pt}
+\begin{longtable}{@{}>{\RaggedRight\arraybackslash}p{0.17\textwidth}>{\RaggedRight\arraybackslash}p{0.18\textwidth}>{\RaggedRight\arraybackslash}p{0.15\textwidth}>{\RaggedRight\arraybackslash}p{0.17\textwidth}>{\RaggedRight\arraybackslash}p{0.19\textwidth}@{}}
+\caption{Planilha de leitura da revisao bibliografica.}\label{tab:rev-biblio}\\
+\toprule
+\textbf{Autor/Ano} & \textbf{Principal descoberta} & \textbf{Metodo utilizado} & \textbf{Relacao com o projeto} & \textbf{Observacao pessoal} \\
+\midrule
+\endfirsthead
+
+\toprule
+\textbf{Autor/Ano} & \textbf{Principal descoberta} & \textbf{Metodo utilizado} & \textbf{Relacao com o projeto} & \textbf{Observacao pessoal} \\
+\midrule
+\endhead
+
+\midrule
+\endfoot
+
+\bottomrule
+\endlastfoot
+
+Sudamrao et al.\ (2025) & Prototipo alcalino compacto de baixo custo com eficiencia aproximada de 50\% & Construcao experimental com camara em acrilico, NaOH e eletrodos metalicos & Serve como referencia direta para comparar minha tentativa inicial com soda caustica em pequena escala & E util porque mostra uma configuracao que funcionou com meio alcalino, o que ajuda a comparar com a corrosao que observei no meu teste preliminar \\
+\midrule
+Wintergerst-Felipe et al.\ (2026) & A geometria do suporte do eletrodo influencia fortemente a eficiencia e a remocao de gas & Analise experimental de diferentes geometrias internas & Relaciona-se com a melhoria mecanica do sistema e com o fato de eu estar remontando o conjunto interno & Mostra que nao basta trocar eletrolito ou eletrodo; a organizacao fisica interna tambem pode mudar muito o resultado \\
+\midrule
+MDPI Applied Sciences (2025) & Conversor buck em 400 kHz pode melhorar o desprendimento de bolhas por eletrolise pulsada & Projeto eletronico com controle pulsado & Relaciona-se de forma secundaria ao meu projeto, porque ainda estou concluindo a montagem basica do circuito & E uma referencia futura interessante, mas primeiro preciso validar o funcionamento minimo da nova montagem antes de avancar para controle refinado \\
+\midrule
+Galeski, H. R.\ (2025) & Detalha montagem experimental e medicao de producao de hidrogenio & Dissertacao com montagem laboratorial e medicao volumetrica & Ajuda na metodologia experimental & Mesmo sendo de outra rota, ajuda bastante na parte pratica de medicao e organizacao do experimento \\
+\midrule
+Oliveira, V. N. S.\ (2024) & Modelos matematicos de planta de hidrogenio podem ser validados com erro menor que 10\% & Simulacao em DWSIM e comparacao experimental & Ajuda na modelagem teorica do sistema & E util para fortalecer a parte analitica do artigo e nao deixar o trabalho apenas descritivo \\
+\midrule
+MDPI Energies (2024) & Temperatura e distancia zero-gap influenciam a eficiencia e o custo do AWE & Simulacao e otimizacao de desempenho & Relaciona-se com parametros operacionais do meu projeto & Mostra que pequenas mudancas fisicas e termicas podem impactar muito a eficiencia do sistema \\
+\midrule
+Lianos (2023) & Celulas fotoeletrocataliticas representam rota alternativa para hidrogenio & Revisao teorica sobre PEC & Serve como comparacao com outras rotas de geracao & E util para mostrar no artigo que existem rotas diferentes, embora meu foco principal seja eletrolise alcalina \\
+\midrule
+MDPI Energies (2024) -- AEM Review & AEM tenta unir baixo custo da alcalina com arquitetura da PEM & Revisao de literatura & Ajuda a contextualizar tendencias futuras & Mostra que o campo ainda esta evoluindo e que meu trabalho pode dialogar com tecnologias emergentes \\
+\midrule
+Moure, G. T.\ (2021) & Mapeia oportunidades de inovacao e anterioridade em hidrogenio & Tese com foco em propriedade industrial & Ajuda a entender a parte de inovacao e patenteabilidade & E uma referencia importante para justificar por que a pesquisa de anterioridade precisa estar no trabalho \\
+\midrule
+IEA -- Global Hydrogen Review (2025) & Apresenta panorama global de custos, avanco tecnologico e mercado & Relatorio tecnico internacional & Oferece contexto macroeconomico e tecnologico & E importante para mostrar que o tema do hidrogenio nao e isolado, mas parte de uma transicao energetica mundial \\
+\end{longtable}
+\normalsize
+
+\subsection{Pesquisa de anterioridade}
+
+\small
+\setlength{\tabcolsep}{3pt}
+\begin{longtable}{@{}>{\RaggedRight\arraybackslash}p{0.21\textwidth}>{\RaggedRight\arraybackslash}p{0.13\textwidth}>{\RaggedRight\arraybackslash}p{0.24\textwidth}>{\RaggedRight\arraybackslash}p{0.24\textwidth}@{}}
+\caption{Planilha de leitura da pesquisa de anterioridade.}\label{tab:anterioridade}\\
+\toprule
+\textbf{Solucao/Patente} & \textbf{Tipo} & \textbf{Relacao com o projeto} & \textbf{Observacao pessoal} \\
+\midrule
+\endfirsthead
+
+\toprule
+\textbf{Solucao/Patente} & \textbf{Tipo} & \textbf{Relacao com o projeto} & \textbf{Observacao pessoal} \\
+\midrule
+\endhead
+
+\midrule
+\endfoot
+
+\bottomrule
+\endlastfoot
+
+Horizon Renewable Energy Education Set & Produto educacional & Similar por trabalhar com geracao de hidrogenio em ambiente didatico & Serve como referencia de mercado, mas e um sistema mais fechado e menos flexivel para experimentacao aberta \\
+\midrule
+Heliocentris Professional Trainer & Produto\slash laboratorio & Similar por integrar geracao, monitoramento e uso academico & Mostra um padrao mais avancado, porem com custo elevado, o que abre espaco para solucoes de baixo custo \\
+\midrule
+Patente US 4,936,961 -- Stanley Meyer & Patente & Relaciona-se a funcao de geracao de hidrogenio & E importante citar como marco historico, mas precisa ser tratada com cuidado por causa das controversias tecnicas \\
+\midrule
+SunHydrogen Solar-to-H2 & Prototipo comercial\slash tecnologico & Trabalha com producao de hidrogenio por rota solar integrada & Mostra tendencia de integracao tecnologica, embora esteja distante do perfil do meu prototipo experimental \\
+\midrule
+Equatic Pilot System & Prototipo piloto & Relaciona-se ao uso do hidrogenio em processos quimicos mais amplos & E menos proximo do meu foco, mas ajuda a mostrar que o hidrogenio pode ser integrado a solucoes ambientais complexas \\
+\midrule
+H-100 PEM Stack & Produto comercial & Serve como parametro do que o mercado oferece em escala pequena com controle integrado & E util como referencia de mercado, mas nao atende ao objetivo de baixo custo e abertura construtiva do prototipo academico \\
+\end{longtable}
+\normalsize
+
+\section{Conclusao}
+
+A partir da revisao bibliografica e da pesquisa de anterioridade, foi possivel verificar que a geracao de hidrogenio por eletrolise da agua e um campo consolidado, mas ainda repleto de oportunidades de investigacao quando se trata de sistemas de pequena escala e aplicacao academica. A literatura mostrou que a eletrolise alcalina e a rota de referencia mais comum para prototipos experimentais, mas o desenvolvimento real deste trabalho indicou que a configuracao inicial com soda caustica gerou problemas praticos de corrosao que nao podem ser ignorados.
+
+Por outro lado, a pesquisa de anterioridade revelou que existem kits, patentes e plataformas comerciais relacionados ao tema, mas que boa parte dessas solucoes apresenta custo elevado, arquitetura fechada ou baixa flexibilidade para experimentacao aberta. Esse resultado nao enfraquece a proposta; ao contrario, evidencia que existe espaco para um estudo mais honesto e incremental, centrado na validacao de materiais, na compatibilidade quimica e na viabilidade real de uma montagem simples.
+
+Dessa forma, conclui-se que o projeto possui relevancia cientifica principalmente se for apresentado como um estudo experimental em fase inicial, voltado a compreender os efeitos da corrosao, da troca de eletrodos e da futura substituicao do eletrolito por bicarbonato de sodio. A contribuicao mais valiosa do trabalho, neste momento, nao esta em afirmar alta eficiencia ou desempenho superior, mas em registrar com clareza o que ja foi tentado, o que falhou, o que foi modificado e quais testes ainda precisam ser executados para validar a nova configuracao.
+
+\section{Referencias consultadas}
+
+\begin{thebibliography}{99}
+
+\bibitem{ref1}
+LEI, Jianhua et al. A Comprehensive Review on the Power Supply System of Hydrogen Production Electrolyzers for Future Integrated Energy Systems. \textit{Energies}, 2024. Disponivel em: \url{https://www.mdpi.com/1996-1073/17/4/935}. Acesso em: 31 mar. 2026.
+
+\bibitem{ref2}
+U.S. DEPARTMENT OF ENERGY. Hydrogen Program 2024 Annual Merit Review and Peer Evaluation Meeting. 2024. Disponivel em: \url{https://www.hydrogen.energy.gov/docs/hydrogenprogramlibraries/pdfs/review24/p148a_alia_2024_p.pdf}. Acesso em: 31 mar. 2026.
+
+\bibitem{ref3}
+SUDAMRAO, G. A. et al. Design and Experimental Evaluation of a Compact Alkaline Water Electrolyzer for Hydrogen Production. \textit{International Journal of Contemporary Research in Multidisciplinary}, v. 4, n. 6, p. 7--10, 2025. DOI: 10.5281/zenodo.17529306. Disponivel em: \url{https://multiarticlesjournal.com/uploads/articles/IJCRM202545114.pdf}. Acesso em: 31 mar. 2026.
+
+\bibitem{ref4}
+MDPI APPLIED SCIENCES. Design of the Converter Prototype for Powering the Hydrogen Electrolyzer. 2025. Disponivel em: \url{https://www.mdpi.com/2076-3417/15/5/2601}. Acesso em: 31 mar. 2026.
+
+\bibitem{ref5}
+MDPI ENERGIES. Simulation-Based Performance and Cost Optimization of Alkaline Electrolyzers. 2025. Disponivel em: \url{https://www.mdpi.com/1996-1073/19/3/835}. Acesso em: 31 mar. 2026.
+
+\bibitem{ref6}
+WINTERGERST-FELIPE, A. et al. Impact of Electrode Support Internal Geometry on Polarisation Curve Performance in Alkaline Electrolysers. Preprint, 2026. Disponivel em: \url{https://www.preprints.org/manuscript/202602.0985}. Acesso em: 31 mar. 2026.
+
+\bibitem{ref7}
+GALESKI, H. R. Producao de hidrogenio a partir de residuo de blister farmaceutico: uma alternativa para a producao de energia. Dissertacao. Universidade Federal do Parana, 2025. Disponivel em: \url{https://acervodigital.ufpr.br/xmlui/handle/1884/97372}. Acesso em: 31 mar. 2026.
+
+\bibitem{ref8}
+OLIVEIRA, V. N. S. Estudo de modelagem e simulacao sobre a producao de hidrogenio por eletrolise alcalina e sua conversao para metanol. Dissertacao (Mestrado em Engenharia Quimica). Universidade Federal do Ceara, 2024. Disponivel em: \url{https://repositorio.ufc.br/handle/riufc/79047}. Acesso em: 31 mar. 2026.
+
+\bibitem{ref9}
+FOTOELETROCATALISE em semicondutores: dos principios basicos ate sua conformacao a nanoescala. \textit{Quimica Nova}. Disponivel em: \url{https://www.scielo.br/j/qn/a/QkYzQTQFCdTXcjHxXnPCWYS/}. Acesso em: 31 mar. 2026.
+
+\bibitem{ref10}
+MDPI ENERGIES. Review of AEM Electrolysis Research from the Perspective of Developing a Reliable Model. 2024. Disponivel em: \url{https://www.mdpi.com/1996-1073/17/20/5030}. Acesso em: 31 mar. 2026.
+
+\bibitem{ref11}
+INSTITUTO NACIONAL DA PROPRIEDADE INDUSTRIAL. Patentes verdes no Brasil: uso do programa de tramite prioritario de patentes de tecnologias verdes no Brasil. \textit{Radar Tecnologico}. Disponivel em: \url{https://www.gov.br/inpi/pt-br/servicos/patentes/observatorio-de-tecnologias-verdes/Radar_TecnologiasVerdes_Versaofinal.pdf}. Acesso em: 31 mar. 2026.
+
+\bibitem{ref12}
+INTERNATIONAL ENERGY AGENCY. Global Hydrogen Review 2025: Executive Summary. Paris: IEA, 2025. Disponivel em: \url{https://www.iea.org/reports/global-hydrogen-review-2025/executive-summary}. Acesso em: 31 mar. 2026.
+
+\bibitem{ref13}
+INTERNATIONAL ENERGY AGENCY. Global Hydrogen Review 2025: Production Prospects to 2030. Paris: IEA, 2025. Disponivel em: \url{https://www.iea.org/reports/global-hydrogen-review-2025/production-prospects-to-2030-2}. Acesso em: 31 mar. 2026.
+
+\bibitem{ref14}
+ARBOR SCIENTIFIC. Renewable Energy Education Set. Catalogo de produto consultado para pesquisa de anterioridade. Disponivel em: \url{https://www.arborsci.com/collections/physical-science-energy/products/renewable-energy-education-set}. Acesso em: 31 mar. 2026.
+
+\bibitem{ref15}
+HELIOCENTRIS ACADEMIA INTERNATIONAL. Solar Hydrogen Trainer. Catalogo tecnico consultado para pesquisa de anterioridade. Disponivel em: \url{https://static.viaaurea.eu/d/heliocentrisacademia.com_dev/files/2301.pdf/s-0ea082b57d01}. Acesso em: 31 mar. 2026.
+
+\bibitem{ref16}
+MEYER, Stanley. US4936961A: Method for the Production of a Fuel Gas. Google Patents. Disponivel em: \url{https://patents.google.com/patent/US4936961A/en}. Acesso em: 31 mar. 2026.
+
+\bibitem{ref17}
+SUNHYDROGEN. SunHydrogen Demo Accelerates Hydrogen Production with 1.92 m2 Solar-to-Hydrogen Module. TankTerminals, 2025. Disponivel em: \url{https://tankterminals.com/news/sunhydrogen-demo-accelerates-hydrogen-production-with-1-92-m%C2%B2-solar-to-hydrogen-module/}. Acesso em: 31 mar. 2026.
+
+\bibitem{ref18}
+UCLA SAMUELI SCHOOL OF ENGINEERING. Time Picks UCLA Engineering Climate Solution as One of 2023 Top Inventions. 2023. Disponivel em: \url{https://samueli.ucla.edu/time-picks-ucla-engineering-climate-solution-as-one-of-2023-top-inventions/}. Acesso em: 31 mar. 2026.
+
+\bibitem{ref19}
+H-100 PEM Fuel Cell - 100W. Pagina comercial consultada para comparacao de produto de pequena escala. Disponivel em: \url{https://www.fuelcellearth.com/fuel-cell-products/h-100-pem-fuel-cell-100w/}. Acesso em: 31 mar. 2026.
+
+\bibitem{ref20}
+U.S. DEPARTMENT OF ENERGY; NETL. U.S. Department of Energy Selects 12 Projects to Improve Fossil-Based Hydrogen Production, Transport, Storage and Utilization. 2021. Disponivel em: \url{https://netl.doe.gov/index.php/node/10875}. Acesso em: 31 mar. 2026.
+
+\bibitem{ref21}
+INSTITUTO NACIONAL DA PROPRIEDADE INDUSTRIAL. Patentes\_verdes. Servico de tramite prioritario para tecnologias verdes. Disponivel em: \url{https://www.gov.br/inpi/pt-br/servicos/patentes/tramite-prioritario/projetos-piloto/Patentes_verdes}. Acesso em: 31 mar. 2026.
+
+\bibitem{ref22}
+ING THINK. Hydrogen Stuck in the Pilot Phase. 2026. Disponivel em: \url{https://think.ing.com/downloads/pdf/article/energy-hydrogen-stuck-in-the-pilot-phase}. Acesso em: 31 mar. 2026.
+
+\bibitem{ref23}
+LAGHROUCHE, S.; DJERDIR, A. A Critical Review of Green Hydrogen Production by Electrolysis: From Technology and Modeling to Performance and Cost. \textit{Energies}, 2026. Disponivel em: \url{https://www.mdpi.com/1996-1073/19/1/59}. Acesso em: 31 mar. 2026.
+
+\bibitem{ref24}
+Water Electrolysis Technologies and Their Modeling Approaches: A Comprehensive Review. 2025. Disponivel em: \url{https://www.mdpi.com/2673-4117/6/4/81}. Acesso em: 31 mar. 2026.
+
+\bibitem{ref25}
+Research Progress of Hydrogen Production Technology and Related Catalysts by Electrolysis of Water. \textit{Molecules}, 2023. Disponivel em: \url{https://www.mdpi.com/1420-3049/28/13/5010}. Acesso em: 31 mar. 2026.
+
+\bibitem{ref26}
+Analysis of the Main Hydrogen Production Technologies. \textit{Sustainability}, 2025. Disponivel em: \url{https://www.mdpi.com/2071-1050/17/18/8367}. Acesso em: 31 mar. 2026.
+
+\bibitem{ref27}
+Examining oxyhydrogen gas generation experimentally using wet cell design. PubMed Central, 2025. Disponivel em: \url{https://pmc.ncbi.nlm.nih.gov/articles/PMC12133180/}. Acesso em: 31 mar. 2026.
+
+\bibitem{ref28}
+Electrocatalytic CO$_2$ Reduction and H$_2$ Evolution by a Copper (II) Complex with Redox-Active Ligand. PubMed Central, 2022. Disponivel em: \url{https://pmc.ncbi.nlm.nih.gov/articles/PMC8874443/}. Acesso em: 31 mar. 2026.
+
+\bibitem{ref29}
+EMPRESA DE PESQUISA ENERGETICA. Roadmap Tecnologico de Hidrogenio. EPE, Brasil. Disponivel em: \url{https://www.epe.gov.br/pt/publicacoes-dados-abertos/publicacoes/roadmap-tecnologico-de-hidrogenio}. Acesso em: 31 mar. 2026.
+
+\bibitem{ref30}
+A Review of Hydrogen Production via Seawater Electrolysis: Current Status and Challenges. \textit{Catalysts}, 2024. Disponivel em: \url{https://www.mdpi.com/2073-4344/14/10/691}. Acesso em: 31 mar. 2026.
+
+\end{thebibliography}
+
+\end{document}
