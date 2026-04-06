@@ -1,0 +1,709 @@
+\documentclass[12pt,a4paper]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[brazilian]{babel}
+\usepackage[a4paper,top=2.2cm,bottom=2.2cm,left=2.5cm,right=2.5cm]{geometry}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{tikz}
+\usepackage{pdfpages}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{microtype}
+\usepackage{tabularx}
+\usepackage{titlesec}
+
+\usetikzlibrary{automata,positioning,arrows.meta,shapes.geometric}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.35em}
+\captionsetup{aboveskip=2pt,belowskip=2pt}
+\titlespacing*{\section}{0pt}{0.5em}{0.3em}
+\titlespacing*{\subsection}{0pt}{0.45em}{0.2em}
+
+\hypersetup{
+  hidelinks,
+  colorlinks=false,
+}
+
+\lstdefinestyle{codeblock}{
+  basicstyle=\ttfamily\small,
+  frame=single,
+  breaklines=true,
+  columns=fullflexible
+}
+
+\tikzset{
+  >=Stealth,
+  state/.style={circle,draw,minimum size=9mm,inner sep=0pt},
+  finalstate/.style={state,double},
+  every edge/.style={draw,->,>=Stealth},
+  darkstate/.style={state,draw=white,text=white},
+  darkfinalstate/.style={finalstate,draw=white,text=white}
+}
+
+\newcommand{\darkdiagram}[2][0.88\linewidth]{%
+  \begin{center}
+  \setlength{\fboxsep}{10pt}%
+  \fcolorbox{white}{black}{%
+    \parbox{#1}{\centering #2}%
+  }
+  \end{center}
+}
+
+\begin{document}
+
+\begin{center}
+    {\Large \textbf{TRABALHO T1 -- COMPILADORES}}\\[0.4em]
+    {\normalsize Atividades das Aulas}
+\end{center}
+
+\vspace{0.2em}
+
+\begin{tabularx}{\linewidth}{@{}X r@{}}
+\textbf{Acad\^emico(a):} Giuseph De Luka Giangareli & \textbf{Nota:} \rule{2cm}{0.4pt} \\
+\textbf{Semestre:} 7\textsuperscript{o} & \textbf{Data:} 06/04/2026
+\end{tabularx}
+
+\vspace{0.25em}
+
+\hrule
+\vspace{0.5em}
+
+\section*{Escopo correto do trabalho}
+O trabalho deste semestre é \emph{realizar todas as atividades passadas em sala de aula}. 
+
+\section*{Aula 2 -- Análise léxica}
+
+\subsection*{Atividade 1 -- Classificação de tokens}
+
+\subsubsection*{a)}
+\begin{lstlisting}[style=codeblock]
+X = 60.8 + id2;
+\end{lstlisting}
+
+\begin{lstlisting}[style=codeblock]
+<IDENT, X>
+<ATRIB, =>
+<NUM, 60.8>
+<OP_SOMA, +>
+<IDENT, id2>
+<PONTO_VIRGULA, ;>
+\end{lstlisting}
+
+\subsubsection*{b)}
+\begin{lstlisting}[style=codeblock]
+Flag = x1 * 2;
+\end{lstlisting}
+
+\begin{lstlisting}[style=codeblock]
+<IDENT, Flag>
+<ATRIB, =>
+<IDENT, x1>
+<OP_MULT, *>
+<NUM, 2>
+<PONTO_VIRGULA, ;>
+\end{lstlisting}
+
+\subsubsection*{c)}
+\begin{lstlisting}[style=codeblock]
+If (a = b) then
+    Write("Analise lexica");
+\end{lstlisting}
+
+\begin{lstlisting}[style=codeblock]
+<KW_IF, If>
+<LEFTPAR, (>
+<IDENT, a>
+<ATRIB, =>
+<IDENT, b>
+<RIGHTPAR, )>
+<KW_THEN, then>
+<KW_WRITE, Write>
+<LEFTPAR, (>
+<STRING, "Analise lexica">
+<RIGHTPAR, )>
+<PONTO_VIRGULA, ;>
+\end{lstlisting}
+
+\subsubsection*{d)}
+\begin{lstlisting}[style=codeblock]
+while(a < b){
+    A++;
+}
+\end{lstlisting}
+
+\begin{lstlisting}[style=codeblock]
+<KW_WHILE, while>
+<LEFTPAR, (>
+<IDENT, a>
+<OP_REL, <>
+<IDENT, b>
+<RIGHTPAR, )>
+<LBRACE, {>
+<IDENT, A>
+<OP_INC, ++>
+<PONTO_VIRGULA, ;>
+<RBRACE, }>
+\end{lstlisting}
+
+\subsection*{Atividade 2 -- Classes de caracteres}
+
+\textbf{Respostas:}
+\begin{lstlisting}[style=codeblock]
+[aeiou]
+[a-jA-J]
+[0-9A-F]
+[.,!?:;]
+\end{lstlisting}
+
+\subsection*{Atividade 3 -- Definição regular para hexadecimal}
+\begin{lstlisting}[style=codeblock]
+0[xX]([0-9A-Fa-f])+
+\end{lstlisting}
+
+\section*{Aula 3 -- Autômatos finitos}
+
+\subsection*{Exercício 1 -- Construção de autômatos}
+Os slides da \texttt{Aula3} apresentam o seguinte bloco de exercícios:
+\begin{enumerate}
+  \item \( \{w \in \{a,b\}^* \mid w \text{ tem tamanho } 3\} \)
+  \item \( \{w \in \{a,b\}^* \mid w \text{ tem tamanho maior que } 3\} \)
+  \item \( \{w \in \{a,b\}^* \mid w \text{ tem como prefixo } aa\} \)
+  \item \( \{w \in \{a,b\}^* \mid w \text{ tem como sufixo } aaa \text{ ou } bb\} \)
+  \item \( \{w \in \{a,b\}^* \mid w \text{ tem tamanho múltiplo de } 3\} \)
+  \item \( \{w \in \{0,1\}^* \mid \text{cada } 0 \text{ de } w \text{ é imediatamente seguido de, no mínimo, dois } 1\text{'s}\} \)
+  \item \( \{w \in \{0,1\}^* \mid w \text{ não contém } 000 \text{ nem } 111\} \)
+  \item \( \{w \in \{0,1\}^* \mid \text{os últimos três símbolos de } w \text{ não são } 000\} \)
+  \item \( \{w \in \{a,b\}^* \mid w \text{ não contém } ab\} \)
+  \item \( \{w \in \{a,b\}^* \mid w \text{ tem tamanho múltiplo de } 3 \text{ e não contém } ab\} \)
+\end{enumerate}
+
+Abaixo estão autômatos válidos para cada item. Em alguns casos, foi usado AFND para manter o desenho mais direto.
+
+\subsubsection*{a) Tamanho exatamente 3}
+\darkdiagram{
+\begin{tikzpicture}[x=1cm,y=1cm]
+  \definecolor{gridline}{RGB}{44,44,44}
+  \definecolor{nodefill}{RGB}{0,0,0}
+  \definecolor{finalfill}{RGB}{245,245,245}
+  \definecolor{edgecol}{RGB}{240,240,240}
+
+  \fill[black] (-1.2,-1.5) rectangle (9.7,1.5);
+  \draw[step=0.25cm,gridline,very thin] (-1.2,-1.5) grid (9.7,1.5);
+
+  \node[circle,fill=nodefill,draw=edgecol,line width=0.7pt,minimum size=1.25cm,text=white] (q0) at (0.7,0) {q0};
+  \node[circle,fill=nodefill,draw=edgecol,line width=0.7pt,minimum size=1.25cm,text=white] (q1) at (3.3,0) {q1};
+  \node[circle,fill=nodefill,draw=edgecol,line width=0.7pt,minimum size=1.25cm,text=white] (q2) at (5.9,0) {q2};
+  \node[circle,fill=finalfill,draw=edgecol,double,line width=0.7pt,minimum size=1.25cm,text=black] (q3) at (8.5,0) {q3};
+
+  \draw[edgecol,line width=0.8pt,-{Stealth[length=3mm,width=2.2mm]}] (-0.6,0) -- (q0.west);
+  \draw[edgecol,line width=0.8pt,-{Stealth[length=3mm,width=2.2mm]}] (q0.east) -- node[above,text=edgecol,font=\small] {a,b} (q1.west);
+  \draw[edgecol,line width=0.8pt,-{Stealth[length=3mm,width=2.2mm]}] (q1.east) -- node[above,text=edgecol,font=\small] {a,b} (q2.west);
+  \draw[edgecol,line width=0.8pt,-{Stealth[length=3mm,width=2.2mm]}] (q2.east) -- node[above,text=edgecol,font=\small] {a,b} (q3.west);
+\end{tikzpicture}
+}
+
+\subsubsection*{b) Tamanho maior que 3}
+\darkdiagram{
+\begin{tikzpicture}[x=1cm,y=1cm]
+  \definecolor{gridline}{RGB}{44,44,44}
+  \definecolor{nodefill}{RGB}{0,0,0}
+  \definecolor{finalfill}{RGB}{245,245,245}
+  \definecolor{edgecol}{RGB}{240,240,240}
+
+  \fill[black] (-1.2,-1.5) rectangle (11.0,1.5);
+  \draw[step=0.25cm,gridline,very thin] (-1.2,-1.5) grid (11.0,1.5);
+
+  \node[circle,fill=nodefill,draw=edgecol,line width=0.7pt,minimum size=1.15cm,text=white] (q0) at (0.5,0) {q0};
+  \node[circle,fill=nodefill,draw=edgecol,line width=0.7pt,minimum size=1.15cm,text=white] (q1) at (2.7,0) {q1};
+  \node[circle,fill=nodefill,draw=edgecol,line width=0.7pt,minimum size=1.15cm,text=white] (q2) at (4.9,0) {q2};
+  \node[circle,fill=nodefill,draw=edgecol,line width=0.7pt,minimum size=1.15cm,text=white] (q3) at (7.1,0) {q3};
+  \node[circle,fill=finalfill,draw=edgecol,double,line width=0.7pt,minimum size=1.15cm,text=black] (q4) at (9.2,0) {q4};
+
+  \draw[edgecol,line width=0.8pt,-{Stealth[length=3mm,width=2.2mm]}] (-0.7,0) -- (q0.west);
+  \draw[edgecol,line width=0.8pt,-{Stealth[length=3mm,width=2.2mm]}] (q0.east) -- node[above,text=edgecol,font=\small] {a,b} (q1.west);
+  \draw[edgecol,line width=0.8pt,-{Stealth[length=3mm,width=2.2mm]}] (q1.east) -- node[above,text=edgecol,font=\small] {a,b} (q2.west);
+  \draw[edgecol,line width=0.8pt,-{Stealth[length=3mm,width=2.2mm]}] (q2.east) -- node[above,text=edgecol,font=\small] {a,b} (q3.west);
+  \draw[edgecol,line width=0.8pt,-{Stealth[length=3mm,width=2.2mm]}] (q3.east) -- node[above,text=edgecol,font=\small] {a,b} (q4.west);
+  \draw[edgecol,line width=0.7pt] (q4) edge[loop above] node[text=edgecol,font=\small] {a,b} ();
+\end{tikzpicture}
+}
+
+\subsubsection*{c) Prefixo \texttt{aa}}
+\darkdiagram{
+\begin{tikzpicture}[x=1cm,y=1cm]
+  \definecolor{gridline}{RGB}{44,44,44}
+  \definecolor{nodefill}{RGB}{0,0,0}
+  \definecolor{finalfill}{RGB}{245,245,245}
+  \definecolor{edgecol}{RGB}{240,240,240}
+
+  \fill[black] (-1.2,-1.5) rectangle (9.9,1.5);
+  \draw[step=0.25cm,gridline,very thin] (-1.2,-1.5) grid (9.9,1.5);
+
+  \node[circle,fill=nodefill,draw=edgecol,line width=0.7pt,minimum size=1.35cm,text=white] (q0) at (1.1,0) {q0};
+  \node[circle,fill=nodefill,draw=edgecol,line width=0.7pt,minimum size=1.35cm,text=white] (q1) at (4.2,0) {q1};
+  \node[circle,fill=finalfill,draw=edgecol,double,line width=0.7pt,minimum size=1.35cm,text=black] (q2) at (7.4,0) {q2};
+
+  \draw[edgecol,line width=0.8pt,-{Stealth[length=3mm,width=2.2mm]}] (-0.6,0) -- (q0.west);
+  \draw[edgecol,line width=0.8pt,-{Stealth[length=3mm,width=2.2mm]}] (q0.east) -- node[above,text=edgecol,font=\small] {a} (q1.west);
+  \draw[edgecol,line width=0.8pt,-{Stealth[length=3mm,width=2.2mm]}] (q1.east) -- node[above,text=edgecol,font=\small] {a} (q2.west);
+  \draw[edgecol,line width=0.7pt] (q2) edge[loop above] node[text=edgecol,font=\small] {a,b} ();
+\end{tikzpicture}
+}
+
+\subsubsection*{d) Sufixo \texttt{aaa} ou \texttt{bb}}
+\darkdiagram{
+\begin{tikzpicture}[x=1cm,y=1cm]
+  \definecolor{gridline}{RGB}{44,44,44}
+  \definecolor{nodefill}{RGB}{0,0,0}
+  \definecolor{finalfill}{RGB}{245,245,245}
+  \definecolor{edgecol}{RGB}{240,240,240}
+
+  \fill[black] (-1.2,-2.2) rectangle (11.0,1.8);
+  \draw[step=0.25cm,gridline,very thin] (-1.2,-2.2) grid (11.0,1.8);
+
+  \node[circle,fill=nodefill,draw=edgecol,line width=0.7pt,minimum size=1.2cm,text=white] (q0) at (0.6,0.2) {q0};
+  \node[circle,fill=nodefill,draw=edgecol,line width=0.7pt,minimum size=1.2cm,text=white] (q1) at (3.1,0.2) {q1};
+  \node[circle,fill=nodefill,draw=edgecol,line width=0.7pt,minimum size=1.2cm,text=white] (q2) at (5.8,0.2) {q2};
+  \node[circle,fill=nodefill,draw=edgecol,line width=0.7pt,minimum size=1.2cm,text=white] (q3) at (3.1,-1.6) {q3};
+  \node[circle,fill=finalfill,draw=edgecol,double,line width=0.7pt,minimum size=1.2cm,text=black] (q4) at (8.5,-1.6) {q4};
+
+  \draw[edgecol,line width=0.8pt,-{Stealth[length=3mm,width=2.2mm]}] (-0.7,0.2) -- (q0.west);
+  \draw[edgecol,line width=0.8pt] (q0) edge[loop above] node[text=edgecol,font=\small] {a,b} ();
+  \draw[edgecol,line width=0.8pt,-{Stealth[length=3mm,width=2.2mm]}] (q0.east) -- node[above,text=edgecol,font=\small] {a} (q1.west);
+  \draw[edgecol,line width=0.8pt,-{Stealth[length=3mm,width=2.2mm]}] (q1.east) -- node[above,text=edgecol,font=\small] {a} (q2.west);
+  \draw[edgecol,line width=0.8pt,-{Stealth[length=3mm,width=2.2mm]}] (q0) -- node[right,text=edgecol,font=\small] {b} (q3);
+  \draw[edgecol,line width=0.8pt,-{Stealth[length=3mm,width=2.2mm]}] (q2) -- node[right,text=edgecol,font=\small] {a} (q4);
+  \draw[edgecol,line width=0.8pt,-{Stealth[length=3mm,width=2.2mm]}] (q3.east) -- node[below,text=edgecol,font=\small] {b} (q4.west);
+  \draw[edgecol,line width=0.8pt] (q4) edge[loop right] node[text=edgecol,font=\small] {a,b} ();
+\end{tikzpicture}
+}
+
+\subsubsection*{e) Tamanho múltiplo de 3}
+\darkdiagram{
+\begin{tikzpicture}[x=1cm,y=1cm]
+  \definecolor{gridline}{RGB}{44,44,44}
+  \definecolor{nodefill}{RGB}{0,0,0}
+  \definecolor{finalfill}{RGB}{245,245,245}
+  \definecolor{edgecol}{RGB}{240,240,240}
+
+  \fill[black] (-1.2,-2.0) rectangle (8.6,1.6);
+  \draw[step=0.25cm,gridline,very thin] (-1.2,-2.0) grid (8.6,1.6);
+
+  \node[circle,fill=finalfill,draw=edgecol,double,line width=0.7pt,minimum size=1.35cm,text=black] (q0) at (0.9,0.2) {q0};
+  \node[circle,fill=nodefill,draw=edgecol,line width=0.7pt,minimum size=1.35cm,text=white] (q1) at (3.6,0.2) {q1};
+  \node[circle,fill=nodefill,draw=edgecol,line width=0.7pt,minimum size=1.35cm,text=white] (q2) at (6.3,0.2) {q2};
+
+  \draw[edgecol,line width=0.8pt,-{Stealth[length=3mm,width=2.2mm]}] (-0.7,0.2) -- (q0.west);
+  \draw[edgecol,line width=0.8pt,-{Stealth[length=3mm,width=2.2mm]}] (q0.east) -- node[above,text=edgecol,font=\small] {a,b} (q1.west);
+  \draw[edgecol,line width=0.8pt,-{Stealth[length=3mm,width=2.2mm]}] (q1.east) -- node[above,text=edgecol,font=\small] {a,b} (q2.west);
+  \draw[edgecol,line width=0.8pt,-{Stealth[length=3mm,width=2.2mm]}] (q2.south) .. controls (5.1,-1.6) and (2.2,-1.6) .. node[below,text=edgecol,font=\small] {a,b} (q0.south);
+\end{tikzpicture}
+}
+
+\subsubsection*{f) Cada \texttt{0} é seguido de, no mínimo, dois \texttt{1}'s}
+\darkdiagram{
+\begin{tikzpicture}[x=1cm,y=1cm]
+  \definecolor{gridline}{RGB}{44,44,44}
+  \definecolor{nodefill}{RGB}{0,0,0}
+  \definecolor{finalfill}{RGB}{245,245,245}
+  \definecolor{edgecol}{RGB}{240,240,240}
+
+  \fill[black] (-1.4,-2.6) rectangle (10.8,1.7);
+  \draw[step=0.25cm,gridline,very thin] (-1.4,-2.6) grid (10.8,1.7);
+
+  \node[circle,fill=finalfill,draw=edgecol,double,line width=0.7pt,minimum size=1.35cm,text=black] (q0) at (0.7,0.2) {q0};
+  \node[circle,fill=nodefill,draw=edgecol,line width=0.7pt,minimum size=1.35cm,text=white] (q1) at (3.7,0.2) {q1};
+  \node[circle,fill=nodefill,draw=edgecol,line width=0.7pt,minimum size=1.35cm,text=white] (q2) at (6.7,0.2) {q2};
+  \node[circle,fill=finalfill,draw=edgecol,double,line width=0.7pt,minimum size=1.35cm,text=black] (q3) at (9.7,0.2) {q3};
+
+  \draw[edgecol,line width=0.8pt,-{Stealth[length=3mm,width=2.2mm]}] (-0.8,0.2) -- (q0.west);
+  \draw[edgecol,line width=0.8pt,-{Stealth[length=3mm,width=2.2mm]}] (q0.east) -- node[above,text=edgecol,font=\small] {0} (q1.west);
+  \draw[edgecol,line width=0.8pt,-{Stealth[length=3mm,width=2.2mm]}] (q1.east) -- node[above,text=edgecol,font=\small] {1} (q2.west);
+  \draw[edgecol,line width=0.8pt,-{Stealth[length=3mm,width=2.2mm]}] (q2.east) -- node[above,text=edgecol,font=\small] {1} (q3.west);
+  \draw[edgecol,line width=0.8pt,-{Stealth[length=3mm,width=2.2mm]}] (q3.south west) .. controls (8.4,-1.4) and (4.8,-1.4) .. node[below,text=edgecol,font=\small] {0} (q1.south);
+  \draw[edgecol,line width=0.8pt,-{Stealth[length=3mm,width=2.2mm]}] (q3.south west) .. controls (8.0,-2.4) and (2.0,-2.4) .. node[below,text=edgecol,font=\small] {1} (q0.south);
+\end{tikzpicture}
+}
+
+\subsubsection*{g) Não contém \texttt{000} nem \texttt{111}}
+\darkdiagram[0.97\linewidth]{
+\begin{tikzpicture}[x=1cm,y=1cm]
+  \definecolor{gridline}{RGB}{44,44,44}
+  \definecolor{nodefill}{RGB}{0,0,0}
+  \definecolor{finalfill}{RGB}{245,245,245}
+  \definecolor{edgecol}{RGB}{240,240,240}
+
+  \fill[black] (-1.4,-3.2) rectangle (10.7,1.7);
+  \draw[step=0.25cm,gridline,very thin] (-1.4,-3.2) grid (10.7,1.7);
+
+  \node[circle,fill=finalfill,draw=edgecol,double,line width=0.7pt,minimum size=1.4cm,text=black] (q0) at (1.0,-0.1) {q0};
+  \node[circle,fill=finalfill,draw=edgecol,double,line width=0.7pt,minimum size=1.4cm,text=black] (q1) at (4.8,-0.1) {q1};
+  \node[circle,fill=finalfill,draw=edgecol,double,line width=0.7pt,minimum size=1.4cm,text=black] (q2) at (8.6,-0.1) {q2};
+  \node[circle,fill=finalfill,draw=edgecol,double,line width=0.7pt,minimum size=1.4cm,text=black] (q3) at (4.8,-2.2) {q3};
+  \node[circle,fill=finalfill,draw=edgecol,double,line width=0.7pt,minimum size=1.4cm,text=black] (q4) at (8.6,-2.2) {q4};
+
+  \draw[edgecol,line width=0.8pt,-{Stealth[length=3mm,width=2.2mm]}] (-0.8,-0.1) -- (q0.west);
+  \draw[edgecol,line width=0.8pt,-{Stealth[length=3mm,width=2.2mm]}] (q0.east) -- node[above,text=edgecol,font=\small] {0} (q1.west);
+  \draw[edgecol,line width=0.8pt,-{Stealth[length=3mm,width=2.2mm]}] (q1.east) -- node[above,text=edgecol,font=\small] {0} (q2.west);
+  \draw[edgecol,line width=0.8pt,-{Stealth[length=3mm,width=2.2mm]}] (q0.south east) -- node[left,text=edgecol,font=\small] {1} (q3.north west);
+  \draw[edgecol,line width=0.8pt,-{Stealth[length=3mm,width=2.2mm]}] (q3.east) -- node[above,text=edgecol,font=\small] {1} (q4.west);
+  \draw[edgecol,line width=0.8pt,-{Stealth[length=3mm,width=2.2mm]}] (q2.north) .. controls (6.9,1.0) and (2.9,1.0) .. node[above,text=edgecol,font=\small] {1} (q0.north);
+  \draw[edgecol,line width=0.8pt,-{Stealth[length=3mm,width=2.2mm]}] (q4.south) .. controls (6.9,-3.0) and (2.2,-3.0) .. node[below,text=edgecol,font=\small] {0} (q0.south);
+\end{tikzpicture}
+}
+
+\subsubsection*{h) Os últimos três símbolos não são \texttt{000}}
+\darkdiagram{
+\begin{tikzpicture}[x=1cm,y=1cm]
+  \definecolor{gridline}{RGB}{44,44,44}
+  \definecolor{nodefill}{RGB}{0,0,0}
+  \definecolor{finalfill}{RGB}{245,245,245}
+  \definecolor{edgecol}{RGB}{240,240,240}
+
+  \fill[black] (-1.5,-3.0) rectangle (12.0,1.8);
+  \draw[step=0.25cm,gridline,very thin] (-1.5,-3.0) grid (12.0,1.8);
+
+  \node[circle,fill=finalfill,draw=edgecol,double,line width=0.7pt,minimum size=1.4cm,text=black] (q0) at (0.8,0.1) {q0};
+  \node[circle,fill=finalfill,draw=edgecol,double,line width=0.7pt,minimum size=1.4cm,text=black] (q1) at (3.8,0.1) {q1};
+  \node[circle,fill=finalfill,draw=edgecol,double,line width=0.7pt,minimum size=1.4cm,text=black] (q2) at (6.8,0.1) {q2};
+  \node[circle,fill=nodefill,draw=edgecol,line width=0.7pt,minimum size=1.4cm,text=white] (q3) at (9.8,0.1) {q3};
+
+  \draw[edgecol,line width=0.8pt,-{Stealth[length=3mm,width=2.2mm]}] (-0.8,0.1) -- (q0.west);
+  \draw[edgecol,line width=0.8pt,-{Stealth[length=3mm,width=2.2mm]}] (q0.east) -- node[above,text=edgecol,font=\small] {0} (q1.west);
+  \draw[edgecol,line width=0.8pt,-{Stealth[length=3mm,width=2.2mm]}] (q1.east) -- node[above,text=edgecol,font=\small] {0} (q2.west);
+  \draw[edgecol,line width=0.8pt,-{Stealth[length=3mm,width=2.2mm]}] (q2.east) -- node[above,text=edgecol,font=\small] {0} (q3.west);
+  \draw[edgecol,line width=0.8pt] (q0) edge[loop below] node[text=edgecol,font=\small] {1} ();
+  \draw[edgecol,line width=0.8pt,-{Stealth[length=3mm,width=2.2mm]}] (q1.south) .. controls (3.0,-1.1) and (1.9,-1.1) .. node[below,text=edgecol,font=\small] {1} (q0.south east);
+  \draw[edgecol,line width=0.8pt,-{Stealth[length=3mm,width=2.2mm]}] (q2.south) .. controls (5.2,-1.8) and (2.0,-1.8) .. node[below,text=edgecol,font=\small] {1} (q0.south east);
+  \draw[edgecol,line width=0.8pt,-{Stealth[length=3mm,width=2.2mm]}] (q3.south) .. controls (8.2,-2.8) and (2.2,-2.8) .. node[below,text=edgecol,font=\small] {1} (q0.south east);
+  \draw[edgecol,line width=0.8pt] (q3) edge[loop right] node[text=edgecol,font=\small] {0} ();
+\end{tikzpicture}
+}
+
+\subsubsection*{i) Não contém \texttt{ab}}
+\darkdiagram{
+\begin{tikzpicture}[x=1cm,y=1cm]
+  \definecolor{gridline}{RGB}{44,44,44}
+  \definecolor{nodefill}{RGB}{0,0,0}
+  \definecolor{finalfill}{RGB}{245,245,245}
+  \definecolor{edgecol}{RGB}{240,240,240}
+
+  \fill[black] (-1.5,-3.3) rectangle (10.8,1.8);
+  \draw[step=0.25cm,gridline,very thin] (-1.5,-3.3) grid (10.8,1.8);
+
+  \node[circle,fill=finalfill,draw=edgecol,double,line width=0.7pt,minimum size=1.55cm,text=black] (q0) at (1.1,0.3) {q0};
+  \node[circle,fill=finalfill,draw=edgecol,double,line width=0.7pt,minimum size=1.55cm,text=black] (q1) at (6.0,0.3) {q1};
+  \node[circle,fill=finalfill,draw=edgecol,double,line width=0.7pt,minimum size=1.55cm,text=black] (q3) at (6.0,-2.5) {q3};
+
+  \draw[edgecol,line width=0.8pt,-{Stealth[length=3mm,width=2.2mm]}] (-0.2,0.3) -- (q0.west);
+  \draw[edgecol,line width=0.8pt,-{Stealth[length=3mm,width=2.2mm]}] (q0.east) -- node[above,text=edgecol,font=\small] {a} (q1.west);
+  \draw[edgecol,line width=0.8pt] (q1) edge[loop right] node[text=edgecol,font=\small] {a} ();
+  \draw[edgecol,line width=0.8pt,-{Stealth[length=3mm,width=2.2mm]}] (q0.south east) -- node[left,text=edgecol,font=\small] {b} (q3.north west);
+  \draw[edgecol,line width=0.8pt,-{Stealth[length=3mm,width=2.2mm]}] (q3.north) -- node[right,text=edgecol,font=\small] {a} (q1.south);
+\end{tikzpicture}
+}
+
+\subsubsection*{j) Tamanho múltiplo de 3 e não contém \texttt{ab}}
+\darkdiagram[0.99\linewidth]{
+\begin{tikzpicture}[x=1cm,y=1cm]
+  \definecolor{gridline}{RGB}{44,44,44}
+  \definecolor{nodefill}{RGB}{0,0,0}
+  \definecolor{finalfill}{RGB}{245,245,245}
+  \definecolor{edgecol}{RGB}{240,240,240}
+
+  \fill[black] (-1.5,-3.2) rectangle (12.3,2.0);
+  \draw[step=0.25cm,gridline,very thin] (-1.5,-3.2) grid (12.3,2.0);
+
+  \node[circle,fill=nodefill,draw=edgecol,line width=0.7pt,minimum size=1.55cm,text=white] (q0) at (0.9,0.1) {q0};
+  \node[circle,fill=nodefill,draw=edgecol,line width=0.7pt,minimum size=1.55cm,text=white] (q1) at (4.2,0.1) {q1};
+  \node[circle,fill=nodefill,draw=edgecol,line width=0.7pt,minimum size=1.55cm,text=white] (q3) at (7.5,0.1) {q3};
+  \node[circle,fill=finalfill,draw=edgecol,double,line width=0.7pt,minimum size=1.55cm,text=black] (q4) at (10.8,0.1) {q4};
+  \node[circle,fill=nodefill,draw=edgecol,line width=0.7pt,minimum size=1.55cm,text=white] (q2) at (4.2,-2.4) {q2};
+
+  \draw[edgecol,line width=0.8pt,-{Stealth[length=3mm,width=2.2mm]}] (-0.3,0.1) -- (q0.west);
+  \draw[edgecol,line width=0.8pt,-{Stealth[length=3mm,width=2.2mm]}] (q0.east) -- node[above,text=edgecol,font=\small] {a} (q1.west);
+  \draw[edgecol,line width=0.8pt,-{Stealth[length=3mm,width=2.2mm]}] (q1.east) -- node[above,text=edgecol,font=\small] {a} (q3.west);
+  \draw[edgecol,line width=0.8pt,-{Stealth[length=3mm,width=2.2mm]}] (q3.east) -- node[above,text=edgecol,font=\small] {a} (q4.west);
+  \draw[edgecol,line width=0.8pt,-{Stealth[length=3mm,width=2.2mm]}] (q4.north west) .. controls (8.9,1.3) and (5.7,1.3) .. node[above,text=edgecol,font=\small] {a} (q1.north);
+  \draw[edgecol,line width=0.8pt,-{Stealth[length=3mm,width=2.2mm]}] (q0.south east) -- node[left,text=edgecol,font=\small] {b} (q2.north west);
+  \draw[edgecol,line width=0.8pt,-{Stealth[length=3mm,width=2.2mm]}] (q2.north east) -- node[right,text=edgecol,font=\small] {b} (q3.south west);
+\end{tikzpicture}
+}
+
+\subsection*{Exercício 2 -- AFDs sobre o alfabeto decimal}
+Seja \(E = \{0,1,2,3,4,5,6,7,8,9\}\). Os slides pedem AFDs para:
+\begin{enumerate}
+  \item números inteiros pares;
+  \item números inteiros divisíveis por 5;
+  \item números inteiros ímpares.
+\end{enumerate}
+
+\subsubsection*{a) Valor inteiro par}
+\darkdiagram{
+\begin{tikzpicture}[x=1cm,y=1cm]
+  \definecolor{gridline}{RGB}{44,44,44}
+  \definecolor{nodefill}{RGB}{0,0,0}
+  \definecolor{finalfill}{RGB}{245,245,245}
+  \definecolor{edgecol}{RGB}{240,240,240}
+
+  \fill[black] (-1.5,-3.0) rectangle (10.7,1.8);
+  \draw[step=0.25cm,gridline,very thin] (-1.5,-3.0) grid (10.7,1.8);
+
+  \node[text=edgecol,font=\large] (etxt) at (0.1,1.0) {$E=\{0,1,2,3,4,5,6,7,8,9\}$};
+  \node[circle,fill=nodefill,draw=edgecol,line width=0.7pt,minimum size=1.8cm,text=white] (q0) at (1.6,-0.1) {q0};
+  \node[circle,fill=finalfill,draw=edgecol,double,line width=0.7pt,minimum size=1.8cm,text=black] (q1) at (7.0,-0.1) {q1};
+
+  \draw[edgecol,line width=0.8pt,-{Stealth[length=3mm,width=2.2mm]}] (-0.6,-0.1) -- (q0.west);
+  \draw[edgecol,line width=0.8pt,-{Stealth[length=3mm,width=2.2mm]}] (q0.east) -- node[above,text=edgecol,font=\small] {$\{0,2,4,6,8\}$} (q1.west);
+  \draw[edgecol,line width=0.8pt] (q0) edge[loop below] node[text=edgecol,font=\small] {$E$} ();
+\end{tikzpicture}
+}
+
+\subsubsection*{b) Valor inteiro divisível por 5}
+\darkdiagram{
+\begin{tikzpicture}[x=1cm,y=1cm]
+  \definecolor{gridline}{RGB}{44,44,44}
+  \definecolor{nodefill}{RGB}{0,0,0}
+  \definecolor{finalfill}{RGB}{245,245,245}
+  \definecolor{edgecol}{RGB}{240,240,240}
+
+  \fill[black] (-1.5,-3.0) rectangle (10.7,1.8);
+  \draw[step=0.25cm,gridline,very thin] (-1.5,-3.0) grid (10.7,1.8);
+
+  \node[text=edgecol,font=\large] (etxt) at (0.1,1.0) {$E=\{0,1,2,3,4,5,6,7,8,9\}$};
+  \node[circle,fill=nodefill,draw=edgecol,line width=0.7pt,minimum size=1.8cm,text=white] (q0) at (1.6,-0.1) {q0};
+  \node[circle,fill=finalfill,draw=edgecol,double,line width=0.7pt,minimum size=1.8cm,text=black] (q1) at (7.0,-0.1) {q1};
+
+  \draw[edgecol,line width=0.8pt,-{Stealth[length=3mm,width=2.2mm]}] (-0.6,-0.1) -- (q0.west);
+  \draw[edgecol,line width=0.8pt,-{Stealth[length=3mm,width=2.2mm]}] (q0.east) -- node[above,text=edgecol,font=\small] {$\{0,5\}$} (q1.west);
+  \draw[edgecol,line width=0.8pt] (q0) edge[loop below] node[text=edgecol,font=\small] {$E$} ();
+\end{tikzpicture}
+}
+
+\subsubsection*{c) Valor inteiro ímpar}
+\darkdiagram{
+\begin{tikzpicture}[x=1cm,y=1cm]
+  \definecolor{gridline}{RGB}{44,44,44}
+  \definecolor{nodefill}{RGB}{0,0,0}
+  \definecolor{finalfill}{RGB}{245,245,245}
+  \definecolor{edgecol}{RGB}{240,240,240}
+
+  \fill[black] (-1.5,-3.0) rectangle (10.7,1.8);
+  \draw[step=0.25cm,gridline,very thin] (-1.5,-3.0) grid (10.7,1.8);
+
+  \node[text=edgecol,font=\large] (etxt) at (0.1,1.0) {$E=\{0,1,2,3,4,5,6,7,8,9\}$};
+  \node[circle,fill=nodefill,draw=edgecol,line width=0.7pt,minimum size=1.8cm,text=white] (q0) at (1.6,-0.1) {q0};
+  \node[circle,fill=finalfill,draw=edgecol,double,line width=0.7pt,minimum size=1.8cm,text=black] (q1) at (7.0,-0.1) {q1};
+
+  \draw[edgecol,line width=0.8pt,-{Stealth[length=3mm,width=2.2mm]}] (-0.6,-0.1) -- (q0.west);
+  \draw[edgecol,line width=0.8pt,-{Stealth[length=3mm,width=2.2mm]}] (q0.east) -- node[above,text=edgecol,font=\small] {$\{1,3,5,7,9\}$} (q1.west);
+  \draw[edgecol,line width=0.8pt] (q0) edge[loop below] node[text=edgecol,font=\small] {$E$} ();
+\end{tikzpicture}
+}
+
+\subsection*{Atividade 3}
+\subsubsection*{a)}
+\darkdiagram[0.60\linewidth]{
+\[
+\renewcommand{\arraystretch}{1.28}
+\begin{array}{|c|c|c|c|}
+\hline
+\color{white}\text{Estado} & \color{white}a & \color{white}b & \color{white}c \\
+\hline
+\color{white}\to q_0 & \color{white}q_1,q_2 & \color{white}\varnothing & \color{white}\varnothing \\
+\hline
+\color{white}q_1 & \color{white}\varnothing & \color{white}q_3 & \color{white}\varnothing \\
+\hline
+\color{white}q_2 & \color{white}\varnothing & \color{white}\varnothing & \color{white}q_4 \\
+\hline
+\color{white}q_3^* & \color{white}\varnothing & \color{white}\varnothing & \color{white}\varnothing \\
+\hline
+\color{white}q_4^* & \color{white}\varnothing & \color{white}\varnothing & \color{white}\varnothing \\
+\hline
+\color{white}q_1,q_2 & \color{white}\varnothing & \color{white}q_3 & \color{white}q_4 \\
+\hline
+\end{array}
+\]
+}
+
+\darkdiagram[0.84\linewidth]{
+\begin{tikzpicture}[x=1cm,y=1cm]
+  \definecolor{gridline}{RGB}{44,44,44}
+  \definecolor{nodefill}{RGB}{0,0,0}
+  \definecolor{finalfill}{RGB}{245,245,245}
+  \definecolor{edgecol}{RGB}{240,240,240}
+
+  \fill[black] (-1.0,-3.0) rectangle (10.4,2.2);
+  \draw[step=0.25cm,gridline,very thin] (-1.0,-3.0) grid (10.4,2.2);
+
+  \node[circle,fill=nodefill,draw=edgecol,line width=0.7pt,minimum size=1.2cm,text=white] (q0) at (0.4,-0.2) {q0};
+  \node[circle,fill=nodefill,draw=edgecol,line width=0.7pt,minimum size=1.2cm,text=white] (q1) at (3.2,1.0) {q1};
+  \node[circle,fill=nodefill,draw=edgecol,line width=0.7pt,minimum size=1.2cm,text=white] (q2) at (3.2,-1.6) {q2};
+  \node[circle,fill=nodefill,draw=edgecol,line width=0.7pt,minimum size=1.35cm,text=white] (q12) at (6.2,-0.2) {q1,q2};
+  \node[circle,fill=finalfill,draw=edgecol,double,line width=0.7pt,minimum size=1.2cm,text=black] (q3) at (9.0,1.0) {q3};
+  \node[circle,fill=finalfill,draw=edgecol,double,line width=0.7pt,minimum size=1.2cm,text=black] (q4) at (9.0,-1.6) {q4};
+
+  \draw[edgecol,line width=0.8pt,-{Stealth[length=3mm,width=2.2mm]}] (-0.6,-0.2) -- (q0.west);
+  \draw[edgecol,line width=0.8pt,-{Stealth[length=3mm,width=2.2mm]}] (q0.north east) -- node[above,text=edgecol,font=\small] {a} (q1.south west);
+  \draw[edgecol,line width=0.8pt,-{Stealth[length=3mm,width=2.2mm]}] (q0.south east) -- node[below,text=edgecol,font=\small] {a} (q2.north west);
+  \draw[edgecol,line width=0.8pt,-{Stealth[length=3mm,width=2.2mm]}] (q1.east) -- node[above,text=edgecol,font=\small] {b} (q3.west);
+  \draw[edgecol,line width=0.8pt,-{Stealth[length=3mm,width=2.2mm]}] (q2.east) -- node[below,text=edgecol,font=\small] {c} (q4.west);
+  \draw[edgecol,line width=0.8pt,-{Stealth[length=3mm,width=2.2mm]}] (q12.north east) -- node[above,text=edgecol,font=\small] {b} (q3.south west);
+  \draw[edgecol,line width=0.8pt,-{Stealth[length=3mm,width=2.2mm]}] (q12.east) -- node[below,text=edgecol,font=\small] {c} (q4.west);
+\end{tikzpicture}
+}
+
+\subsubsection*{b)}
+
+\darkdiagram[0.78\linewidth]{
+\[
+\renewcommand{\arraystretch}{1.28}
+\begin{array}{|c|c|c|c|}
+\hline
+\color{white}\text{Estado} & \color{white}a & \color{white}b & \color{white}c \\
+\hline
+\color{white}\to q_0 & \color{white}q_1,q_3 & \color{white}\varnothing & \color{white}q_2 \\
+\hline
+\color{white}q_1^* & \color{white}\varnothing & \color{white}\varnothing & \color{white}q_1 \\
+\hline
+\color{white}q_2 & \color{white}q_1 & \color{white}q_3 & \color{white}\varnothing \\
+\hline
+\color{white}q_3^* & \color{white}q_0 & \color{white}q_0,q_3 & \color{white}\varnothing \\
+\hline
+\color{white}q_1,q_3^* & \color{white}q_0 & \color{white}q_0,q_3 & \color{white}q_1 \\
+\hline
+\color{white}q_0,q_3^* & \color{white}q_1,q_3,q_0 & \color{white}q_0,q_3 & \color{white}q_2 \\
+\hline
+\color{white}q_1,q_3,q_0^* & \color{white}q_1,q_3,q_0 & \color{white}q_0,q_3 & \color{white}q_2,q_1 \\
+\hline
+\color{white}q_2,q_1 & \color{white}q_1 & \color{white}q_3 & \color{white}q_1 \\
+\hline
+\end{array}
+\]
+}
+
+\darkdiagram[0.99\linewidth]{
+\begin{tikzpicture}[x=1cm,y=1cm]
+  \definecolor{gridline}{RGB}{44,44,44}
+  \definecolor{nodefill}{RGB}{0,0,0}
+  \definecolor{finalfill}{RGB}{245,245,245}
+  \definecolor{edgecol}{RGB}{240,240,240}
+
+  \fill[black] (-1.2,-5.0) rectangle (13.1,4.5);
+  \draw[step=0.25cm,gridline,very thin] (-1.2,-5.0) grid (13.1,4.5);
+
+  \node[circle,fill=nodefill,draw=edgecol,line width=0.7pt,minimum size=1.25cm,text=white] (q0) at (0.4,-0.2) {q0};
+  \node[circle,fill=finalfill,draw=edgecol,double,line width=0.7pt,minimum size=1.25cm,text=black] (q1) at (3.6,2.9) {q1};
+  \node[circle,fill=nodefill,draw=edgecol,line width=0.7pt,minimum size=1.25cm,text=white] (q2) at (3.6,-3.1) {q2};
+  \node[circle,fill=finalfill,draw=edgecol,double,line width=0.7pt,minimum size=1.25cm,text=black] (q3) at (7.1,3.1) {q3};
+  \node[circle,fill=finalfill,draw=edgecol,double,line width=0.7pt,minimum size=1.55cm,text=black] (q13) at (7.1,0.3) {q1,q3};
+  \node[circle,fill=finalfill,draw=edgecol,double,line width=0.7pt,minimum size=1.55cm,text=black] (q03) at (7.1,-3.1) {q0,q3};
+  \node[circle,fill=finalfill,draw=edgecol,double,line width=0.7pt,minimum size=2.0cm,text=black] (q013) at (11.0,1.7) {q1,q3,q0};
+  \node[circle,fill=nodefill,draw=edgecol,line width=0.7pt,minimum size=1.55cm,text=white] (q21) at (11.0,-2.3) {q2,q1};
+
+  \draw[edgecol,line width=0.8pt,-{Stealth[length=3mm,width=2.2mm]}] (-0.6,-0.2) -- (q0.west);
+  \draw[edgecol,line width=0.8pt,-{Stealth[length=3mm,width=2.2mm]}] (q0.east) .. controls (2.2,0.7) and (4.9,0.9) .. node[above,text=edgecol,font=\small] {a} (q13.west);
+  \draw[edgecol,line width=0.8pt,-{Stealth[length=3mm,width=2.2mm]}] (q0.south east) -- node[left,text=edgecol,font=\small] {c} (q2.north west);
+
+  \draw[edgecol,line width=0.8pt] (q1) edge[loop above] node[text=edgecol,font=\small] {c} ();
+
+  \draw[edgecol,line width=0.8pt,-{Stealth[length=3mm,width=2.2mm]}] (q2.north) -- node[left,text=edgecol,font=\small] {a} (q1.south);
+  \draw[edgecol,line width=0.8pt,-{Stealth[length=3mm,width=2.2mm]}] (q2.north east) -- node[left,text=edgecol,font=\small] {b} (q3.south west);
+
+  \draw[edgecol,line width=0.8pt,-{Stealth[length=3mm,width=2.2mm]}] (q3.west) .. controls (5.5,4.4) and (1.8,4.0) .. node[above,text=edgecol,font=\small] {a} (q0.north);
+  \draw[edgecol,line width=0.8pt,-{Stealth[length=3mm,width=2.2mm]}] (q3.east) .. controls (8.7,2.5) and (8.6,-2.3) .. node[right,text=edgecol,font=\small] {b} (q03.east);
+
+  \draw[edgecol,line width=0.8pt,-{Stealth[length=3mm,width=2.2mm]}] (q13.west) .. controls (5.1,-0.7) and (2.0,0.1) .. node[below,text=edgecol,font=\small] {a} (q0.east);
+  \draw[edgecol,line width=0.8pt,-{Stealth[length=3mm,width=2.2mm]}] (q13.south) -- node[left,text=edgecol,font=\small] {b} (q03.north);
+  \draw[edgecol,line width=0.8pt,-{Stealth[length=3mm,width=2.2mm]}] (q13.north west) .. controls (6.0,1.6) and (5.2,2.4) .. node[above left,text=edgecol,font=\small] {c} (q1.east);
+
+  \draw[edgecol,line width=0.8pt] (q03) edge[loop below] node[text=edgecol,font=\small] {b} ();
+  \draw[edgecol,line width=0.8pt,-{Stealth[length=3mm,width=2.2mm]}] (q03.north east) -- node[above,text=edgecol,font=\small] {a} (q013.south west);
+  \draw[edgecol,line width=0.8pt,-{Stealth[length=3mm,width=2.2mm]}] (q03.west) .. controls (5.8,-4.3) and (4.8,-4.3) .. node[below,text=edgecol,font=\small] {c} (q2.east);
+
+  \draw[edgecol,line width=0.8pt] (q013) edge[loop above] node[text=edgecol,font=\small] {a} ();
+  \draw[edgecol,line width=0.8pt,-{Stealth[length=3mm,width=2.2mm]}] (q013.south west) .. controls (9.8,0.6) and (9.2,-1.8) .. node[right,text=edgecol,font=\small] {b} (q03.east);
+  \draw[edgecol,line width=0.8pt,-{Stealth[length=3mm,width=2.2mm]}] (q013.south) -- node[right,text=edgecol,font=\small] {c} (q21.north);
+
+  \draw[edgecol,line width=0.8pt,-{Stealth[length=3mm,width=2.2mm]}] (q21.west) .. controls (9.0,-4.4) and (5.0,-4.3) .. node[below,text=edgecol,font=\small] {a,c} (q1.south east);
+  \draw[edgecol,line width=0.8pt,-{Stealth[length=3mm,width=2.2mm]}] (q21.north) .. controls (12.0,-0.1) and (9.7,2.9) .. node[right,text=edgecol,font=\small] {b} (q3.east);
+\end{tikzpicture}
+}
+
+\subsection*{c)}
+\darkdiagram[0.72\linewidth]{
+\[
+\renewcommand{\arraystretch}{1.28}
+\begin{array}{|c|c|c|}
+\hline
+\color{white}\text{Estado} & \color{white}a & \color{white}b \\
+\hline
+\color{white}\to q_0 & \color{white}q_3,q_2 & \color{white}q_3 \\
+\hline
+\color{white}q_1 & \color{white}q_3 & \color{white}q_2 \\
+\hline
+\color{white}q_2 & \color{white}q_2,q_3 & \color{white}q_1 \\
+\hline
+\color{white}q_3^* & \color{white}\varnothing & \color{white}q_3,q_1 \\
+\hline
+\color{white}q_3,q_2^* & \color{white}q_2,q_3 & \color{white}q_3,q_1 \\
+\hline
+\color{white}q_3,q_1^* & \color{white}q_3 & \color{white}q_3,q_1,q_2 \\
+\hline
+\color{white}q_3,q_1,q_2^* & \color{white}q_2,q_3 & \color{white}q_3,q_1,q_2 \\
+\hline
+\end{array}
+\]
+}
+
+\darkdiagram[0.99\linewidth]{
+\begin{tikzpicture}[x=1cm,y=1cm]
+  \definecolor{gridline}{RGB}{44,44,44}
+  \definecolor{nodefill}{RGB}{0,0,0}
+  \definecolor{finalfill}{RGB}{245,245,245}
+  \definecolor{edgecol}{RGB}{240,240,240}
+
+  \fill[black] (-1.2,-4.9) rectangle (13.6,4.8);
+  \draw[step=0.25cm,gridline,very thin] (-1.2,-4.9) grid (13.6,4.8);
+
+  \node[circle,fill=nodefill,draw=edgecol,line width=0.7pt,minimum size=1.2cm,text=white] (q0) at (0.6,0.0) {q0};
+  \node[circle,fill=finalfill,draw=edgecol,double,line width=0.7pt,minimum size=1.55cm,text=black] (q32) at (4.0,3.0) {q3,q2};
+  \node[circle,fill=finalfill,draw=edgecol,double,line width=0.7pt,minimum size=1.2cm,text=black] (q3) at (4.0,-2.8) {q3};
+  \node[circle,fill=nodefill,draw=edgecol,line width=0.7pt,minimum size=1.2cm,text=white] (q1) at (8.2,3.0) {q1};
+  \node[circle,fill=finalfill,draw=edgecol,double,line width=0.7pt,minimum size=1.55cm,text=black] (q31) at (8.2,0.1) {q3,q1};
+  \node[circle,fill=nodefill,draw=edgecol,line width=0.7pt,minimum size=1.2cm,text=white] (q2) at (8.2,-3.0) {q2};
+  \node[circle,fill=finalfill,draw=edgecol,double,line width=0.7pt,minimum size=2.05cm,text=black] (q312) at (12.0,0.1) {q3,q1,q2};
+
+  \draw[edgecol,line width=0.8pt,-{Stealth[length=3mm,width=2.2mm]}] (-0.6,0.0) -- (q0.west);
+  \draw[edgecol,line width=0.8pt,-{Stealth[length=3mm,width=2.2mm]}] (q0.north east) -- node[above left,text=edgecol,font=\small] {a} (q32.south west);
+  \draw[edgecol,line width=0.8pt,-{Stealth[length=3mm,width=2.2mm]}] (q0.south east) -- node[below left,text=edgecol,font=\small] {b} (q3.north west);
+
+  \draw[edgecol,line width=0.8pt] (q32) edge[loop above] node[text=edgecol,font=\small] {a} ();
+  \draw[edgecol,line width=0.8pt,-{Stealth[length=3mm,width=2.2mm]}] (q32.east) to[bend right=10] node[below,text=edgecol,font=\small] {b} (q31.north west);
+
+  \draw[edgecol,line width=0.8pt,-{Stealth[length=3mm,width=2.2mm]}] (q3.east) .. controls (5.7,-2.9) and (6.8,-1.4) .. node[below right,text=edgecol,font=\small] {b} (q31.south west);
+
+  \draw[edgecol,line width=0.8pt,-{Stealth[length=3mm,width=2.2mm]}] (q1.west) .. controls (7.0,4.1) and (5.4,-1.0) .. node[left,text=edgecol,font=\small] {a} (q3.north east);
+  \draw[edgecol,line width=0.8pt,-{Stealth[length=3mm,width=2.2mm]}] (q1.south east) .. controls (9.8,2.2) and (9.8,-1.9) .. node[right,text=edgecol,font=\small] {b} (q2.north east);
+
+  \draw[edgecol,line width=0.8pt,-{Stealth[length=3mm,width=2.2mm]}] (q2.north west) .. controls (6.9,-1.7) and (6.9,1.7) .. node[left,text=edgecol,font=\small] {b} (q1.south west);
+  \draw[edgecol,line width=0.8pt,-{Stealth[length=3mm,width=2.2mm]}] (q2.west) .. controls (6.8,-4.2) and (5.4,-4.2) .. node[below,text=edgecol,font=\small] {a} (q32.south east);
+
+  \draw[edgecol,line width=0.8pt,-{Stealth[length=3mm,width=2.2mm]}] (q31.north west) .. controls (7.0,1.8) and (4.9,-0.2) .. node[above left,text=edgecol,font=\small] {a} (q3.north);
+  \draw[edgecol,line width=0.8pt,-{Stealth[length=3mm,width=2.2mm]}] (q31.east) -- node[above,text=edgecol,font=\small] {b} (q312.west);
+
+  \draw[edgecol,line width=0.8pt,-{Stealth[length=3mm,width=2.2mm]}] (q312.west) .. controls (10.5,4.2) and (6.0,4.3) .. node[above,text=edgecol,font=\small] {a} (q32.east);
+  \draw[edgecol,line width=0.8pt] (q312) edge[loop above] node[text=edgecol,font=\small] {b} ();
+\end{tikzpicture}
+}
+
+\end{document}
