@@ -1,0 +1,209 @@
+\documentclass[12pt,oneside,a4paper,brazilian]{abntex2}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{indentfirst}
+\usepackage[a4paper,top=2.5cm,bottom=2.5cm,left=3cm,right=2.5cm]{geometry}
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{ragged2e}
+\usepackage{xurl}
+
+\hypersetup{
+  pdftitle={Metodologia do projeto de geracao de hidrogenio verde em pequena escala},
+  pdfauthor={Giuseph De Luka Giangareli},
+  pdfsubject={Metodologia para comparacao entre eletrólitos e materiais de eletrodo em prototipo academico},
+  pdfcreator={Codex}
+}
+
+\title{Metodologia do Projeto de Geracao de Hidrogenio Verde em Escala Experimental e Academica}
+\author{Giuseph De Luka Giangareli}
+\date{}
+
+\setlength{\emergencystretch}{3em}
+\renewcommand{\arraystretch}{1.15}
+\setsecnumdepth{subsection}
+\renewcommand{\thesection}{\arabic{section}}
+\renewcommand{\thesubsection}{\thesection.\arabic{subsection}}
+
+\begin{document}
+\maketitle
+
+\section{Visao geral da metodologia}
+
+Esta metodologia foi definida a partir do problema central identificado nas etapas anteriores do trabalho: a necessidade de desenvolver um prototipo experimental de geracao de hidrogenio em pequena escala que seja tecnicamente documentado, seguro para o contexto academico e suficientemente replicavel para comparacoes futuras. O recorte metodologico considera o estagio real do projeto, no qual ja ocorreu um teste preliminar com agua e soda caustica, com observacao de corrosao elevada, e a montagem atual passou a utilizar um novo arranjo de eletrodos composto por cobre com grafite e duas chapas de titanio com platina. Assim, a metodologia nao parte de uma solucao pronta, mas de uma hipotese experimental a ser validada por ensaios controlados.
+
+No estado atual, o prototipo encontra-se montado em um recipiente reutilizado do tipo pote de conserva, com tampa adaptada, dois pontos de passagem isolados para os eletrodos e uma saida central por mangueira. Os eletrodos utilizados sao barras de grafite com revestimento externo em cobre, acopladas eletricamente a duas malhas de titanio com platina adquiridas comercialmente. A alimentacao prevista e feita por fonte de corrente continua nominal de 12 V com capacidade elevada de corrente. Esses detalhes sao importantes porque aproximam a metodologia da experiencia real ja acumulada pelo autor, mantendo coerencia com o PMC e com a analise de pesquisa.
+
+Entretanto, o prototipo atual deve ser tratado como \textbf{bancada exploratoria de baixa pressao}. Como a descricao da celula corresponde a um unico recipiente com uma unica saida de gas, sem membrana ou separacao formal entre anodo e catodo, a metodologia passa a considerar \textbf{por inferencia tecnica} que o gas de saida nao deve ser tratado como hidrogenio puro, mas como mistura gasosa produzida pela eletrólise ate que um sistema de separacao seja comprovado experimentalmente. Por essa razao, etapas de pressurizacao, armazenamento em recipientes improvisados e teste por ignicao nao farao parte da validacao principal desta fase.
+
+\section{Delineamento da pesquisa}
+
+\subsection{Tipo de pesquisa}
+
+O trabalho se classifica como \textbf{pesquisa aplicada}, pois busca resolver um problema tecnico concreto relacionado ao desempenho e a durabilidade de um prototipo de eletrólise da agua em pequena escala. Tambem se caracteriza como \textbf{pesquisa experimental}, porque envolve a montagem fisica do sistema, a manipulacao controlada de variaveis e a observacao dos efeitos produzidos por diferentes combinacoes de eletrólitos e materiais de eletrodo. Em complemento, possui carater \textbf{exploratorio e comparativo}, uma vez que o objetivo nao e apenas confirmar uma teoria ja consolidada, mas investigar qual configuracao apresenta melhor equilibrio entre geracao de gas, estabilidade operacional e menor agressividade aos componentes.
+
+\subsection{Abordagem da pesquisa}
+
+Quanto a abordagem, a pesquisa sera \textbf{mista}. O eixo principal sera \textbf{quantitativo}, baseado no registro de tensao, corrente, tempo de operacao, temperatura e volume de gas produzido. Ao mesmo tempo, o estudo tambem tera componente \textbf{qualitativo}, pois sera necessario descrever sinais visuais de corrosao, formacao excessiva de bolhas aderidas aos eletrodos, estabilidade da montagem, estanqueidade da camara e condicoes gerais de operacao. Essa combinacao e a mais adequada para um prototipo academico, porque nem todos os resultados relevantes se resumem a numeros; parte da viabilidade do sistema depende da observacao tecnica do comportamento do conjunto durante e apos os ensaios.
+
+Com base nesse delineamento, a hipotese orientadora do trabalho pode ser expressa da seguinte forma: \textit{a substituicao do arranjo inicial por uma configuracao com cobre, grafite e titanio platinado, associada a um eletrólito menos agressivo ou melhor controlado, tende a reduzir a corrosao observada anteriormente e a aumentar a estabilidade operacional do prototipo, mesmo que existam diferencas de produtividade gasosa entre as opcoes testadas.}
+
+\section{Variaveis do estudo}
+
+Para garantir repetibilidade, a metodologia adota a separacao entre variaveis independentes, dependentes e controladas:
+
+\begin{itemize}
+  \item \textbf{Variaveis independentes}: tipo de eletrólito utilizado, concentracao do eletrólito, combinacao de eletrodos e tempo de ensaio.
+  \item \textbf{Variaveis dependentes}: corrente media, tensao media, volume de gas produzido, taxa de producao por unidade de tempo, elevacao de temperatura e nivel de degradacao visual dos materiais.
+  \item \textbf{Variaveis controladas}: volume da solucao, dimensoes da camara, espacamento entre eletrodos, polaridade adotada, tensao de alimentacao, faixa de corrente aplicada, tempo de teste, metodo de medicao e condicoes gerais de montagem.
+\end{itemize}
+
+O criterio central de avaliacao nao sera apenas ``produzir mais gas'', mas comparar tres dimensoes em conjunto: \textbf{produtividade}, \textbf{estabilidade} e \textbf{integridade dos materiais}. Essa decisao metodologica decorre diretamente do teste preliminar, no qual o meio com soda caustica mostrou comportamento agressivo aos componentes internos.
+
+\section{Procedimentos e ferramentas}
+
+\subsection{Materiais, componentes e instrumentos}
+
+Os materiais e instrumentos previstos para a execucao do trabalho sao:
+
+\begin{itemize}
+  \item Camara de eletrólise em pequena escala, inicialmente montada em recipiente plastico reutilizado do tipo pote de conserva, empregado apenas como prototipo exploratorio e sem uso pressurizado.
+  \item Tampa adaptada com dois pontos de passagem eletricamente isolados para os eletrodos e um ponto central de saida gasosa por mangueira.
+  \item Conjunto de eletrodos formado por barras de grafite com revestimento externo em cobre e duas malhas de titanio com platina, conforme a configuracao atual do prototipo.
+  \item Fonte de corrente continua nominal de 12 V, com ajuste manual, utilizada sempre em operacao controlada e acompanhada por medicao independente de tensao e corrente.
+  \item Multimetro digital ou conjunto amperimetro/voltimetro em linha, obrigatorio para medir a corrente real aplicada, ja que o ajuste empirico da fonte nao e suficiente como criterio experimental.
+  \item Dispositivo de limitacao ou protecao eletrica, como fusivel ou disjuntor adequado a bancada.
+  \item Cabos condutores, conectores eletricos, suportes mecanicos e materiais de vedacao.
+  \item Agua para preparacao do meio eletrolitico.
+  \item Bicarbonato de sodio puro como eletrólito exploratorio de menor agressividade inicial.
+  \item Soda caustica apenas como referencia comparativa em etapa posterior e controlada, por se tratar de meio mais agressivo e ja associado a corrosao elevada na experiencia preliminar.
+  \item Termometro para registrar a temperatura da solucao durante os ensaios.
+  \item Cronometro para padronizacao do tempo de operacao.
+  \item Proveta, recipiente graduado ou sistema de deslocamento de agua para estimativa do volume de gas gerado.
+  \item Recipiente externo com agua e detergente apenas para observacao qualitativa de borbulhamento em condicao ventilada e sem ignicao.
+  \item Equipamentos de protecao individual, como oculos, luvas e avental, especialmente quando houver manuseio de meio alcalino mais agressivo.
+  \item Caderno de laboratorio ou planilha eletronica para registro padronizado dos dados experimentais.
+\end{itemize}
+
+Do ponto de vista de software, o trabalho nao depende inicialmente de um ambiente computacional complexo. A etapa essencial e o \textbf{registro estruturado dos dados}, que pode ser feita em planilha eletronica para organizacao de tabelas, calculo de medias, comparacao entre ensaios e construcao de graficos. Tambem deverao ser mantidos registros fotograficos da montagem, dos eletrodos antes e depois dos testes e da configuracao da fonte em cada ensaio. Caso necessario em etapa posterior, os dados poderao ser tratados em ferramenta computacional complementar, mas isso nao e requisito para a replicacao da metodologia proposta.
+
+\subsection{Coleta de dados}
+
+A coleta de dados sera feita por \textbf{medicao direta em bancada}. Nao serao utilizadas APIs, bases de dados externas ou sensores remotos como fonte principal, porque o objeto do trabalho e o comportamento fisico do prototipo montado pelo autor. Em cada ensaio serao registrados:
+
+\begin{itemize}
+  \item identificacao da configuracao testada;
+  \item tipo e concentracao do eletrólito;
+  \item polaridade e combinacao dos eletrodos;
+  \item tensao aplicada e corrente observada;
+  \item tempo total de operacao;
+  \item temperatura inicial e final da solucao;
+  \item volume estimado de gas produzido no intervalo analisado;
+  \item observacoes visuais sobre corrosao, desprendimento de bolhas, residuos, vazamentos e integridade da tampa e dos isoladores.
+\end{itemize}
+
+Para aumentar a confiabilidade do estudo, cada configuracao devera ser repetida em mais de um ensaio sob as mesmas condicoes basicas. O volume de gas sera estimado por metodo simples de deslocamento de agua ou leitura equivalente em recipiente graduado, sempre com o mesmo procedimento de medicao para evitar distorcoes entre os testes. O uso de agua com sabao para formacao de bolhas sera tratado apenas como indicio qualitativo de geracao gasosa, e nao como comprovacao de pureza do hidrogenio nem como criterio de desempenho.
+
+\section{Protocolo experimental}
+
+O procedimento experimental foi organizado em etapas sequenciais para que outro pesquisador possa reproduzir a montagem e chegar a resultados comparaveis.
+
+\subsection{Etapa 1: documentacao da montagem real e verificacao inicial}
+
+Inicialmente, todos os componentes da bancada deverao ser inspecionados visualmente. Nessa etapa, verifica-se a integridade do recipiente utilizado como camara, o estado da tampa, a qualidade do isolamento dos pontos de passagem dos eletrodos, a fixacao das barras de grafite revestidas em cobre, o acoplamento com as malhas de titanio com platina e a vedacao geral do conjunto. Os eletrodos e a tampa devem ser fotografados antes do uso, para que seja possivel comparar o estado inicial e final apos os ensaios.
+
+\subsection{Etapa 2: instrumentacao eletrica minima}
+
+Antes de qualquer eletrizacao, a fonte deve ser conectada a instrumentos de medicao que permitam ler a tensao e a corrente reais aplicadas. Como o ajuste atual da fonte e feito por parafuso sem escala confiavel, nao sera aceito operar a bancada apenas por estimativa visual do regulador. A metodologia passa a exigir leitura real de corrente, registro da configuracao de ajuste e uso de protecao eletrica basica para evitar sobrecorrente acidental.
+
+\subsection{Etapa 3: definicao das configuracoes de teste}
+
+Em seguida, devem ser definidas as configuracoes experimentais que serao comparadas. O conjunto minimo previsto e:
+
+\begin{itemize}
+  \item \textbf{Configuracao A}: montagem atual com agua e bicarbonato de sodio, por representar a primeira opcao exploratoria de menor agressividade;
+  \item \textbf{Configuracao B}: montagem atual com agua e soda caustica em condicao controlada, apenas para comparacao com a opcao exploratoria e com base no teste preliminar anterior;
+  \item \textbf{Configuracao C}: nova combinacao de materiais de eletrodo, caso A e B apresentem falha grave de geracao, aquecimento ou corrosao excessiva.
+\end{itemize}
+
+Se houver comparacao entre diferentes concentracoes de eletrólito, os ensaios devem mudar apenas uma variavel por vez. Essa regra e essencial para que os resultados possam ser interpretados com rigor e para que a troca de material de eletrodo nao seja confundida com efeito de concentracao ou de corrente aplicada.
+
+\subsection{Etapa 4: preparo do eletrólito}
+
+O eletrólito deve ser preparado sempre com volume conhecido de agua e quantidade medida do soluto escolhido. A concentracao utilizada em cada teste deve ser anotada antes do inicio da operacao. O procedimento de mistura deve ser repetido da mesma forma em todos os ensaios, evitando variacoes nao controladas de composicao.
+
+\subsection{Etapa 5: montagem da celula e teste de estanqueidade}
+
+Com a solucao preparada, a celula deve ser montada respeitando o mesmo espacamento entre os eletrodos e a mesma polaridade definida para cada ensaio. Antes de energizar o sistema, deve-se realizar um teste de estanqueidade sem corrente para verificar vazamentos ou falhas de vedacao. Caso haja escape de liquido ou gas, o ensaio nao deve prosseguir ate a correcao do problema.
+
+\subsection{Etapa 6: energizacao controlada em baixa pressao}
+
+A fonte deve ser ligada com ajuste inicial baixo, elevando-se a tensao de forma gradual ate o patamar de operacao definido. Nesse momento, registram-se a tensao inicial, a corrente inicial, a temperatura da solucao e o horario de inicio do teste. O sistema deve trabalhar apenas com saida de gas desobstruida, sem acumulacao intencional de pressao. O uso de valores moderados e importante para proteger a estrutura da celula, reduzir aquecimento excessivo e evitar comparacoes distorcidas por sobrecarga do sistema.
+
+\subsection{Etapa 7: acompanhamento do ensaio e observacao gasosa}
+
+Durante o funcionamento, devem ser observados e anotados o padrao de formacao de bolhas, a estabilidade da corrente, a presenca de aquecimento excessivo, a ocorrencia de residuos, alteracoes visuais nos eletrodos e eventual mudanca de cor do eletrólito. Em intervalos regulares, devem ser registrados tensao, corrente e temperatura. A mangueira de saida podera ser posicionada em recipiente externo com agua e detergente apenas para verificar a existencia de borbulhamento e para estimar qualitativamente a regularidade do fluxo gasoso. O volume de gas produzido no periodo deve ser medido por deslocamento de agua ou metodo graduado equivalente ao final do tempo padrao de ensaio.
+
+\subsection{Etapa 8: encerramento, avaliacao pos-teste e criterios de parada}
+
+Ao final do ensaio, a fonte deve ser desligada e o sistema deve ser deixado em repouso antes da desmontagem. Depois disso, os eletrodos devem ser removidos, limpos com procedimento padronizado e novamente fotografados. A comparacao visual entre o estado inicial e final sera utilizada para classificar sinais de corrosao, desgaste superficial, deposicao de residuos ou falhas localizadas. O ensaio devera ser interrompido imediatamente se ocorrer vazamento, deformacao do recipiente, aumento abrupto de corrente, aquecimento anormal, falha do isolamento da tampa ou degradacao rapida dos eletrodos.
+
+\subsection{Etapa 9: repeticao, comparacao e ensaio de durabilidade}
+
+Cada condicao experimental deve ser repetida para verificar consistencia. Depois da fase inicial de comparacao, podera ser executado um ensaio de durabilidade com a configuracao mais estavel, mantendo operacao continua ate que se observe perda acentuada de desempenho, esgotamento da solucao ou degradacao de algum componente. Esse ensaio nao tera objetivo de armazenamento, mas de estimar o tempo util de funcionamento da celula em bancada. A comparacao final entre as configuracoes sera feita com base nos seguintes indicadores:
+
+\begin{itemize}
+  \item volume de gas produzido em tempo fixo;
+  \item estabilidade eletrica durante o ensaio;
+  \item variacao de temperatura;
+  \item ocorrencia de corrosao ou degradacao visivel;
+  \item facilidade de operacao e seguranca do conjunto;
+  \item tempo de funcionamento ate criterio de parada no ensaio de durabilidade.
+\end{itemize}
+
+\section{Tratamento e interpretacao dos resultados}
+
+Os resultados serao organizados em tabelas comparativas e analisados de forma descritiva. Sempre que possivel, sera utilizada a relacao entre corrente, tempo e producao observada para comparar o comportamento real com a expectativa teorica baseada na lei de Faraday. O tratamento dos dados buscara responder principalmente a tres perguntas:
+
+\begin{itemize}
+  \item qual configuracao apresenta melhor estabilidade operacional;
+  \item qual eletrólito oferece melhor compromisso entre produtividade e menor agressividade ao sistema;
+  \item se a nova combinacao de eletrodos representa avanco pratico em relacao ao arranjo anterior.
+\end{itemize}
+
+Como o estudo esta centrado em uma bancada academica de pequena escala, a interpretacao dos resultados sera feita com cautela, sem extrapolar diretamente os dados para aplicacoes industriais. Um ponto metodologico importante e que, nesta fase, o trabalho avaliara \textbf{geracao gasosa, estabilidade e durabilidade da celula}, e nao pureza do hidrogenio armazenado. O objetivo metodologico e demonstrar a viabilidade tecnica do prototipo, identificar limitacoes reais e estabelecer uma base replicavel para aprimoramentos futuros.
+
+\section{Criterios de reprodutibilidade e rigor tecnico}
+
+Para que outro pesquisador consiga repetir o experimento com o maior grau possivel de equivalencia, deverao ser registrados, ao longo da execucao, os seguintes elementos:
+
+\begin{itemize}
+  \item composicao exata do eletrólito utilizado em cada ensaio;
+  \item dimensoes aproximadas da camara e espacamento entre eletrodos;
+  \item polaridade adotada e configuracao do arranjo de materiais;
+  \item valores de tensao, corrente, tempo e temperatura observados;
+  \item metodo empregado para medicao do volume de gas;
+  \item registros fotograficos antes e depois de cada teste;
+  \item tabelas consolidadas com os resultados comparativos.
+\end{itemize}
+
+Esse conjunto de registros transforma a metodologia em um procedimento realmente reproduzivel, reduzindo a dependencia de interpretacoes subjetivas e permitindo que futuras versoes do prototipo sejam comparadas com base no mesmo referencial tecnico.
+
+\section{Cuidados de seguranca e limites metodologicos}
+
+Toda a execucao experimental devera seguir cuidados minimos de seguranca, principalmente no manuseio de eletrólitos alcalinos e na presenca de mistura gasosa inflamavel. O sistema deve operar em ambiente ventilado, longe de fontes de ignicao, com uso de protecao individual e sob observacao constante. Nesta etapa, \textbf{nao fazem parte da metodologia} os seguintes procedimentos: teste por chama ou explosao como criterio de validacao, uso de bomba para comprimir o gas produzido, armazenamento em garrafa PET adaptada, armazenamento em extintor vazio sem certificacao e qualquer tentativa de operacao pressurizada com a celula atual.
+
+Esse recorte foi adotado porque, na configuracao descrita, a saida gasosa deve ser tratada com cautela como mistura inflamavel ate que haja separacao efetiva entre os gases produzidos e validacao da pureza. Alem disso, o uso de uma fonte de alta corrente sem leitura confiavel, associado a recipiente e vedacoes adaptadas, aumenta o risco de aquecimento, vazamento e falha mecanica. Tambem e importante registrar que esta metodologia foi desenhada para validacao em escala experimental. Portanto, os resultados esperados servirao para comparacao tecnica entre configuracoes de bancada, e nao para certificacao de eficiencia industrial, armazenamento de hidrogenio ou estimativa de operacao em larga escala.
+
+\section{Resultado esperado da metodologia}
+
+Ao final da execucao, espera-se obter uma comparacao objetiva entre diferentes configuracoes de eletrólito e arranjo de eletrodos, com foco em tres eixos: producao de gas, estabilidade operacional e integridade dos materiais. Se a hipotese do trabalho for confirmada, a metodologia mostrara que a evolucao do prototipo nao depende apenas de gerar gas, mas de combinar selecao adequada de materiais, controle de variaveis experimentais, medicao real de corrente e documentacao replicavel.
+
+Com isso, o projeto deixa de ser apenas uma tentativa de montagem em bancada e passa a ter um procedimento tecnico justificavel, medivel e repetivel, coerente com o problema identificado na revisao, com o PMC e com as necessidades reais observadas durante o desenvolvimento do sistema. A etapa de armazenamento so podera ser considerada futuramente, em um novo ciclo metodologico, caso a bancada demonstre geracao consistente, controle eletrico confiavel e separacao segura dos gases produzidos.
+
+\end{document}

@@ -1,0 +1,199 @@
+\documentclass[10pt,landscape]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazilian]{babel}
+\usepackage[a4paper,landscape,margin=0.55cm]{geometry}
+\usepackage[most]{tcolorbox}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usepackage[sfdefault]{cabin}
+\usepackage[type1]{comfortaa}
+\usepackage{microtype}
+\usepackage{ragged2e}
+\usepackage{array}
+\renewcommand{\familydefault}{\sfdefault}
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+\setlength{\emergencystretch}{3em}
+
+\definecolor{pmcPurple}{RGB}{176, 92, 214}
+\definecolor{pmcOrange}{RGB}{184, 120, 24}
+\definecolor{pmcPink}{RGB}{226, 76, 191}
+\definecolor{pmcGreen}{RGB}{0, 204, 102}
+\definecolor{pmcBlue}{RGB}{58, 179, 216}
+\definecolor{textGray}{RGB}{70, 70, 70}
+
+\newcommand{\pmcheader}[2]{%
+    \begin{center}
+        \begin{tikzpicture}[baseline=(title.base)]
+            \node[
+                fill=#1,
+                text=white,
+                rounded corners=0.8mm,
+                inner xsep=8pt,
+                inner ysep=4pt
+            ] (title) {{\comfortaa\fontsize{16}{16}\selectfont\bfseries\itshape #2}};
+            \draw[#1, line width=1.1pt] (title.south) -- ++(0, -0.38cm);
+        \end{tikzpicture}
+    \end{center}
+}
+
+\newcommand{\pmcheadercompact}[2]{%
+    \begin{center}
+        \begin{tikzpicture}[baseline=(title.base)]
+            \node[
+                fill=#1,
+                text=white,
+                rounded corners=0.8mm,
+                inner xsep=5pt,
+                inner ysep=4pt
+            ] (title) {{\comfortaa\fontsize{12}{12}\selectfont\bfseries\itshape #2}};
+            \draw[#1, line width=1.1pt] (title.south) -- ++(0, -0.38cm);
+        \end{tikzpicture}
+    \end{center}
+}
+
+\newtcolorbox{pmcframe}[1]{
+    enhanced,
+    colback=white,
+    colframe=#1,
+    boxrule=0.9pt,
+    borderline={1pt}{0pt}{#1, dashed},
+    sharp corners,
+    arc=0pt,
+    left=2.2mm,
+    right=2.2mm,
+    top=2.2mm,
+    bottom=2.2mm
+}
+
+\newtcolorbox{pmccard}[3]{
+    enhanced,
+    colback=white,
+    colframe=black!70,
+    boxrule=0.8pt,
+    sharp corners,
+    arc=0pt,
+    left=2mm,
+    right=2mm,
+    top=1.6mm,
+    bottom=1.6mm,
+    height=#3,
+    valign=center,
+    before upper={%
+        {\raggedright\textbf{\small #1}\par}
+        \vspace{0.35em}
+        \color{#2}\small\justifying
+    }
+}
+
+\begin{document}
+
+\begin{center}
+    {{\comfortaa\large \bfseries PROJECT MODEL CANVAS}}\\[-0.05cm]
+    {\small \textcolor{textGray}{Reconhecimento de Gestos da M\~ao por sEMG com 1 a 2 Sensores no Antebra\c{c}o}}
+\end{center}
+
+\vspace{0.1cm}
+
+\noindent
+\begin{minipage}[t]{0.19\textwidth}
+    \pmcheader{pmcPurple}{POR QU\^E?}
+    \vspace{-0.1cm}
+    \begin{pmcframe}{pmcPurple}
+        \begin{pmccard}{JUSTIFICATIVA}{pmcPurple}{4.05cm}
+            H\'a demanda acad\^emica e tecnol\'ogica por interfaces homem-m\'aquina de baixo custo. O prot\'otipo atual com um m\'odulo EMG apresentou alta varia\c{c}\~ao de sinal, exigindo uma solu\c{c}\~ao mais est\'avel e reprodut\'ivel.
+        \end{pmccard}
+        \vspace{0.18cm}
+        \begin{pmccard}{OBJETIVO SMART}{pmcPurple}{3.55cm}
+            Projetar e validar, at\'e a etapa final da disciplina, um prot\'otipo com 1 a 2 sensores sEMG capaz de captar gestos simples da m\~ao com maior estabilidade no antebra\c{c}o.
+        \end{pmccard}
+        \vspace{0.18cm}
+        \begin{pmccard}{BENEF\'ICIOS}{pmcPurple}{5.15cm}
+            Gera base experimental para classifica\c{c}\~ao futura, reduz ambiguidades de capta\c{c}\~ao, fortalece a aplica\c{c}\~ao embarcada em hardware simples e amplia a reprodutibilidade acad\^emica do sistema.
+        \end{pmccard}
+    \end{pmcframe}
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.19\textwidth}
+    \pmcheader{pmcOrange}{O QU\^E?}
+    \vspace{-0.1cm}
+    \begin{pmcframe}{pmcOrange}
+        \begin{pmccard}{RESULTADO}{pmcOrange}{3.95cm}
+            Um sistema experimental de reconhecimento de gestos da m\~ao por sEMG, com captura no antebra\c{c}o, fixa\c{c}\~ao mec\^anica melhorada e base para comparar 1 sensor versus 2 sensores.
+        \end{pmccard}
+        \vspace{0.18cm}
+        \begin{pmccard}{REQUISITOS}{pmcOrange}{8.95cm}
+            Capta\c{c}\~ao est\'avel, posicionamento consistente dos eletrodos, suporte f\'isico em PLA, baixa sensibilidade a ru\'ido e microdeslocamentos, compara\c{c}\~ao entre canais, extra\c{c}\~ao de features simples e viabilidade de processamento embarcado.
+        \end{pmccard}
+    \end{pmcframe}
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.39\textwidth}
+    \begin{minipage}[t]{0.485\linewidth}
+        \pmcheader{pmcPink}{QUEM?}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.485\linewidth}
+        \pmcheader{pmcGreen}{COMO?}
+    \end{minipage}
+
+    \vspace{-0.1cm}
+
+    \begin{minipage}[t]{0.485\linewidth}
+        \begin{pmcframe}{pmcPink}
+            \begin{pmccard}{STAKEHOLDERS EXTERNOS}{pmcPink}{4.55cm}
+                Disciplina e institui\c{c}\~ao de ensino, docente avaliador, laborat\'orio, comunidade acad\^emica e usu\'arios potenciais de interfaces musculares acess\'iveis.
+            \end{pmccard}
+            \vspace{0.18cm}
+            \begin{pmccard}{EQUIPE}{pmcPink}{5.55cm}
+                Giuseph D. L. Giangareli, respons\'avel pela revis\~ao bibliogr\'afica, pesquisa de anterioridade, ajustes mec\^anicos da case, montagem, capta\c{c}\~ao e avalia\c{c}\~ao experimental.
+            \end{pmccard}
+        \end{pmcframe}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.485\linewidth}
+        \begin{pmcframe}{pmcGreen}
+            \begin{pmccard}{PREMISSAS}{pmcGreen}{4.55cm}
+                Dois canais em regi\~oes antagonistas tendem a melhorar a separa\c{c}\~ao dos padr\~oes musculares. A case em PLA reduz parte da instabilidade mec\^anica e features no tempo podem atender ao prot\'otipo.
+            \end{pmccard}
+            \vspace{0.18cm}
+            \begin{pmccard}{ESCOPO}{pmcGreen}{5.55cm}
+                Revis\~ao do estado da arte, pesquisa de anterioridade, estabiliza\c{c}\~ao f\'isica do m\'odulo, defini\c{c}\~ao do posicionamento dos sensores, coleta inicial e compara\c{c}\~ao entre configura\c{c}\~oes de um e dois sensores.
+            \end{pmccard}
+        \end{pmcframe}
+    \end{minipage}
+
+    \vspace{0.18cm}
+
+    \begin{pmcframe}{pmcGreen}
+        \begin{pmccard}{RESTRI\c{C}\~OES}{pmcGreen}{2.2cm}
+            Tempo de disciplina, or\c{c}amento reduzido, alta variabilidade anat\^omica, ru\'ido no sinal e disponibilidade limitada de sensores e materiais de fixa\c{c}\~ao.
+        \end{pmccard}
+    \end{pmcframe}
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.19\textwidth}
+    \pmcheadercompact{pmcBlue}{QUANDO?/QUANTO?}
+    \vspace{-0.1cm}
+    \begin{pmcframe}{pmcBlue}
+        \begin{pmccard}{RISCOS}{pmcBlue}{3.95cm}
+            Posicionamento inconsistente dos eletrodos, crosstalk, ru\'ido, pouca repetibilidade entre testes, base de dados pequena e ganho limitado mesmo ap\'os migrar para dois sensores.
+        \end{pmccard}
+        \vspace{0.18cm}
+        \begin{pmccard}{LINHA DO TEMPO}{pmcBlue}{4.55cm}
+            Revis\~ao bibliogr\'afica e anterioridade, testes com um sensor, melhoria mec\^anica com case PLA, defini\c{c}\~ao do segundo ponto de capta\c{c}\~ao, compara\c{c}\~ao experimental e consolida\c{c}\~ao final do trabalho.
+        \end{pmccard}
+        \vspace{0.18cm}
+        \begin{pmccard}{CUSTO}{pmcBlue}{3.95cm}
+            Proposta de baixo custo, com parte da estrutura reaproveitada. O gasto principal concentra-se em sensores sEMG, eletrodos, fixa\c{c}\~ao, impress\~ao 3D e ajustes para aquisi\c{c}\~ao confi\'avel.
+        \end{pmccard}
+    \end{pmcframe}
+\end{minipage}
+
+\vfill
+\begin{center}
+    \tiny Fonte: SILVA, Fabiana Big\~ao. \textit{Gerenciamento de projetos fora da caixa}. Rio de Janeiro: Alta Books, 2016.
+\end{center}
+
+\end{document}

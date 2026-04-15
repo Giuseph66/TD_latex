@@ -1,0 +1,257 @@
+\documentclass[12pt,oneside,a4paper,brazilian]{abntex2}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{indentfirst}
+\usepackage[a4paper,top=2.5cm,bottom=2.5cm,left=3cm,right=2.5cm]{geometry}
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{ragged2e}
+\usepackage{xurl}
+
+\hypersetup{
+  pdftitle={Metodologia do projeto de reconhecimento de gestos por sEMG},
+  pdfauthor={Giuseph De Luka Giangareli},
+  pdfsubject={Metodologia para comparacao entre 1 e 2 sensores sEMG no antebraco},
+  pdfcreator={Codex}
+}
+
+\title{Metodologia do Projeto de Reconhecimento de Gestos da Mao por sEMG com 1 a 2 Sensores no Antebraco}
+\author{Giuseph De Luka Giangareli}
+\date{}
+
+\setlength{\emergencystretch}{3em}
+\renewcommand{\arraystretch}{1.15}
+\setsecnumdepth{subsection}
+\renewcommand{\thesection}{\arabic{section}}
+\renewcommand{\thesubsection}{\thesection.\arabic{subsection}}
+
+\begin{document}
+\maketitle
+
+\section{Visao geral da metodologia}
+
+Esta metodologia foi estruturada para refletir duas dimensoes do projeto: o que ja foi executado em bancada com um unico modulo EMG e o que sera desenvolvido na sequencia para evoluir o sistema para dois canais de captacao no antebraco. A hipotese central do trabalho e que a migracao de um sensor para dois sensores, acompanhada de melhor fixacao mecanica e maior padronizacao do posicionamento dos eletrodos, tende a reduzir ruido, aumentar repetibilidade e melhorar a capacidade de distinguir gestos da mao.
+
+O roteiro foi construido a partir de tres fontes combinadas: a revisao bibliografica, a pesquisa de anterioridade e a experiencia pratica obtida nos primeiros testes. Essa experiencia inicial mostrou que, embora um unico sensor permita observar diferencas simples entre abrir e fechar a mao, a aquisicao ainda se mostrou sensivel a ruido, variacao de contato, soldas imperfeitas e deslocamento fisico do modulo. Por isso, a metodologia foi reformulada para deixar claro que o trabalho nao parte de um sistema pronto, mas de um prototipo em evolucao, com melhorias graduais de hardware, aquisicao, filtragem e classificacao.
+
+\section{Delineamento da pesquisa}
+
+\subsection{Tipo de pesquisa}
+
+O trabalho se enquadra como \textbf{pesquisa aplicada}, pois busca resolver um problema concreto de engenharia: captar e interpretar sinais musculares do antebraco com baixo custo, usando hardware acessivel e com possibilidade futura de processamento embarcado. Tambem se caracteriza como \textbf{pesquisa experimental}, porque envolve montagem propria do sistema, alteracao controlada do numero de sensores, modificacao fisica do encapsulamento do modulo e comparacao entre diferentes condicoes de captacao.
+
+Em relacao aos objetivos, a pesquisa possui carater \textbf{exploratorio-descritivo}. Ela e exploratoria porque investiga uma arquitetura ainda em refinamento e descritiva porque registra os efeitos de cada decisao tecnica, como ressolda do modulo, troca de jumpers por fios soldados, uso de case em PLA e futura substituicao da fixacao por uma pulseira em TPU.
+
+\subsection{Abordagem da pesquisa}
+
+A abordagem adotada sera \textbf{mista, com predominancia quantitativa}. A parte quantitativa sera responsavel por medir amplitude, variabilidade, repetibilidade e desempenho de classificacao dos sinais adquiridos. A parte qualitativa sera usada para registrar a percepcao experimental sobre estabilidade fisica, dificuldade de posicionamento, comportamento do ruido e aderencia da pulseira ao antebraco.
+
+Na pratica, a metodologia combina quatro niveis de analise:
+
+\begin{enumerate}
+  \item \textbf{avaliacao eletrica}, para verificar o impacto de soldas, cabos e contato do modulo sobre o ruido;
+  \item \textbf{avaliacao mecanica}, para medir o efeito da case em PLA e da futura pulseira em TPU na estabilidade da captacao;
+  \item \textbf{avaliacao de sinal}, para comparar a qualidade da leitura com um e com dois sensores;
+  \item \textbf{avaliacao computacional}, para verificar se o processamento e a classificacao permitem distinguir gestos com robustez suficiente.
+\end{enumerate}
+
+\section{Estado atual do desenvolvimento}
+
+\subsection{O que ja foi realizado}
+
+Na etapa ja executada do projeto, foi utilizado um unico modulo EMG com tres eletrodos, conectado a um Arduino para leitura do sinal. A partir dessa configuracao inicial, foram realizados testes de posicionamento dos eletrodos em diferentes pontos do antebraco, buscando captar variacoes relacionadas a movimentos simples, especialmente abrir e fechar a mao. Esses testes mostraram que o reconhecimento de diferencas basicas era possivel, mas os resultados ainda se apresentavam pequenos, inconsistentes e muito dependentes da posicao exata dos eletrodos.
+
+Durante os experimentos iniciais, tambem foi observado que o modulo EMG sofria forte interferencia quando permanecia solto, preso apenas por jumpers ou apoiado em superficies com vibraicao e contato instavel. Para reduzir esse problema, foi realizada uma \textbf{ressolda completa do modulo}, substituindo conexoes menos confiaveis por contatos mais firmes, e foram \textbf{soldados fios diretamente para comunicacao com o Arduino}, reduzindo folgas mecanicas e variacao de contato. Alem disso, foi modelada e impressa em 3D uma \textbf{case em PLA} para isolar fisicamente o modulo e reduzir ruido induzido por movimentacao do conjunto. Segundo a observacao experimental obtida ate o momento, essa modificacao gerou reducao significativa do ruido e melhoria perceptivel da estabilidade do sinal.
+
+\subsection{Limites identificados na etapa atual}
+
+Mesmo com as melhorias ja implementadas, a configuracao de um unico sensor permanece limitada para o objetivo mais ambicioso do projeto. A principal restricao e que um unico ponto de captacao fornece pouca informacao espacial para separar movimentos musculares proximos, o que dificulta sair de comandos globais da mao para estimativas mais refinadas de dedos ou articulacoes especificas. Alem disso, o uso de modulo de baixo custo aumenta a sensibilidade a crosstalk, ruido e variacao de impedancia na interface com a pele.
+
+Esses achados levam a uma decisao metodologica importante: \textbf{o reconhecimento de movimentos de dedos individualizados nao sera tratado como resultado garantido da primeira fase do trabalho}. Em vez disso, essa meta sera enquadrada como \textbf{objetivo exploratorio avancado}, a ser tentado somente depois que a arquitetura com dois sensores demonstrar desempenho consistente em gestos simples e movimentos mais amplos da mao.
+
+\section{Procedimentos e ferramentas}
+
+\subsection{Materiais de hardware}
+
+Para a execucao da proxima fase do projeto sera utilizado um conjunto de componentes de baixo custo, com foco em reproducao academica:
+
+\begin{itemize}
+  \item dois modulos sensores de sEMG do mesmo tipo, totalizando seis eletrodos;
+  \item eletrodos de superficie para captacao biopotencial;
+  \item Arduino Uno como unidade principal de leitura e filtragem inicial dos canais EMG;
+  \item computador para registro, organizacao e analise complementar dos dados;
+  \item case em PLA ja desenvolvida para isolamento mecanico do primeiro modulo;
+  \item fios soldados diretamente no modulo para reduzir folga eletrica e ruido por mau contato;
+  \item pulseira impressa em TPU, ainda em desenvolvimento, para manter os sensores em posicoes repetiveis no antebraco;
+  \item fonte de alimentacao, cabos e itens de fixacao complementar;
+  \item alcool 70\% e material para preparo da pele antes de cada coleta.
+\end{itemize}
+
+A pulseira em TPU sera projetada para funcionar como guia fisico de posicionamento, reduzindo torcao, deslocamento e perda das regioes anatomicas de interesse. O uso de TPU, em vez de material rigido, foi escolhido por oferecer maior conformidade com o braco e melhor conforto durante a coleta.
+
+\subsection{Softwares e ambiente computacional}
+
+O processamento dos dados sera dividido em duas camadas. A primeira sera a \textbf{camada de aquisicao e filtragem inicial}, executada no Arduino Uno, responsavel por ler os sinais analogicos dos modulos EMG, aplicar o tratamento inicial definido para o sistema e transmitir os dados ao computador. A segunda sera a \textbf{camada de processamento e analise complementar}, executada inicialmente de forma \textit{offline} em ambiente de desenvolvimento mais flexivel.
+
+Para isso, a metodologia adota:
+
+\begin{itemize}
+  \item firmware no Arduino Uno para leitura sincronizada dos dois canais e filtragem inicial;
+  \item Python como linguagem principal de tratamento e analise;
+  \item NumPy e Pandas para estruturacao dos sinais;
+  \item SciPy para segmentacao e eventuais ajustes complementares no sinal;
+  \item scikit-learn para classificacao e avaliacao;
+  \item Matplotlib para visualizacao dos sinais e comparacoes;
+  \item Raspberry Pi como plataforma \textbf{futura} para inferencia embarcada, apenas apos a validacao do pipeline em computador.
+\end{itemize}
+
+Essa organizacao evita um erro metodologico comum: tentar embarcar o modelo cedo demais, antes de estabilizar a coleta e confirmar que o sinal possui informacao suficiente para sustentar a classificacao. Nesse fluxo, o Arduino Uno atua como primeira camada de leitura e filtragem, enquanto o computador e usado para inspecao dos sinais, treinamento do modelo e comparacao de desempenho.
+
+\subsection{Escolha do filtro e estrategia de processamento}
+
+Com base nos trabalhos analisados na revisao bibliografica, o conjunto de processamento mais coerente para um sistema simples de sEMG e aquele que combina \textbf{filtragem classica e features no dominio do tempo}, como MAV, RMS, WL e ZC. Para este projeto, a estrategia adotada sera a seguinte:
+
+\begin{itemize}
+  \item \textbf{se houver acesso ao sinal sEMG bruto}: filtro passa-faixa entre 20 e 450 Hz, seguido de filtro notch em 60 Hz para atenuar interferencia da rede eletrica;
+  \item \textbf{se o modulo fornecer sinal ja condicionado ou envelope analogico}: remocao de offset, suavizacao por filtro passa-baixa apropriado ao envelope e normalizacao por canal;
+  \item em ambas as situacoes: segmentacao em janelas temporais e extracao de features simples no dominio do tempo.
+\end{itemize}
+
+Essa decisao exige uma observacao tecnica importante: \textbf{nao e correto aplicar cegamente um filtro passa-faixa de 20 a 450 Hz em uma saida que ja tenha sido retificada ou condicionada pelo proprio modulo}. Nesse caso, o filtro pode degradar a informacao util em vez de melhorar a aquisicao. Portanto, a escolha final do filtro dependera de verificar se o Arduino Uno esta lendo o sinal muscular bruto ou uma versao previamente condicionada pelo circuito do modulo, para que a filtragem inicial embarcada melhore a captacao em vez de distorcer o sinal.
+
+\section{Coleta de dados}
+
+\subsection{Fonte dos dados}
+
+Os dados serao obtidos por \textbf{coleta experimental direta}, com os sensores posicionados no antebraco do mesmo participante durante a fase inicial de validacao. A escolha por um unico participante nas primeiras coletas tem o objetivo de reduzir a variabilidade intersujeito e destacar com mais clareza o efeito real do hardware, do posicionamento e do filtro.
+
+\subsection{Configuracoes experimentais}
+
+A metodologia passa a considerar quatro configuracoes principais:
+
+\begin{enumerate}
+  \item \textbf{Configuracao A}: um sensor EMG na montagem inicial, antes das melhorias fisicas;
+  \item \textbf{Configuracao B}: um sensor EMG com ressolda, fios soldados e case em PLA;
+  \item \textbf{Configuracao C}: dois sensores EMG, ainda sem pulseira final, para identificar as melhores regioes de captacao;
+  \item \textbf{Configuracao D}: dois sensores EMG com pulseira em TPU e posicionamento estabilizado.
+\end{enumerate}
+
+Essa sequencia e importante porque ela nao apenas compara um sensor contra dois sensores, mas tambem separa o efeito do \textbf{aumento do numero de canais} do efeito da \textbf{melhoria mecanica da montagem}.
+
+\subsection{Posicionamento dos eletrodos}
+
+Na fase com dois sensores, os eletrodos serao posicionados em regioes diferentes do antebraco, buscando aproveitar a separacao entre grupos musculares com funcoes distintas. A referencia principal sera a literatura que sugere melhor desempenho quando os canais captam \textbf{regioes antagonistas}, como flexores e extensores. Na pratica, um sensor devera priorizar uma regiao mais associada a flexao e o outro uma regiao mais associada a extensao ou abertura dos dedos.
+
+Ao mesmo tempo, a metodologia reconhece que \textbf{``espalhar os eletrodos por todo o antebraco'' sem criterio anatomico pode piorar os resultados}. Por isso, o projeto nao adotara distribuicao arbitraria. O posicionamento sera orientado por testes preliminares, referencias anatomicas e repetibilidade mecanica da pulseira.
+
+\section{Protocolo experimental}
+
+\subsection{Preparacao da coleta}
+
+As coletas serao realizadas com o participante sentado, antebraco apoiado e postura controlada. Antes da colocacao dos eletrodos, a pele sera limpa e os pontos de interesse serao marcados. Sempre que possivel, sera feito registro fotografico ou esquematico da posicao dos sensores para reproduzir a montagem em novas sessoes.
+
+\subsection{Fases de validacao dos gestos}
+
+O protocolo sera executado em tres fases, com dificuldade crescente:
+
+\begin{enumerate}
+  \item \textbf{Fase 1}: distinguir repouso, abrir a mao e fechar a mao;
+  \item \textbf{Fase 2}: distinguir movimentos mais amplos, como flexao de punho, extensao de punho e possiveis combinacoes de preensao;
+  \item \textbf{Fase 3}: avaliar de forma exploratoria a possibilidade de diferenciar movimentos mais finos de dedos ou grupos de dedos.
+\end{enumerate}
+
+Essa divisao e metodologicamente mais robusta do que assumir, desde o inicio, que dois sensores de baixo custo serao suficientes para estimar com confianca cada dedo individualmente. Se a Fase 1 e a Fase 2 nao apresentarem estabilidade adequada, a Fase 3 nao sera tratada como conclusao valida, apenas como tentativa exploratoria.
+
+\subsection{Repeticoes e padronizacao}
+
+Cada gesto sera executado em 20 repeticoes por configuracao experimental, com janelas de contracao e repouso padronizadas. Sempre que a arquitetura permitir, a taxa de amostragem alvo sera de 1 kHz por canal. Caso o limite real do sistema seja menor, a taxa utilizada sera documentada e mantida constante em todos os testes comparativos.
+
+Os seguintes parametros deverao permanecer fixos:
+
+\begin{itemize}
+  \item mesmo participante na fase piloto;
+  \item mesma ordem de gestos por bloco;
+  \item mesmo tempo de contracao e repouso;
+  \item mesma eletrônica de leitura;
+  \item mesmo protocolo de limpeza da pele;
+  \item mesmo criterio de posicionamento dos sensores.
+\end{itemize}
+
+\section{Processamento e classificacao}
+
+\subsection{Segmentacao e extracao de caracteristicas}
+
+Os sinais serao segmentados em janelas temporais de 200 ms com sobreposicao de 50\%, equilibrio adotado na literatura para conciliar resposta temporal e quantidade de informacao. Em cada janela serao calculadas as features:
+
+\begin{itemize}
+  \item \textit{Mean Absolute Value} (MAV);
+  \item \textit{Root Mean Square} (RMS);
+  \item \textit{Waveform Length} (WL);
+  \item \textit{Zero Crossing} (ZC).
+\end{itemize}
+
+Essas features foram escolhidas porque aparecem com frequencia nos artigos analisados, possuem baixo custo computacional e sao mais adequadas ao contexto do projeto do que abordagens mais pesadas, como transformadas wavelet e modelos complexos desde a primeira iteracao.
+
+\subsection{Treinamento e validacao do modelo}
+
+O processo de classificacao sera realizado inicialmente em computador, com validacao \textit{offline}. O modelo de partida sera um classificador LDA ou SVM linear, por serem metodos consolidados para EMG e compatíveis com base de dados pequena. Se os resultados justificarem, podera ser testado um terceiro modelo, como Random Forest ou Extra Trees, para comparar ganho de desempenho e custo computacional.
+
+Os resultados serao avaliados com:
+
+\begin{itemize}
+  \item acuracia global;
+  \item F1-score por classe;
+  \item matriz de confusao;
+  \item tempo medio de processamento por janela;
+  \item desvio padrao do sinal em repeticoes do mesmo gesto.
+\end{itemize}
+
+\subsection{Migracao futura para Raspberry Pi}
+
+A utilizacao do Raspberry Pi nao sera tratada como parte da validacao inicial do metodo, mas como \textbf{etapa de continuidade}. Somente apos confirmar que os sinais coletados com dois sensores e pulseira em TPU sao suficientemente estaveis e classificaveis e que o modelo apresenta desempenho aceitavel em computador, sera considerada a migracao do pipeline para inferencia embarcada no Raspberry Pi.
+
+Esse encadeamento e mais correto do que tentar estimar simultaneamente captacao, filtragem, classificacao e embarque sem antes estabilizar a base experimental.
+
+\section{Livro de receitas: sequencia de execucao}
+
+Para que outro pesquisador consiga reproduzir o trabalho, a execucao seguira a seguinte ordem:
+
+\begin{enumerate}
+  \item documentar a montagem atual com um modulo, incluindo ressolda, fios soldados e case em PLA;
+  \item repetir coletas basicas com um sensor para estabelecer a linha de base;
+  \item construir e testar a arquitetura de dois sensores com Arduino Uno;
+  \item realizar testes preliminares para encontrar duas regioes de captacao mais informativas no antebraco;
+  \item projetar e fabricar a pulseira em TPU para fixacao repetivel dos sensores;
+  \item repetir as coletas com a pulseira instalada e comparar a estabilidade com a montagem anterior;
+  \item aplicar o filtro adequado ao tipo de sinal efetivamente adquirido;
+  \item segmentar os dados em janelas e extrair MAV, RMS, WL e ZC;
+  \item treinar e validar classificadores para os gestos simples da Fase 1;
+  \item ampliar para a Fase 2 apenas se os resultados da Fase 1 forem consistentes;
+  \item testar movimentos mais finos de dedos somente como etapa exploratoria da Fase 3;
+  \item considerar a migracao do modelo para Raspberry Pi apenas apos validacao satisfatoria do pipeline.
+\end{enumerate}
+
+\section{Criterios de rigor tecnico e limites do estudo}
+
+Para que a metodologia permaneça tecnicamente coerente, alguns limites precisam ser explicitados. O primeiro e que dois sensores de baixo custo podem ser suficientes para reconhecer \textbf{gestos simples e movimentos globais da mao}, mas podem nao oferecer resolucao muscular adequada para estimar \textbf{cada dedo individualmente} com confianca alta. O segundo e que o ganho de desempenho pode vir mais da \textbf{estabilidade mecanica e do posicionamento correto} do que apenas da duplicacao do numero de canais. O terceiro e que o uso de filtro inadequado para o tipo de saida do modulo pode distorcer o sinal.
+
+Assim, o sucesso do trabalho sera avaliado principalmente por tres criterios:
+
+\begin{enumerate}
+  \item reducao do ruido e aumento da repetibilidade apos ressolda, isolamento e fixacao fisica;
+  \item ganho de informacao util ao migrar de um para dois sensores;
+  \item capacidade de classificar pelo menos um conjunto inicial de gestos simples com maior consistencia.
+\end{enumerate}
+
+\section{Resultado esperado da metodologia}
+
+Ao final da execucao, espera-se obter uma comparacao objetiva entre a montagem inicial com um sensor, a montagem melhorada com case em PLA e fios soldados, e a arquitetura com dois sensores estabilizados por pulseira em TPU. O resultado esperado mais realista e robusto e a distincao de gestos simples da mao e do punho com qualidade superior a obtida na etapa inicial.
+
+Se o sinal com dois sensores mostrar separabilidade suficiente, o trabalho avancara para testes exploratorios com movimentos mais finos e para treinamento de um modelo de aprendizado de maquina. Caso esses testes avancados nao se confirmem, isso nao invalida o projeto; ao contrario, ajuda a delimitar com rigor tecnico o que e viavel fazer com dois EMGs de baixo custo no antebraco e quais etapas futuras exigem sensores melhores, mais canais ou processamento mais sofisticado.
+
+\end{document}

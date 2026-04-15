@@ -1,0 +1,199 @@
+\documentclass[10pt,landscape]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazilian]{babel}
+\usepackage[a4paper,landscape,margin=0.55cm]{geometry}
+\usepackage[most]{tcolorbox}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usepackage[sfdefault]{cabin}
+\usepackage[type1]{comfortaa}
+\usepackage{microtype}
+\usepackage{ragged2e}
+\usepackage{array}
+\renewcommand{\familydefault}{\sfdefault}
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+\setlength{\emergencystretch}{3em}
+
+\definecolor{pmcPurple}{RGB}{176, 92, 214}
+\definecolor{pmcOrange}{RGB}{184, 120, 24}
+\definecolor{pmcPink}{RGB}{226, 76, 191}
+\definecolor{pmcGreen}{RGB}{0, 204, 102}
+\definecolor{pmcBlue}{RGB}{58, 179, 216}
+\definecolor{textGray}{RGB}{70, 70, 70}
+
+\newcommand{\pmcheader}[2]{%
+    \begin{center}
+        \begin{tikzpicture}[baseline=(title.base)]
+            \node[
+                fill=#1,
+                text=white,
+                rounded corners=0.8mm,
+                inner xsep=8pt,
+                inner ysep=4pt
+            ] (title) {{\comfortaa\fontsize{16}{16}\selectfont\bfseries\itshape #2}};
+            \draw[#1, line width=1.1pt] (title.south) -- ++(0, -0.38cm);
+        \end{tikzpicture}
+    \end{center}
+}
+
+\newcommand{\pmcheadercompact}[2]{%
+    \begin{center}
+        \begin{tikzpicture}[baseline=(title.base)]
+            \node[
+                fill=#1,
+                text=white,
+                rounded corners=0.8mm,
+                inner xsep=5pt,
+                inner ysep=4pt
+            ] (title) {{\comfortaa\fontsize{12}{12}\selectfont\bfseries\itshape #2}};
+            \draw[#1, line width=1.1pt] (title.south) -- ++(0, -0.38cm);
+        \end{tikzpicture}
+    \end{center}
+}
+
+\newtcolorbox{pmcframe}[1]{
+    enhanced,
+    colback=white,
+    colframe=#1,
+    boxrule=0.9pt,
+    borderline={1pt}{0pt}{#1, dashed},
+    sharp corners,
+    arc=0pt,
+    left=2.2mm,
+    right=2.2mm,
+    top=2.2mm,
+    bottom=2.2mm
+}
+
+\newtcolorbox{pmccard}[3]{
+    enhanced,
+    colback=white,
+    colframe=black!70,
+    boxrule=0.8pt,
+    sharp corners,
+    arc=0pt,
+    left=2mm,
+    right=2mm,
+    top=1.6mm,
+    bottom=1.6mm,
+    height=#3,
+    valign=center,
+    before upper={%
+        {\raggedright\textbf{\small #1}\par}
+        \vspace{0.35em}
+        \color{#2}\small\justifying
+    }
+}
+
+\begin{document}
+
+\begin{center}
+    {{\comfortaa\large \bfseries PROJECT MODEL CANVAS}}\\[-0.05cm]
+    {\small \textcolor{textGray}{Sistema de Gera\c{c}\~ao de Hidrog\^enio Verde}}
+\end{center}
+
+\vspace{0.1cm}
+
+\noindent
+\begin{minipage}[t]{0.19\textwidth}
+    \pmcheader{pmcPurple}{POR QU\^E?}
+    \vspace{-0.1cm}
+    \begin{pmcframe}{pmcPurple}
+        \begin{pmccard}{JUSTIFICATIVA}{pmcPurple}{4.05cm}
+            Necessidades e oportunidades ligadas \`a transi\c{c}\~ao energ\'etica e \`a busca por combust\'iveis limpos.
+        \end{pmccard}
+        \vspace{0.18cm}
+        \begin{pmccard}{OBJETIVO SMART}{pmcPurple}{3.55cm}
+            Desenvolver e validar um prot\'otipo funcional de eletr\'olise alcalina at\'e o encerramento do semestre.
+        \end{pmccard}
+        \vspace{0.18cm}
+        \begin{pmccard}{BENEF\'ICIOS}{pmcPurple}{5.15cm}
+            Aprendizado pr\'atico, redu\c{c}\~ao de custo experimental e base t\'ecnica para evoluir o projeto.
+        \end{pmccard}
+    \end{pmcframe}
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.19\textwidth}
+    \pmcheader{pmcOrange}{O QU\^E?}
+    \vspace{-0.1cm}
+    \begin{pmcframe}{pmcOrange}
+        \begin{pmccard}{RESULTADO}{pmcOrange}{3.95cm}
+            Um gerador de hidrog\^enio verde em pequena escala, est\'avel e com opera\c{c}\~ao documentada.
+        \end{pmccard}
+        \vspace{0.18cm}
+        \begin{pmccard}{REQUISITOS}{pmcOrange}{8.95cm}
+            Eletrodos resistentes, estanqueidade do sistema, controle de corrente, medi\c{c}\~ao de vaz\~ao e registro dos testes.
+        \end{pmccard}
+    \end{pmcframe}
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.39\textwidth}
+    \begin{minipage}[t]{0.485\linewidth}
+        \pmcheader{pmcPink}{QUEM?}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.485\linewidth}
+        \pmcheader{pmcGreen}{COMO?}
+    \end{minipage}
+
+    \vspace{-0.1cm}
+
+    \begin{minipage}[t]{0.485\linewidth}
+        \begin{pmcframe}{pmcPink}
+            \begin{pmccard}{STAKEHOLDERS EXTERNOS}{pmcPink}{4.55cm}
+                Faculdade e universidade, como institui\c{c}\~oes que podem acompanhar, apoiar ou ser impactadas pelo projeto.
+            \end{pmccard}
+            \vspace{0.18cm}
+            \begin{pmccard}{EQUIPE}{pmcPink}{5.55cm}
+                Giuseph D. L. Giangareli, com foco em pesquisa, desenvolvimento, montagem e valida\c{c}\~ao experimental.
+            \end{pmccard}
+        \end{pmcframe}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.485\linewidth}
+        \begin{pmcframe}{pmcGreen}
+            \begin{pmccard}{PREMISSAS}{pmcGreen}{4.55cm}
+                Os materiais selecionados permitir\~ao comparar oxida\c{c}\~ao, condu\c{c}\~ao e gera\c{c}\~ao de g\'as de forma observ\'avel e segura.
+            \end{pmccard}
+            \vspace{0.18cm}
+            \begin{pmccard}{ESCOPO}{pmcGreen}{5.55cm}
+                Dimensionamento, montagem, escolha do eletr\'olito, testes de desempenho e consolida\c{c}\~ao dos resultados.
+            \end{pmccard}
+        \end{pmcframe}
+    \end{minipage}
+
+    \vspace{0.18cm}
+
+    \begin{pmcframe}{pmcGreen}
+        \begin{pmccard}{RESTRI\c{C}\~OES}{pmcGreen}{2.2cm}
+            Or\c{c}amento reduzido, limita\c{c}\~ao de tempo, seguran\c{c}a no manuseio e disponibilidade restrita de materiais espec\'ificos.
+        \end{pmccard}
+    \end{pmcframe}
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.19\textwidth}
+    \pmcheadercompact{pmcBlue}{QUANDO?/QUANTO?}
+    \vspace{-0.1cm}
+    \begin{pmcframe}{pmcBlue}
+        \begin{pmccard}{RISCOS}{pmcBlue}{3.95cm}
+            Oxida\c{c}\~ao imprevista, vazamentos, falha estrutural da c\^amara e medi\c{c}\~oes inconsistentes.
+        \end{pmccard}
+        \vspace{0.18cm}
+        \begin{pmccard}{LINHA DO TEMPO}{pmcBlue}{4.55cm}
+            Pesquisa e defini\c{c}\~ao do m\'etodo, prepara\c{c}\~ao dos materiais, montagem, testes comparativos e relat\'orio final.
+        \end{pmccard}
+        \vspace{0.18cm}
+        \begin{pmccard}{CUSTO}{pmcBlue}{3.95cm}
+            Compra de duas malhas de tit\^anio platinado e 10 eletrodos de grafite com cobre; o restante foi reaproveitado, sem custo at\'e agora.
+        \end{pmccard}
+    \end{pmcframe}
+\end{minipage}
+
+\vfill
+\begin{center}
+    \tiny Fonte: Elabora\c{c}\~ao pr\'opria, adaptada de SILVA, Fabiana Big\~ao. \textit{Gerenciamento de projetos fora da caixa}. Rio de Janeiro: Alta Books, 2016.
+\end{center}
+
+\end{document}
